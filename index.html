@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sacred Conclave Ballot</title>
+    <title data-translate="pageTitle">Sacred Conclave Ballot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Manrope:wght@400;600;700&display=swap"
@@ -39,6 +39,45 @@
         overflow: hidden;
       }
 
+      /* Language Toggle - Cleaner Style */
+      .language-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 20; /* Ensure it's above other content */
+        display: inline-flex; /* Use inline-flex for better button grouping */
+        border: 1px solid #cbd5e0; /* Subtle border around the group */
+        border-radius: 4px; /* Match button border-radius */
+        overflow: hidden; /* Ensures inner buttons don't break border-radius */
+        background-color: #ffffff; /* Match container background */
+      }
+
+      .language-button {
+        padding: 6px 10px; /* Slightly reduced padding */
+        background-color: transparent; /* Transparent background by default */
+        color: #4a5568; /* Slightly darker grey text */
+        border: none; /* Remove individual button borders */
+        border-right: 1px solid #cbd5e0; /* Add separator between buttons */
+        cursor: pointer;
+        font-size: 0.85rem; /* Slightly smaller font */
+        font-weight: 600;
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+
+      .language-button:last-child {
+        border-right: none; /* Remove border from the last button */
+      }
+
+      .language-button:hover {
+        background-color: #edf2f7; /* Lighter hover effect */
+        color: #2d3748; /* Darker text on hover */
+      }
+
+      .language-button.active {
+        background-color: #6648b1; /* Purple accent when active */
+        color: #ffffff;
+      }
+
       /* Left Column: The Introduction */
       .left-column {
         padding: 30px; /* Adjusted padding */
@@ -53,7 +92,6 @@
       /* Right Column: The Content */
       .right-column {
         padding: 30px; /* Adjusted padding */
-        padding-top: 35px; /* Increased top padding slightly for alignment */
         background-color: #ffffff;
         display: grid; /* Use grid for internal sections */
         grid-template-columns: 1fr;
@@ -297,11 +335,26 @@
       }
 
       /* Responsive adjustments: Maintaining Structure and Readability */
-      @media (max-width: 768px) {
+      /* Using Tailwind breakpoints as a guide for custom CSS */
+      /* sm: min-width: 640px */
+      /* md: min-width: 768px */
+      /* lg: min-width: 1024px */
+      /* xl: min-width: 1280px */
+
+      @media (max-width: 767px) { /* Mobile styles below md breakpoint */
         .container {
           grid-template-columns: 1fr; /* Stack columns */
           margin: 20px auto;
           border-radius: 0; /* Remove rounded corners on small screens */
+        }
+        .language-toggle {
+          top: 10px;
+          right: 10px;
+          gap: 0; /* Remove gap, border handles separation */
+        }
+        .language-button {
+          padding: 6px 10px;
+          font-size: 0.8rem;
         }
         .left-column {
           border-right: none;
@@ -311,7 +364,6 @@
         .right-column {
           padding: 20px;
           gap: 20px; /* Reduced gap */
-          padding-top: 25px; /* Adjusted top padding for mobile alignment */
         }
         h1 {
           font-size: 2.8rem; /* Adjusted size for mobile */
@@ -364,19 +416,42 @@
           font-size: 0.85rem; /* Slightly smaller size for detailed points within the toggle on mobile */
         }
       }
+
+      /* Tablet and larger (md and up) - Keep existing styles or add md: prefixes if using Tailwind classes */
+      @media (min-width: 768px) {
+        .container {
+          grid-template-columns: 1fr 1.8fr; /* Two columns */
+        }
+        .left-column {
+          border-right: 1px solid #cbd5e0; /* Add right border */
+          border-bottom: none; /* Remove bottom border */
+        }
+      }
+
+      /* Desktop and larger (lg and up) - Further refinements if needed */
+      /* @media (min-width: 1024px) {
+        .container {
+          max-width: 1200px;
+        }
+      } */
     </style>
   </head>
   <body>
+    <div class="language-toggle">
+      <button class="language-button active" data-lang="en">EN</button>
+      <button class="language-button" data-lang="es">ES</button>
+    </div>
+
     <div class="container">
       <div class="left-column">
-        <h1>Sacred Conclave Ballot</h1>
-        <p>
+        <h1 data-translate="mainTitle">Sacred Conclave Ballot</h1>
+        <p data-translate="introPara1">
           In the solemn spirit of the Sacred Conclave Simulation, you are
           invited to cast your vote. Select the cardinal you deem most worthy to
           ascend to the See of Peter, or the one you believe the Holy Spirit
           shall guide the electors to choose.
         </p>
-        <p>
+        <p data-translate="introPara2">
           Indicate your preference by marking the circle adjacent to the name of
           the esteemed cardinal. Provided herein is a brief compendium of each
           candidate's background and general disposition on matters pertinent to
@@ -388,1432 +463,1241 @@
 
       <div class="right-column">
         <div>
-          <h2>Illustrious Candidates for the Papacy:</h2>
-          <form id="ballotForm">
-            <div class="candidate-grid">
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_ambongo"
-                  name="cardinal"
-                  value="Cardinal Fridolin Ambongo Besungu"
-                />
-                <label for="cardinal_ambongo" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Fridolin Ambongo Besungu
-                      <span class="flag">🇨🇩</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 65</li>
-                      <li>
-                        <strong>Role:</strong> Archbishop of Kinshasa. President
-                        of SECAM. Member of the Council of Cardinals.
-                      </li>
-                      <li>
-                        <strong>Country of Origin:</strong> Democratic Republic
-                        of Congo
-                      </li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available)
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Opposes
-                              blessings for same-sex marriage, stating they are
-                              "contradictory to cultural norms and intrinsically
-                              evil".
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Culturally
-                        Conservative.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
+          <h2 data-translate="candidatesTitle">
+            Illustrious Candidates for the Papacy:
+          </h2>
+          <form id="ballotForm" aria-label="Sacred Conclave Ballot Form">
+            <div class="candidate-grid" id="candidateGrid">
               </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_arborelius"
-                  name="cardinal"
-                  value="Cardinal Anders Arborelius"
-                />
-                <label for="cardinal_arborelius" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Anders Arborelius <span class="flag">🇸🇪</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 75</li>
-                      <li>
-                        <strong>Role:</strong> Bishop of Stockholm. First
-                        Swedish cardinal.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Sweden</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> Critical of the
-                              German Synodal Way.
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Opposes
-                              women's ordination/deacons.
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Opposes
-                              same-sex blessings.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Orthodox on doctrine (implies upholding).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Orthodox on
-                              doctrine (implies upholding traditional teaching).
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Orthodox on
-                        doctrine, supports Francis on migration/environment.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_aveline"
-                  name="cardinal"
-                  value="Cardinal Jean-Marc Aveline"
-                />
-                <label for="cardinal_aveline" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Jean-Marc Aveline <span class="flag">🇫🇷</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 66</li>
-                      <li><strong>Role:</strong> Archbishop of Marseille.</li>
-                      <li><strong>Country of Origin:</strong> France</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> Elected member of
-                              the Ordinary Council of the General Secretariat of
-                              the Synod of Bishops (indicates involvement).
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Openness
-                              to women deacons mentioned (requires
-                              verification).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Ambiguous
-                              stance on blessing same-sex couples mentioned
-                              (requires verification).
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Seen as
-                        liberal/progressive, inclined to consensus, close to
-                        Pope Francis.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_bagnasco"
-                  name="cardinal"
-                  value="Cardinal Angelo Bagnasco"
-                />
-                <label for="cardinal_bagnasco" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Angelo Bagnasco <span class="flag">🇮🇹</span>
-                    </h3>
-                    <ul>
-                      <li>
-                        <strong>Age:</strong> 82 (Not eligible to vote in a
-                        conclave)
-                      </li>
-                      <li>
-                        <strong>Role:</strong> Archbishop Emeritus of Genoa.
-                        Formerly President of the Italian Episcopal Conference.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Italy</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available)
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Opposes
-                              ordaining women as deacons.
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Strong
-                              opposition to gay rights and same-sex unions.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Strong opposition to abortion (implies upholding).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available, but generally
-                              conservative).
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li><strong>Perceived Leaning:</strong> Conservative.</li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Benedict XVI
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_bo"
-                  name="cardinal"
-                  value="Cardinal Charles Maung Bo"
-                />
-                <label for="cardinal_bo" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Charles Maung Bo <span class="flag">🇲🇲</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 76</li>
-                      <li>
-                        <strong>Role:</strong> Archbishop of Yangon. President
-                        of FABC.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Myanmar</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> Endorsed Francis'
-                              Synod on Synodality.
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Defends the Catholic Church's opposition to
-                              abortion and contraception.
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Generally aligned
-                        with Pope Francis on social justice and dialogue.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_brislin"
-                  name="cardinal"
-                  value="Cardinal Stephen Brislin"
-                />
-                <label for="cardinal_brislin" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Stephen Brislin <span class="flag">🇿🇦</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 68</li>
-                      <li>
-                        <strong>Role:</strong> Archbishop of Johannesburg.
-                        Formerly Archbishop of Cape Town.
-                      </li>
-                      <li><strong>Country of Origin:</strong> South Africa</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> Contribution
-                              mentioned embracing change while holding
-                              tradition.
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Reaffirmed
-                              prohibition against women's ordination but allowed
-                              a dissident group supporting women priests in his
-                              diocese.
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Supported
-                              <em>Fiducia Supplicans</em>, emphasizing the union
-                              isn't blessed and chastity.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available, but
-                              addresses social issues with a "seamless garment"
-                              approach).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Seen on the
-                        classically liberal wing, committed to social issues.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_burke"
-                  name="cardinal"
-                  value="Cardinal Raymond Leo Burke"
-                />
-                <label for="cardinal_burke" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Raymond Leo Burke <span class="flag">🇺🇸</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 76</li>
-                      <li>
-                        <strong>Role:</strong> Cardinal Patron Emeritus of the
-                        Sovereign Military Order of Malta. Formerly Prefect of
-                        the Apostolic Signatura.
-                      </li>
-                      <li><strong>Country of Origin:</strong> USA</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> Generally critical
-                              of perceived deviations from tradition.
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Hard line
-                              against changes to the role of women.
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Hard line
-                              against softening policy towards LGBTQ people.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Strong defender of traditional doctrine (implies
-                              upholding).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Hard line
-                              against relaxing attitudes towards divorced and
-                              remarried receiving communion.
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Highly
-                        Conservative/Traditionalist.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Benedict XVI
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_eijk"
-                  name="cardinal"
-                  value="Cardinal Willem Jacobus Eijk"
-                />
-                <label for="cardinal_eijk" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Willem Jacobus Eijk <span class="flag">🇳🇱</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 71</li>
-                      <li><strong>Role:</strong> Archbishop of Utrecht.</li>
-                      <li><strong>Country of Origin:</strong> Netherlands</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available, but generally conservative).
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available, but generally
-                              conservative).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> (Specific
-                              stance not readily available, but generally
-                              conservative).
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available, but
-                              generally conservative).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available, but generally
-                              conservative).
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li><strong>Perceived Leaning:</strong> Conservative.</li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Benedict XVI
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_erdo"
-                  name="cardinal"
-                  value="Cardinal Péter Erdő"
-                />
-                <label for="cardinal_erdo" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>Cardinal Péter Erdő <span class="flag">🇭🇺</span></h3>
-                    <ul>
-                      <li><strong>Age:</strong> 72</li>
-                      <li>
-                        <strong>Role:</strong> Archbishop of Esztergom-Budapest.
-                        Primate of Hungary. Canon lawyer.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Hungary</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available, but focus on canon law might
-                              suggest caution).
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Opposed to
-                              ordaining women as deacons.
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Firmly
-                              against the acceptance of homosexual unions, but
-                              favors pastoral support.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Strongly pro-life (implies upholding Humanae
-                              Vitae).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Against
-                              divorced Catholics receiving communion, in favor
-                              of pastoral accompaniment only if indissolubility
-                              is clear.
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Seen as a staunch
-                        conservative, but pragmatic.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope John Paul II
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_filoni"
-                  name="cardinal"
-                  value="Cardinal Fernando Filoni"
-                />
-                <label for="cardinal_filoni" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Fernando Filoni <span class="flag">🇮🇹</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 79</li>
-                      <li>
-                        <strong>Role:</strong> Grand Master of the Equestrian
-                        Order of the Holy Sepulchre of Jerusalem. Formerly
-                        Prefect of the Congregation for the Evangelization of
-                        Peoples.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Italy</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available)
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Orthodox understanding of sacraments and Church
-                              mission (implies upholding traditional teaching).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Orthodox
-                              understanding of sacraments and Church mission
-                              (implies upholding traditional teaching).
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Generally seen as
-                        orthodox, with extensive diplomatic and Curia
-                        experience.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Benedict XVI
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_koch"
-                  name="cardinal"
-                  value="Cardinal Kurt Koch"
-                />
-                <label for="cardinal_koch" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>Cardinal Kurt Koch <span class="flag">🇨🇭</span></h3>
-                    <ul>
-                      <li><strong>Age:</strong> 75</li>
-                      <li>
-                        <strong>Role:</strong> Prefect of the Dicastery for
-                        Promoting Christian Unity.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Switzerland</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> Sees synodality as
-                              having an old tradition, believes primacy must be
-                              exercised synodally.
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Previously
-                              said female priesthood is "desirable" but later
-                              stated sacramental priesthood is linked to the
-                              male sex.
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Diplomatic and
-                        pragmatic, with a "healthy conservatism" in the Curia.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Benedict XVI
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_mendonca"
-                  name="cardinal"
-                  value="Cardinal José Tolentino de Mendonça"
-                />
-                <label for="cardinal_mendonca" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal José Tolentino de Mendonça
-                      <span class="flag">🇵🇹</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 59</li>
-                      <li>
-                        <strong>Role:</strong> Prefect of the Dicastery for
-                        Culture and Education. Archivist and Librarian of the
-                        Holy Roman Church.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Portugal</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> Views on synodality
-                              mentioned, likely supportive.
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Allying
-                              with a feminist sister who promotes women's
-                              ordination mentioned (seen as engaging with
-                              culture).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong>
-                              Sympathizing with "tolerant approaches to
-                              homosexuality" mentioned, but reportedly not
-                              publicly against Church teaching.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Allying with a sister who promotes abortion
-                              mentioned (seen as engaging with culture).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Progressive, close
-                        affinity to Pope Francis, "significant modernist
-                        figure."
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_muller"
-                  name="cardinal"
-                  value="Cardinal Gerhard Ludwig Müller"
-                />
-                <label for="cardinal_muller" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Gerhard Ludwig Müller
-                      <span class="flag">🇩🇪</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 77</li>
-                      <li>
-                        <strong>Role:</strong> Prefect Emeritus of the
-                        Congregation for the Doctrine of the Faith.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Germany</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> Critical of
-                              perceived deviations from tradition.
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Staunchly
-                              opposed to a female diaconate.
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Strong
-                              defender of traditional doctrine (implies
-                              opposition).
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Strong defender of traditional doctrine (implies
-                              upholding).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Strong
-                              defender of traditional doctrine on marriage.
-                              Resists changes to priestly celibacy.
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Theologically
-                        orthodox, strong defender of tradition.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_ouellet"
-                  name="cardinal"
-                  value="Cardinal Marc Ouellet"
-                />
-                <label for="cardinal_ouellet" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>Cardinal Marc Ouellet <span class="flag">🇨🇦</span></h3>
-                    <ul>
-                      <li>
-                        <strong>Age:</strong> 80 (Not eligible to vote in a
-                        conclave)
-                      </li>
-                      <li>
-                        <strong>Role:</strong> Prefect Emeritus of the Dicastery
-                        for Bishops.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Canada</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available, but traditional background).
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available, but traditional
-                              background).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> (Specific
-                              stance not readily available, but traditional
-                              background).
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available, but
-                              traditional background).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available, but traditional
-                              background).
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Traditional
-                        theological background, extensive Curia experience.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope John Paul II
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_parolin"
-                  name="cardinal"
-                  value="Cardinal Pietro Parolin"
-                />
-                <label for="cardinal_parolin" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Pietro Parolin <span class="flag">🇮🇹</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 70</li>
-                      <li>
-                        <strong>Role:</strong> Vatican Secretary of State.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Italy</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Role implies
-                              involvement in implementation, personal stance
-                              diplomatic).
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available, generally
-                              diplomatic).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> (Specific
-                              stance not readily available, generally
-                              diplomatic).
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available, generally
-                              diplomatic).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> (Specific
-                              stance not readily available, generally
-                              diplomatic).
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Moderate, pragmatic,
-                        focused on stability and governance.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_piacenza"
-                  name="cardinal"
-                  value="Cardinal Mauro Piacenza"
-                />
-                <label for="cardinal_piacenza" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Mauro Piacenza <span class="flag">🇮🇹</span>
-                    </h3>
-                    <ul>
-                      <li>
-                        <strong>Age:</strong> 80 (Not eligible to vote in a
-                        conclave)
-                      </li>
-                      <li>
-                        <strong>Role:</strong> Major Penitentiary Emeritus of
-                        the Apostolic Penitentiary.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Italy</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available)
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Firm in
-                              opposition to changing the celibacy rule (implies
-                              opposition to women's ordination).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Holds
-                              fast to all doctrines on moral matters (implies
-                              opposition).
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Holds fast to all doctrines on moral matters
-                              (implies upholding).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Holds fast
-                              to all doctrines on moral matters (implies
-                              upholding traditional teaching).
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Conservative,
-                        focused on priestly formation and tradition.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Benedict XVI
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_pizzaballa"
-                  name="cardinal"
-                  value="Cardinal Pierbattista Pizzaballa"
-                />
-                <label for="cardinal_pizzaballa" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Pierbattista Pizzaballa
-                      <span class="flag">🇮🇹</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 60</li>
-                      <li>
-                        <strong>Role:</strong> Latin Patriarch of Jerusalem.
-                      </li>
-                      <li>
-                        <strong>Country of Origin:</strong> Italy (serves in
-                        Jerusalem)
-                      </li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available)
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Desires a
-                              greater role for women in the Church.
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Opposed
-                              to the blessing of same-sex couples.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Opposed to
-                              the readmission of divorcees to the sacraments.
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Orthodox on some
-                        moral issues, open to Francis' reform agenda and
-                        pastoral approach.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_ranjith"
-                  name="cardinal"
-                  value="Cardinal Albert Malcolm Ranjith Patabendige Don"
-                />
-                <label for="cardinal_ranjith" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Albert Malcolm Ranjith Patabendige Don
-                      <span class="flag">🇱🇰</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 77</li>
-                      <li><strong>Role:</strong> Archbishop of Colombo.</li>
-                      <li><strong>Country of Origin:</strong> Sri Lanka</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available)
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available, but traditional
-                              approach to practice).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Takes an
-                              uncompromising view, upholding Church teaching.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Takes an uncompromising view on life issues,
-                              firmly upholding.
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Takes an
-                              uncompromising view, upholding Church teaching.
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Liturgical
-                        conservative with orthodox views, politically astute.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Benedict XVI
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_sarah"
-                  name="cardinal"
-                  value="Cardinal Robert Sarah"
-                />
-                <label for="cardinal_sarah" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>Cardinal Robert Sarah <span class="flag">🇬🇳</span></h3>
-                    <ul>
-                      <li>
-                        <strong>Age:</strong> 79 (Turns 80 in June 2025, will
-                        lose voting rights)
-                      </li>
-                      <li>
-                        <strong>Role:</strong> Prefect Emeritus of the
-                        Congregation for Divine Worship and the Discipline of
-                        the Sacraments.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Guinea</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available, but generally critical of
-                              perceived deviations).
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available, but generally
-                              traditionalist).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Vocal
-                              defender of conservative moral teachings (implies
-                              opposition).
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Vocal defender of conservative moral teachings
-                              (implies upholding).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Vocal
-                              defender of conservative moral teachings (implies
-                              upholding traditional teaching).
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Leading
-                        Traditionalist/Conservative.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Benedict XVI
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_sturla"
-                  name="cardinal"
-                  value="Cardinal Daniel Fernando Sturla Berhouet"
-                />
-                <label for="cardinal_sturla" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Daniel Fernando Sturla Berhouet
-                      <span class="flag">🇺🇾</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 65</li>
-                      <li>
-                        <strong>Role:</strong> Archbishop of Montevideo.
-                        Salesian.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Uruguay</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available)
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> (Specific
-                              stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available)
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong>
-                              Participated in the Synod on the Family (specific
-                              stance not detailed).
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Salesian background
-                        suggests a pastoral focus.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_tagle"
-                  name="cardinal"
-                  value="Cardinal Luis Antonio Gokim Tagle"
-                />
-                <label for="cardinal_tagle" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Luis Antonio Gokim Tagle
-                      <span class="flag">🇵🇭</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 67</li>
-                      <li>
-                        <strong>Role:</strong> Pro-Prefect for the Section of
-                        First Evangelization of the Dicastery for
-                        Evangelization. Former Archbishop of Manila.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Philippines</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> (Specific stance not
-                              readily available, but aligns with Francis on
-                              evangelization).
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> (Specific
-                              stance not readily available).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong>
-                              Criticized the Church for using "harsh words" to
-                              describe LGBTQ people.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              Defends the Catholic Church's opposition to
-                              abortion and contraception.
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Believes
-                              divorced and remarried Catholics should receive
-                              communion on a case-by-case basis.
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> "Asian Francis,"
-                        progressive on pastoral approach/language, upholds
-                        traditional doctrine on core moral issues.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Benedict XVI
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-
-              <div class="candidate-section">
-                <input
-                  type="radio"
-                  id="cardinal_zuppi"
-                  name="cardinal"
-                  value="Cardinal Matteo Maria Zuppi"
-                />
-                <label for="cardinal_zuppi" class="candidate-label">
-                  <div class="candidate-info">
-                    <h3>
-                      Cardinal Matteo Maria Zuppi <span class="flag">🇮🇹</span>
-                    </h3>
-                    <ul>
-                      <li><strong>Age:</strong> 69</li>
-                      <li>
-                        <strong>Role:</strong> Archbishop of Bologna. President
-                        of the Italian Episcopal Conference.
-                      </li>
-                      <li><strong>Country of Origin:</strong> Italy</li>
-                      <li>
-                        <span class="key-issues-toggle"
-                          ><strong>Key Issues:</strong> (Click to expand)</span
-                        >
-                        <div class="key-issues-content">
-                          <ul>
-                            <li>
-                              <strong>Synodal Way:</strong> Likely supportive,
-                              close to Francis.
-                            </li>
-                            <li>
-                              <strong>Women's Participation:</strong> Does not
-                              exclude optional priestly celibacy (mentioning
-                              Eastern Rites).
-                            </li>
-                            <li>
-                              <strong>Same-Sex Relationships:</strong> Supports
-                              a new pastoral attitude towards LGBT Catholics.
-                            </li>
-                            <li>
-                              <strong>Humanae Vitae/Contraception:</strong>
-                              (Specific stance not readily available, but focus
-                              on pastoral care and poor).
-                            </li>
-                            <li>
-                              <strong>Marriage and Divorce:</strong> Supports a
-                              new pastoral attitude towards divorced and civilly
-                              "remarried."
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <strong>Perceived Leaning:</strong> Close associate of
-                        Pope Francis, progressive, bridge-builder.
-                      </li>
-                      <li>
-                        <strong>Created Cardinal by:</strong> Pope Francis
-                      </li>
-                    </ul>
-                  </div>
-                </label>
-              </div>
-            </div>
           </form>
         </div>
 
         <div class="submit-button-container">
-          <button type="submit" class="submit-button" form="ballotForm">
+          <button
+            type="submit"
+            class="submit-button"
+            form="ballotForm"
+            data-translate="submitButton"
+          >
             Submit Ballot
           </button>
         </div>
 
         <div>
-          <div id="selectedCandidate" class="selected-candidate">
-            Your selection:
+          <div id="selectedCandidate" class="selected-candidate" role="status" aria-live="polite">
+            <span data-translate="selectionPrefix">Your selection:</span>
             <span id="selectionResult" class="font-semibold"></span>
           </div>
         </div>
 
-        <p class="footer-text">
+        <p class="footer-text" data-translate="footerText">
           May your chosen candidate be guided by divine wisdom.
         </p>
       </div>
     </div>
 
     <script>
+      // Candidate data array with translations
+      const candidates = [
+        {
+          id: "cardinal_ambongo",
+          name: "Cardinal Fridolin Ambongo Besungu",
+          flag: "🇨🇩",
+          age: 65,
+          role: {
+            en: "Archbishop of Kinshasa. President of SECAM. Member of the Council of Cardinals.",
+            es: "Arzobispo de Kinshasa. Presidente de SECAM. Miembro del Consejo de Cardenales.",
+          },
+          country: {
+            en: "Democratic Republic of Congo",
+            es: "República Democrática del Congo",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            women: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            sameSex: {
+              en: 'Opposes blessings for same-sex marriage, stating they are "contradictory to cultural norms and intrinsically evil".',
+              es: 'Se opone a las bendiciones para el matrimonio entre personas del mismo sexo, afirmando que son "contradictorias a las normas culturales e intrínsecamente malas".',
+            },
+            humanae: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            marriage: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+          },
+          leaning: {
+            en: "Culturally Conservative.",
+            es: "Culturalmente Conservador.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_arborelius",
+          name: "Cardinal Anders Arborelius",
+          flag: "🇸🇪",
+          age: 75,
+          role: {
+            en: "Bishop of Stockholm. First Swedish cardinal.",
+            es: "Obispo de Estocolmo. Primer cardenal sueco.",
+          },
+          country: {
+            en: "Sweden",
+            es: "Suecia",
+          },
+          keyIssues: {
+            synodal: {
+              en: "Critical of the German Synodal Way.",
+              es: "Crítico del Camino Sinodal alemán.",
+            },
+            women: {
+              en: "Opposes women's ordination/deacons.",
+              es: "Se opone a la ordenación/diaconado de mujeres.",
+            },
+            sameSex: {
+              en: "Opposes same-sex blessings.",
+              es: "Se opone a las bendiciones para personas del mismo sexo.",
+            },
+            humanae: {
+              en: "Orthodox on doctrine (implies upholding).",
+              es: "Ortodoxo en doctrina (implica defenderla).",
+            },
+            marriage: {
+              en: "Orthodox on doctrine (implies upholding traditional teaching).",
+              es: "Ortodoxo en doctrina (implica defender la enseñanza tradicional).",
+            },
+          },
+          leaning: {
+            en: "Orthodox on doctrine, supports Francis on migration/environment.",
+            es: "Ortodoxo en doctrina, apoya a Francisco en migración/medio ambiente.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_aveline",
+          name: "Cardinal Jean-Marc Aveline",
+          flag: "🇫🇷",
+          age: 66,
+          role: {
+            en: "Archbishop of Marseille.",
+            es: "Arzobispo de Marsella.",
+          },
+          country: {
+            en: "France",
+            es: "Francia",
+          },
+          keyIssues: {
+            synodal: {
+              en: "Elected member of the Ordinary Council of the General Secretariat of the Synod of Bishops (indicates involvement).",
+              es: "Miembro electo del Consejo Ordinario de la Secretaría General del Sínodo de los Obispos (indica participación).",
+            },
+            women: {
+              en: "Openness to women deacons mentioned (requires verification).",
+              es: "Mencionada apertura al diaconado femenino (requiere verificación).",
+            },
+            sameSex: {
+              en: "Ambiguous stance on blessing same-sex couples mentioned (requires verification).",
+              es: "Mencionada postura ambigua sobre la bendición de parejas del mismo sexo (requiere verificación).",
+            },
+            humanae: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            marriage: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+          },
+          leaning: {
+            en: "Seen as liberal/progressive, inclined to consensus, close to Pope Francis.",
+            es: "Visto como liberal/progresista, inclinado al consenso, cercano al Papa Francisco.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_bagnasco",
+          name: "Cardinal Angelo Bagnasco",
+          flag: "🇮🇹",
+          age: 82, // Not eligible to vote
+          role: {
+            en: "Archbishop Emeritus of Genoa. Formerly President of the Italian Episcopal Conference.",
+            es: "Arzobispo Emérito de Génova. Anteriormente Presidente de la Conferencia Episcopal Italiana.",
+          },
+          country: {
+            en: "Italy",
+            es: "Italia",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            women: {
+              en: "Opposes ordaining women as deacons.",
+              es: "Se opone a ordenar mujeres como diáconos.",
+            },
+            sameSex: {
+              en: "Strong opposition to gay rights and same-sex unions.",
+              es: "Fuerte oposición a los derechos homosexuales y uniones del mismo sexo.",
+            },
+            humanae: {
+              en: "Strong opposition to abortion (implies upholding).",
+              es: "Fuerte oposición al aborto (implica defenderla).",
+            },
+            marriage: {
+              en: "(Specific stance not readily available, but generally conservative).",
+              es: "(Postura específica no disponible, pero generalmente conservador).",
+            },
+          },
+          leaning: {
+            en: "Conservative.",
+            es: "Conservador.",
+          },
+          createdBy: {
+            en: "Pope Benedict XVI",
+            es: "Papa Benedicto XVI",
+          },
+        },
+        {
+          id: "cardinal_bo",
+          name: "Cardinal Charles Maung Bo",
+          flag: "🇲🇲",
+          age: 76,
+          role: {
+            en: "Archbishop of Yangon. President of FABC.",
+            es: "Arzobispo de Yangon. Presidente de FABC.",
+          },
+          country: {
+            en: "Myanmar",
+            es: "Myanmar",
+          },
+          keyIssues: {
+            synodal: {
+              en: "Endorsed Francis' Synod on Synodality.",
+              es: "Respaldó el Sínodo sobre la Sinodalidad de Francisco.",
+            },
+            women: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            sameSex: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            humanae: {
+              en: "Defends the Catholic Church's opposition to abortion and contraception.",
+              es: "Defiende la oposición de la Iglesia Católica al aborto y la anticoncepción.",
+            },
+            marriage: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+          },
+          leaning: {
+            en: "Generally aligned with Pope Francis on social justice and dialogue.",
+            es: "Generalmente alineado con el Papa Francisco en justicia social y diálogo.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_brislin",
+          name: "Cardinal Stephen Brislin",
+          flag: "🇿🇦",
+          age: 68,
+          role: {
+            en: "Archbishop of Johannesburg. Formerly Archbishop of Cape Town.",
+            es: "Arzobispo de Johannesburgo. Anteriormente Arzobispo de Ciudad del Cabo.",
+          },
+          country: {
+            en: "South Africa",
+            es: "Sudáfrica",
+          },
+          keyIssues: {
+            synodal: {
+              en: "Contribution mentioned embracing change while holding tradition.",
+              es: "Mencionada contribución que abraza el cambio manteniendo la tradición.",
+            },
+            women: {
+              en: "Reaffirmed prohibition against women's ordination but allowed a dissident group supporting women priests in his diocese.",
+              es: "Reafirmó la prohibición contra la ordenación de mujeres pero permitió un grupo disidente que apoya a mujeres sacerdotes en su diócesis.",
+            },
+            sameSex: {
+              en: "Supported <em>Fiducia Supplicans</em>, emphasizing the union isn't blessed and chastity.",
+              es: "Apoyó <em>Fiducia Supplicans</em>, enfatizando que la unión no es bendecida y la castidad.",
+            },
+            humanae: {
+              en: "(Specific stance not readily available, but addresses social issues with a 'seamless garment' approach).",
+              es: "(Postura específica no disponible, pero aborda temas sociales con un enfoque de 'tejido sin costuras').",
+            },
+            marriage: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+          },
+          leaning: {
+            en: "Seen on the classically liberal wing, committed to social issues.",
+            es: "Visto en el ala clásicamente liberal, comprometido con los temas sociales.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_burke",
+          name: "Cardinal Raymond Leo Burke",
+          flag: "🇺🇸",
+          age: 76,
+          role: {
+            en: "Cardinal Patron Emeritus of the Sovereign Military Order of Malta. Formerly Prefect of the Apostolic Signatura.",
+            es: "Cardenal Patrono Emérito de la Soberana Orden Militar de Malta. Anteriormente Prefecto de la Signatura Apostólica.",
+          },
+          country: {
+            en: "USA",
+            es: "EE. UU.",
+          },
+          keyIssues: {
+            synodal: {
+              en: "Generally critical of perceived deviations from tradition.",
+              es: "Generalmente crítico de las desviaciones percibidas de la tradición.",
+            },
+            women: {
+              en: "Hard line against changes to the role of women.",
+              es: "Línea dura contra los cambios en el papel de la mujer.",
+            },
+            sameSex: {
+              en: "Hard line against softening policy towards LGBTQ people.",
+              es: "Línea dura contra la flexibilización de la política hacia las personas LGBTQ.",
+            },
+            humanae: {
+              en: "Strong defender of traditional doctrine (implies upholding).",
+              es: "Firme defensor de la doctrina tradicional (implica defenderla).",
+            },
+            marriage: {
+              en: "Hard line against relaxing attitudes towards divorced and remarried receiving communion.",
+              es: "Línea dura contra la relajación de las actitudes hacia los divorciados y vueltos a casar que reciben la comunión.",
+            },
+          },
+          leaning: {
+            en: "Highly Conservative/Traditionalist.",
+            es: "Altamente Conservador/Tradicionalista.",
+          },
+          createdBy: {
+            en: "Pope Benedict XVI",
+            es: "Papa Benedicto XVI",
+          },
+        },
+        {
+          id: "cardinal_eijk",
+          name: "Cardinal Willem Jacobus Eijk",
+          flag: "🇳🇱",
+          age: 71,
+          role: {
+            en: "Archbishop of Utrecht.",
+            es: "Arzobispo de Utrecht.",
+          },
+          country: {
+            en: "Netherlands",
+            es: "Países Bajos",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available, but generally conservative).",
+              es: "(Postura específica no disponible, pero generalmente conservador).",
+            },
+            women: {
+              en: "(Specific stance not readily available, but generally conservative).",
+              es: "(Postura específica no disponible, pero generalmente conservador).",
+            },
+            sameSex: {
+              en: "(Specific stance not readily available, but generally conservative).",
+              es: "(Postura específica no disponible, pero generalmente conservador).",
+            },
+            humanae: {
+              en: "(Specific stance not readily available, but generally conservative).",
+              es: "(Postura específica no disponible, pero generalmente conservador).",
+            },
+            marriage: {
+              en: "(Specific stance not readily available, but generally conservative).",
+              es: "(Postura específica no disponible, pero generalmente conservador).",
+            },
+          },
+          leaning: {
+            en: "Conservative.",
+            es: "Conservador.",
+          },
+          createdBy: {
+            en: "Pope Benedict XVI",
+            es: "Papa Benedicto XVI",
+          },
+        },
+        {
+          id: "cardinal_erdo",
+          name: "Cardinal Péter Erdő",
+          flag: "🇭🇺",
+          age: 72,
+          role: {
+            en: "Archbishop of Esztergom-Budapest. Primate of Hungary. Canon lawyer.",
+            es: "Arzobispo de Esztergom-Budapest. Primado de Hungría. Canonista.",
+          },
+          country: {
+            en: "Hungary",
+            es: "Hungría",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available, but focus on canon law might suggest caution).",
+              es: "(Postura específica no disponible, pero el enfoque en el derecho canónico podría sugerir cautela).",
+            },
+            women: {
+              en: "Opposed to ordaining women as deacons.",
+              es: "Opuesto a ordenar mujeres como diáconos.",
+            },
+            sameSex: {
+              en: "Firmly against the acceptance of homosexual unions, but favors pastoral support.",
+              es: "Firmemente en contra de la aceptación de uniones homosexuales, pero favorece el apoyo pastoral.",
+            },
+            humanae: {
+              en: "Strongly pro-life (implies upholding Humanae Vitae).",
+              es: "Fuertemente pro-vida (implica defender Humanae Vitae).",
+            },
+            marriage: {
+              en: "Against divorced Catholics receiving communion, in favor of pastoral accompaniment only if indissolubility is clear.",
+              es: "En contra de que los católicos divorciados reciban la comunión, a favor del acompañamiento pastoral solo si la indisolubilidad es clara.",
+            },
+          },
+          leaning: {
+            en: "Seen as a staunch conservative, but pragmatic.",
+            es: "Visto como un conservador acérrimo, pero pragmático.",
+          },
+          createdBy: {
+            en: "Pope John Paul II",
+            es: "Papa Juan Pablo II",
+          },
+        },
+        {
+          id: "cardinal_filoni",
+          name: "Cardinal Fernando Filoni",
+          flag: "🇮🇹",
+          age: 79,
+          role: {
+            en: "Grand Master of the Equestrian Order of the Holy Sepulchre of Jerusalem. Formerly Prefect of the Congregation for the Evangelization of Peoples.",
+            es: "Gran Maestre de la Orden Ecuestre del Santo Sepulcro de Jerusalén. Anteriormente Prefecto de la Congregación para la Evangelización de los Pueblos.",
+          },
+          country: {
+            en: "Italy",
+            es: "Italia",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            women: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            sameSex: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            humanae: {
+              en: "Orthodox understanding of sacraments and Church mission (implies upholding traditional teaching).",
+              es: "Comprensión ortodoxa de los sacramentos y la misión de la Iglesia (implica defender la enseñanza tradicional).",
+            },
+            marriage: {
+              en: "Orthodox understanding of sacraments and Church mission (implies upholding traditional teaching).",
+              es: "Comprensión ortodoxa de los sacramentos y la misión de la Iglesia (implica defender la enseñanza tradicional).",
+            },
+          },
+          leaning: {
+            en: "Generally seen as orthodox, with extensive diplomatic and Curia experience.",
+            es: "Generalmente visto como ortodoxo, con amplia experiencia diplomática y en la Curia.",
+          },
+          createdBy: {
+            en: "Pope Benedict XVI",
+            es: "Papa Benedicto XVI",
+          },
+        },
+        {
+          id: "cardinal_koch",
+          name: "Cardinal Kurt Koch",
+          flag: "🇨🇭",
+          age: 75,
+          role: {
+            en: "Prefect of the Dicastery for Promoting Christian Unity.",
+            es: "Prefecto del Dicasterio para la Promoción de la Unidad de los Cristianos.",
+          },
+          country: {
+            en: "Switzerland",
+            es: "Suiza",
+          },
+          keyIssues: {
+            synodal: {
+              en: "Sees synodality as having an old tradition, believes primacy must be exercised synodally.",
+              es: "Ve la sinodalidad como una tradición antigua, cree que el primado debe ejercerse sinodalmente.",
+            },
+            women: {
+              en: 'Previously said female priesthood is "desirable" but later stated sacramental priesthood is linked to the male sex.',
+              es: 'Anteriormente dijo que el sacerdocio femenino es "deseable" pero luego afirmó que el sacerdocio sacramental está ligado al sexo masculino.',
+            },
+            sameSex: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            humanae: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            marriage: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+          },
+          leaning: {
+            en: "Diplomatic and pragmatic, with a 'healthy conservatism' in the Curia.",
+            es: "Diplomático y pragmático, con un 'sano conservadurismo' en la Curia.",
+          },
+          createdBy: {
+            en: "Pope Benedict XVI",
+            es: "Papa Benedicto XVI",
+          },
+        },
+        {
+          id: "cardinal_mendonca",
+          name: "Cardinal José Tolentino de Mendonça",
+          flag: "🇵🇹",
+          age: 59,
+          role: {
+            en: "Prefect of the Dicastery for Culture and Education. Archivist and Librarian of the Holy Roman Church.",
+            es: "Prefecto del Dicasterio para la Cultura y la Educación. Archivero y Bibliotecario de la Santa Iglesia Romana.",
+          },
+          country: {
+            en: "Portugal",
+            es: "Portugal",
+          },
+          keyIssues: {
+            synodal: {
+              en: "Views on synodality mentioned, likely supportive.",
+              es: "Mencionadas opiniones sobre la sinodalidad, probablemente de apoyo.",
+            },
+            women: {
+              en: "Allying with a feminist sister who promotes women's ordination mentioned (seen as engaging with culture).",
+              es: "Mencionada alianza con una hermana feminista que promueve la ordenación de mujeres (visto como compromiso con la cultura).",
+            },
+            sameSex: {
+              en: 'Sympathizing with "tolerant approaches to homosexuality" mentioned, but reportedly not publicly against Church teaching.',
+              es: 'Mencionada simpatía con "enfoques tolerantes hacia la homosexualidad", pero según se informa, no públicamente en contra de la enseñanza de la Iglesia.',
+            },
+            humanae: {
+              en: "Allying with a sister who promotes abortion mentioned (seen as engaging with culture).",
+              es: "Mencionada alianza con una hermana que promueve el aborto (visto como compromiso con la cultura).",
+            },
+            marriage: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+          },
+          leaning: {
+            en: "Progressive, close affinity to Pope Francis, 'significant modernist figure.'",
+            es: "Progresista, gran afinidad con el Papa Francisco, 'figura modernista significativa'.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_muller",
+          name: "Cardinal Gerhard Ludwig Müller",
+          flag: "🇩🇪",
+          age: 77,
+          role: {
+            en: "Prefect Emeritus of the Congregation for the Doctrine of the Faith.",
+            es: "Prefecto Emérito de la Congregación para la Doctrina de la Fe.",
+          },
+          country: {
+            en: "Germany",
+            es: "Alemania",
+          },
+          keyIssues: {
+            synodal: {
+              en: "Critical of perceived deviations from tradition.",
+              es: "Crítico de las desviaciones percibidas de la tradición.",
+            },
+            women: {
+              en: "Staunchly opposed to a female diaconate.",
+              es: "Firmemente opuesto a un diaconado femenino.",
+            },
+            sameSex: {
+              en: "Strong defender of traditional doctrine (implies opposition).",
+              es: "Firme defensor de la doctrina tradicional (implica oposición).",
+            },
+            humanae: {
+              en: "Strong defender of traditional doctrine (implies upholding).",
+              es: "Firme defensor de la doctrina tradicional (implica defenderla).",
+            },
+            marriage: {
+              en: "Strong defender of traditional doctrine on marriage. Resists changes to priestly celibacy.",
+              es: "Firme defensor de la doctrina tradicional sobre el matrimonio. Se resiste a los cambios en el celibato sacerdotal.",
+            },
+          },
+          leaning: {
+            en: "Theologically orthodox, strong defender of tradition.",
+            es: "Teológicamente ortodoxo, firme defensor de la tradición.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_ouellet",
+          name: "Cardinal Marc Ouellet",
+          flag: "🇨🇦",
+          age: 80, // Not eligible to vote
+          role: {
+            en: "Prefect Emeritus of the Dicastery for Bishops.",
+            es: "Prefecto Emérito del Dicasterio para los Obispos.",
+          },
+          country: {
+            en: "Canada",
+            es: "Canadá",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available, but traditional background).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+            },
+            women: {
+              en: "(Specific stance not readily available, but traditional background).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+            },
+            sameSex: {
+              en: "(Specific stance not readily available, but traditional background).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+            },
+            humanae: {
+              en: "(Specific stance not readily available, but traditional background).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+            },
+            marriage: {
+              en: "(Specific stance not readily available, but traditional background).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+            },
+          },
+          leaning: {
+            en: "Traditional theological background, extensive Curia experience.",
+            es: "Antecedentes teológicos tradicionales, amplia experiencia en la Curia.",
+          },
+          createdBy: {
+            en: "Pope John Paul II",
+            es: "Papa Juan Pablo II",
+          },
+        },
+        {
+          id: "cardinal_parolin",
+          name: "Cardinal Pietro Parolin",
+          flag: "🇮🇹",
+          age: 70,
+          role: {
+            en: "Vatican Secretary of State.",
+            es: "Secretario de Estado del Vaticano.",
+          },
+          country: {
+            en: "Italy",
+            es: "Italia",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Role implies involvement in implementation, personal stance diplomatic).",
+              es: "(El rol implica participación en la implementación, postura personal diplomática).",
+            },
+            women: {
+              en: "(Specific stance not readily available, generally diplomatic).",
+              es: "(Postura específica no disponible, generalmente diplomática).",
+            },
+            sameSex: {
+              en: "(Specific stance not readily available, generally diplomatic).",
+              es: "(Postura específica no disponible, generalmente diplomática).",
+            },
+            humanae: {
+              en: "(Specific stance not readily available, generally diplomatic).",
+              es: "(Postura específica no disponible, generalmente diplomática).",
+            },
+            marriage: {
+              en: "(Specific stance not readily available, generally diplomatic).",
+              es: "(Postura específica no disponible, generalmente diplomática).",
+            },
+          },
+          leaning: {
+            en: "Moderate, pragmatic, focused on stability and governance.",
+            es: "Moderado, pragmático, centrado en la estabilidad y la gobernanza.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_piacenza",
+          name: "Cardinal Mauro Piacenza",
+          flag: "🇮🇹",
+          age: 80, // Not eligible to vote
+          role: {
+            en: "Major Penitentiary Emeritus of the Apostolic Penitentiary.",
+            es: "Penitenciario Mayor Emérito de la Penitenciaría Apostólica.",
+          },
+          country: {
+            en: "Italy",
+            es: "Italia",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            women: {
+              en: "Firm in opposition to changing the celibacy rule (implies opposition to women's ordination).",
+              es: "Firme en oposición a cambiar la regla del celibato (implica oposición a la ordenación de mujeres).",
+            },
+            sameSex: {
+              en: "Holds fast to all doctrines on moral matters (implies opposition).",
+              es: "Se mantiene firme en todas las doctrinas sobre asuntos morales (implica oposición).",
+            },
+            humanae: {
+              en: "Holds fast to all doctrines on moral matters (implies upholding).",
+              es: "Se mantiene firme en todas las doctrinas sobre asuntos morales (implica defenderla).",
+            },
+            marriage: {
+              en: "Holds fast to all doctrines on moral matters (implies upholding traditional teaching).",
+              es: "Se mantiene firme en todas las doctrinas sobre asuntos morales (implica defender la enseñanza tradicional).",
+            },
+          },
+          leaning: {
+            en: "Conservative, focused on priestly formation and tradition.",
+            es: "Conservador, centrado en la formación sacerdotal y la tradición.",
+          },
+          createdBy: {
+            en: "Pope Benedict XVI",
+            es: "Papa Benedicto XVI",
+          },
+        },
+        {
+          id: "cardinal_pizzaballa",
+          name: "Cardinal Pierbattista Pizzaballa",
+          flag: "🇮🇹",
+          age: 60,
+          role: {
+            en: "Latin Patriarch of Jerusalem.",
+            es: "Patriarca Latino de Jerusalén.",
+          },
+          country: {
+            en: "Italy (serves in Jerusalem)",
+            es: "Italia (sirve en Jerusalén)",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            women: {
+              en: "Desires a greater role for women in the Church.",
+              es: "Desea un mayor papel para las mujeres en la Iglesia.",
+            },
+            sameSex: {
+              en: "Opposed to the blessing of same-sex couples.",
+              es: "Opuesto a la bendición de parejas del mismo sexo.",
+            },
+            humanae: {
+              en: "(Specific stance not readily available).",
+              es: "(Postura específica no disponible).",
+            },
+            marriage: {
+              en: "Opposed to the readmission of divorcees to the sacraments.",
+              es: "Opuesto a la readmisión de divorciados a los sacramentos.",
+            },
+          },
+          leaning: {
+            en: "Orthodox on some moral issues, open to Francis' reform agenda and pastoral approach.",
+            es: "Ortodoxo en algunos temas morales, abierto a la agenda de reforma y enfoque pastoral de Francisco.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_ranjith",
+          name: "Cardinal Albert Malcolm Ranjith Patabendige Don",
+          flag: "🇱🇰",
+          age: 77,
+          role: {
+            en: "Archbishop of Colombo.",
+            es: "Arzobispo de Colombo.",
+          },
+          country: {
+            en: "Sri Lanka",
+            es: "Sri Lanka",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            women: {
+              en: "(Specific stance not readily available, but traditional approach to practice).",
+              es: "(Postura específica no disponible, pero enfoque tradicional a la práctica).",
+            },
+            sameSex: {
+              en: "Takes an uncompromising view, upholding Church teaching.",
+              es: "Adopta una visión intransigente, defendiendo la enseñanza de la Iglesia.",
+            },
+            humanae: {
+              en: "Takes an uncompromising view on life issues, firmly upholding.",
+              es: "Adopta una visión intransigente sobre los temas de la vida, defendiendo firmemente.",
+            },
+            marriage: {
+              en: "Takes an uncompromising view, upholding Church teaching.",
+              es: "Adopta una visión intransigente, defendiendo la enseñanza de la Iglesia.",
+            },
+          },
+          leaning: {
+            en: "Liturgical conservative with orthodox views, politically astute.",
+            es: "Conservador litúrgico con puntos de vista ortodoxos, políticamente astuto.",
+          },
+          createdBy: {
+            en: "Pope Benedict XVI",
+            es: "Papa Benedicto XVI",
+          },
+        },
+        {
+          id: "cardinal_sarah",
+          name: "Cardinal Robert Sarah",
+          flag: "🇬🇳",
+          age: 79, // Turns 80 in June 2025, will lose voting rights
+          role: {
+            en: "Prefect Emeritus of the Congregation for Divine Worship and the Discipline of the Sacraments.",
+            es: "Prefecto Emérito de la Congregación para el Culto Divino y la Disciplina de los Sacramentos.",
+          },
+          country: {
+            en: "Guinea",
+            es: "Guinea",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available, but generally critical of perceived deviations).",
+              es: "(Postura específica no disponible, pero generalmente crítico de las desviaciones percibidas).",
+            },
+            women: {
+              en: "(Specific stance not readily available, but generally traditionalist).",
+              es: "(Postura específica no disponible, pero generalmente tradicionalista).",
+            },
+            sameSex: {
+              en: "Vocal defender of conservative moral teachings (implies opposition).",
+              es: "Defensor vocal de las enseñanzas morales conservadoras (implica oposición).",
+            },
+            humanae: {
+              en: "Vocal defender of conservative moral teachings (implies upholding).",
+              es: "Defensor vocal de las enseñanzas morales conservadoras (implica defenderla).",
+            },
+            marriage: {
+              en: "Vocal defender of conservative moral teachings (implies upholding traditional teaching).",
+              es: "Defensor vocal de las enseñanzas morales conservadoras (implica defender la enseñanza tradicional).",
+            },
+          },
+          leaning: {
+            en: "Leading Traditionalist/Conservative.",
+            es: "Principal Tradicionalista/Conservador.",
+          },
+          createdBy: {
+            en: "Pope Benedict XVI",
+            es: "Papa Benedicto XVI",
+          },
+        },
+        {
+          id: "cardinal_sturla",
+          name: "Cardinal Daniel Fernando Sturla Berhouet",
+          flag: "🇺🇾",
+          age: 65,
+          role: {
+            en: "Archbishop of Montevideo. Salesian.",
+            es: "Arzobispo de Montevideo. Salesiano.",
+          },
+          country: {
+            en: "Uruguay",
+            es: "Uruguay",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            women: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            sameSex: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            humanae: {
+              en: "(Specific stance not readily available)",
+              es: "(Postura específica no disponible)",
+            },
+            marriage: {
+              en: "Participated in the Synod on the Family (specific stance not detailed).",
+              es: "Participó en el Sínodo sobre la Familia (postura específica no detallada).",
+            },
+          },
+          leaning: {
+            en: "Salesian background suggests a pastoral focus.",
+            es: "Los antecedentes salesianos sugieren un enfoque pastoral.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+        {
+          id: "cardinal_tagle",
+          name: "Cardinal Luis Antonio Gokim Tagle",
+          flag: "🇵🇭",
+          age: 67,
+          role: {
+            en: "Pro-Prefect for the Section of First Evangelization of the Dicastery for Evangelization. Former Archbishop of Manila.",
+            es: "Pro-Prefecto de la Sección para la Primera Evangelización del Dicasterio para la Evangelización. Ex Arzobispo de Manila.",
+          },
+          country: {
+            en: "Philippines",
+            es: "Filipinas",
+          },
+          keyIssues: {
+            synodal: {
+              en: "(Specific stance not readily available, but aligns with Francis on evangelization).",
+              es: "(Postura específica no disponible, pero se alinea con Francisco en evangelización).",
+            },
+            women: {
+              en: "(Specific stance not readily available).",
+              es: "(Postura específica no disponible).",
+            },
+            sameSex: {
+              en: 'Criticized the Church for using "harsh words" to describe LGBTQ people.',
+              es: 'Criticó a la Iglesia por usar "palabras duras" para describir a las personas LGBTQ.',
+            },
+            humanae: {
+              en: "Defends the Catholic Church's opposition to abortion and contraception.",
+              es: "Defiende la oposición de la Iglesia Católica al aborto y la anticoncepción.",
+            },
+            marriage: {
+              en: "Believes divorced and remarried Catholics should receive communion on a case-by-case basis.",
+              es: "Cree que los católicos divorciados y vueltos a casar deberían recibir la comunión caso por caso.",
+            },
+          },
+          leaning: {
+            en: '"Asian Francis," progressive on pastoral approach/language, upholds traditional doctrine on core moral issues.',
+            es: '"Francisco asiático", progresista en enfoque/lenguaje pastoral, defiende la doctrina tradicional en temas morales centrales.',
+          },
+          createdBy: {
+            en: "Pope Benedict XVI",
+            es: "Papa Benedicto XVI",
+          },
+        },
+        {
+          id: "cardinal_zuppi",
+          name: "Cardinal Matteo Maria Zuppi",
+          flag: "🇮🇹",
+          age: 69,
+          role: {
+            en: "Archbishop of Bologna. President of the Italian Episcopal Conference.",
+            es: "Arzobispo de Bolonia. Presidente de la Conferencia Episcopal Italiana.",
+          },
+          country: {
+            en: "Italy",
+            es: "Italia",
+          },
+          keyIssues: {
+            synodal: {
+              en: "Likely supportive, close to Francis.",
+              es: "Probablemente de apoyo, cercano a Francisco.",
+            },
+            women: {
+              en: "Does not exclude optional priestly celibacy (mentioning Eastern Rites).",
+              es: "No excluye el celibato sacerdotal opcional (mencionando los Ritos Orientales).",
+            },
+            sameSex: {
+              en: "Supports a new pastoral attitude towards LGBT Catholics.",
+              es: "Apoya una nueva actitud pastoral hacia los católicos LGBT.",
+            },
+            humanae: {
+              en: "(Specific stance not readily available, but focus on pastoral care and poor).",
+              es: "(Postura específica no disponible, pero enfoque en la atención pastoral y los pobres).",
+            },
+            marriage: {
+              en: "Supports a new pastoral attitude towards divorced and civilly 'remarried.'",
+              es: "Apoya una nueva actitud pastoral hacia los divorciados y 'vueltos a casar' civilmente.",
+            },
+          },
+          leaning: {
+            en: "Close associate of Pope Francis, progressive, bridge-builder.",
+            es: "Estrecho colaborador del Papa Francisco, progresista, constructor de puentes.",
+          },
+          createdBy: {
+            en: "Pope Francis",
+            es: "Papa Francisco",
+          },
+        },
+      ];
+
+      // Translations object for static text
+      const translations = {
+        en: {
+          pageTitle: "Sacred Conclave Ballot",
+          mainTitle: "Sacred Conclave Ballot",
+          introPara1:
+            "In the solemn spirit of the Sacred Conclave Simulation, you are invited to cast your vote. Select the cardinal you deem most worthy to ascend to the See of Peter, or the one you believe the Holy Spirit shall guide the electors to choose.",
+          introPara2:
+            "Indicate your preference by marking the circle adjacent to the name of the esteemed cardinal. Provided herein is a brief compendium of each candidate's background and general disposition on matters pertinent to the Universal Church, compiled for the purposes of this simulation. Let your conscience be your guide in this most significant deliberation.",
+          candidatesTitle: "Illustrious Candidates for the Papacy:",
+          keyIssuesToggle: "<strong>Key Issues:</strong> (Click to expand)",
+          keyIssuesToggleCollapsed:
+            "<strong>Key Issues:</strong> (Click to collapse)",
+          submitButton: "Submit Ballot",
+          selectionPrefix: "Your selection:",
+          footerText: "May your chosen candidate be guided by divine wisdom.",
+          ageLabel: "Age:",
+          roleLabel: "Role:",
+          countryLabel: "Country of Origin:",
+          synodalLabel: "Synodal Way:",
+          womenLabel: "Women's Participation:",
+          sameSexLabel: "Same-Sex Relationships:",
+          humanaeLabel: "Humanae Vitae/Contraception:",
+          marriageLabel: "Marriage and Divorce:",
+          leaningLabel: "Perceived Leaning:",
+          createdLabel: "Created Cardinal by:",
+          noCandidateSelected: "No candidate selected.",
+        },
+        es: {
+          pageTitle: "Boleta del Sagrado Cónclave",
+          mainTitle: "Boleta del Sagrado Cónclave",
+          introPara1:
+            "En el espíritu solemne de la Simulación del Sagrado Cónclave, está invitado a emitir su voto. Seleccione al cardenal que considere más digno de ascender a la Sede de Pedro, o aquel que crea que el Espíritu Santo guiará a los electores a elegir.",
+          introPara2:
+            "Indique su preferencia marcando el círculo adyacente al nombre del estimado cardenal. Aquí se presenta un breve compendio de los antecedentes de cada candidato y su disposición general sobre asuntos pertinentes a la Iglesia Universal, compilado para los fines de esta simulación. Deje que su conciencia sea su guía en esta deliberación tan significativa.",
+          candidatesTitle: "Ilustres Candidatos al Papado:",
+          keyIssuesToggle:
+            "<strong>Temas Clave:</strong> (Haga clic para expandir)",
+          keyIssuesToggleCollapsed:
+            "<strong>Temas Clave:</strong> (Haga clic para colapsar)",
+          submitButton: "Enviar Boleta",
+          selectionPrefix: "Su selección:",
+          footerText:
+            "Que su candidato elegido sea guiado por la sabiduría divina.",
+          ageLabel: "Edad:",
+          roleLabel: "Rol:",
+          countryLabel: "País de Origen:",
+          synodalLabel: "Camino Sinodal:",
+          womenLabel: "Participación de la Mujer:",
+          sameSexLabel: "Relaciones entre Personas del Mismo Sexo:",
+          humanaeLabel: "Humanae Vitae/Anticoncepción:",
+          marriageLabel: "Matrimonio y Divorcio:",
+          leaningLabel: "Orientación Percibida:",
+          createdLabel: "Creado Cardenal por:",
+          noCandidateSelected: "Ningún candidato seleccionado.",
+        },
+      };
+
+      // Function to generate candidate HTML
+      function generateCandidateHTML(candidate, lang) {
+        const t = translations[lang]; // Get current language translations
+
+        // Determine if the cardinal is eligible to vote based on age
+        const isEligible = candidate.age < 80;
+        const eligibilityNote = isEligible ? '' : ` <span class="text-red-600 text-sm font-semibold" data-translate="notEligible">(Not eligible to vote in a conclave)</span>`; // Add note for ineligible cardinals
+
+        return `
+          <div class="candidate-section" aria-labelledby="${candidate.id}_name">
+            <input
+              type="radio"
+              id="${candidate.id}"
+              name="cardinal"
+              value="${candidate.name}"
+              ${isEligible ? '' : 'disabled'}  > <label for="${candidate.id}" class="candidate-label ${isEligible ? '' : 'opacity-60 cursor-not-allowed'}"> <div class="candidate-info">
+                <h3 id="${candidate.id}_name">
+                  ${candidate.name}
+                  <span class="flag">${candidate.flag}</span>
+                </h3>
+                <ul>
+                  <li>
+                    <strong data-translate="ageLabel">${t.ageLabel}</strong> ${candidate.age}${eligibilityNote}
+                  </li>
+                  <li>
+                    <strong data-translate="roleLabel">${t.roleLabel}</strong>
+                    ${candidate.role[lang]}
+                  </li>
+                  <li>
+                    <strong data-translate="countryLabel">${t.countryLabel}</strong>
+                    ${candidate.country[lang]}
+                  </li>
+                  <li>
+                    <span class="key-issues-toggle" role="button" aria-expanded="false" aria-controls="${candidate.id}_issues">
+                      <strong data-translate="keyIssuesToggleLabel">${t.keyIssuesToggle}</strong>
+                    </span>
+                    <div class="key-issues-content" id="${candidate.id}_issues" aria-hidden="true">
+                      <ul>
+                        <li>
+                          <strong data-translate="synodalLabel">${t.synodalLabel}</strong>
+                          ${candidate.keyIssues.synodal[lang]}
+                        </li>
+                        <li>
+                          <strong data-translate="womenLabel">${t.womenLabel}</strong>
+                          ${candidate.keyIssues.women[lang]}
+                        </li>
+                        <li>
+                          <strong data-translate="sameSexLabel">${t.sameSexLabel}</strong>
+                          ${candidate.keyIssues.sameSex[lang]}
+                        </li>
+                        <li>
+                          <strong data-translate="humanaeLabel">${t.humanaeLabel}</strong>
+                          ${candidate.keyIssues.humanae[lang]}
+                        </li>
+                        <li>
+                          <strong data-translate="marriageLabel">${t.marriageLabel}</strong>
+                          ${candidate.keyIssues.marriage[lang]}
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <strong data-translate="leaningLabel">${t.leaningLabel}</strong>
+                    ${candidate.leaning[lang]}
+                  </li>
+                  <li>
+                    <strong data-translate="createdLabel">${t.createdLabel}</strong>
+                    ${candidate.createdBy[lang]}
+                  </li>
+                </ul>
+              </div>
+            </label>
+          </div>
+        `;
+      }
+
+      // Function to render candidates
+      function renderCandidates(lang) {
+        const candidateGrid = document.getElementById("candidateGrid");
+        candidateGrid.innerHTML = ""; // Clear existing candidates
+
+        candidates.forEach((candidate) => {
+          candidateGrid.innerHTML += generateCandidateHTML(candidate, lang);
+        });
+
+        // Re-attach event listeners after rendering
+        attachEventListeners();
+      }
+
+      // Function to update static text content based on language
+      function updateStaticLanguage(lang) {
+        document.querySelectorAll("[data-translate]").forEach((element) => {
+          const key = element.getAttribute("data-translate");
+          if (translations[lang] && translations[lang][key]) {
+            // Handle the keyIssuesToggleLabel separately as it changes based on state
+            if (key !== 'keyIssuesToggle' && key !== 'keyIssuesToggleCollapsed') {
+               element.innerHTML = translations[lang][key]; // Use innerHTML to preserve potential tags like <strong>
+            }
+          }
+        });
+
+        // Update active language button class
+        document.querySelectorAll(".language-button").forEach((button) => {
+          if (button.getAttribute("data-lang") === lang) {
+            button.classList.add("active");
+          } else {
+            button.classList.remove("active");
+          }
+        });
+
+        // Update the html lang attribute for accessibility and potential browser features
+        document.documentElement.lang = lang;
+      }
+
+      // Function to attach event listeners (called after rendering candidates)
+      function attachEventListeners() {
+        // Get all the key issues toggles
+        const keyIssuesToggles = document.querySelectorAll(".key-issues-toggle");
+
+        // Add click event listener to each toggle
+        keyIssuesToggles.forEach((toggle) => {
+          toggle.addEventListener("click", function (event) {
+            // Stop the event from propagating to the parent label,
+            // which would also toggle the radio button
+            event.stopPropagation();
+
+            // Find the next sibling element which is the content div
+            const content = this.nextElementSibling;
+            // Toggle the 'active' class to show/hide the content
+            content.classList.toggle("active");
+
+            // Update ARIA attribute
+            const isExpanded = content.classList.contains("active");
+            this.setAttribute("aria-expanded", isExpanded);
+            content.setAttribute("aria-hidden", !isExpanded);
+
+
+            // Update the toggle text based on the new state and current language
+            const currentLang = document.documentElement.lang;
+            const toggleLabel = this.querySelector('strong'); // Get the strong tag within the toggle
+            if (content.classList.contains("active")) {
+              toggleLabel.innerHTML = translations[currentLang].keyIssuesToggleCollapsed.replace('<strong>', '').replace('</strong>', ''); // Update text, remove strong tags
+            } else {
+               toggleLabel.innerHTML = translations[currentLang].keyIssuesToggle.replace('<strong>', '').replace('</strong>', ''); // Update text, remove strong tags
+            }
+             // Re-add the strong tag around the updated text
+             this.innerHTML = `<strong>${toggleLabel.innerHTML}</strong>`;
+          });
+        });
+
+        // Add click listeners to the candidate labels to check the radio button
+        const candidateLabels = document.querySelectorAll(".candidate-label");
+        candidateLabels.forEach((label) => {
+          // Prevent clicking the label of a disabled radio button from doing anything
+          if (!label.classList.contains('cursor-not-allowed')) {
+            label.addEventListener("click", function () {
+              const radio = document.getElementById(this.getAttribute("for"));
+              if (radio) {
+                radio.checked = true;
+              }
+            });
+          }
+        });
+      }
+
+
       // Get the form and the result display area
       const ballotForm = document.getElementById("ballotForm");
       const selectedCandidateDiv = document.getElementById("selectedCandidate");
       const selectionResultSpan = document.getElementById("selectionResult");
+      const languageButtons = document.querySelectorAll(".language-button");
 
       // Add an event listener for the form submission
       ballotForm.addEventListener("submit", function (event) {
@@ -1835,45 +1719,27 @@
           selectedCandidateDiv.style.display = "block"; // Make the result div visible
         } else {
           // If no candidate is selected, display a message or hide the result div
-          selectionResultSpan.textContent = "No candidate selected.";
+          const currentLang = document.documentElement.lang;
+          selectionResultSpan.textContent =
+            translations[currentLang].noCandidateSelected;
           selectedCandidateDiv.style.display = "block"; // Show the message
         }
       });
 
-      // Get all the key issues toggles
-      const keyIssuesToggles = document.querySelectorAll(".key-issues-toggle");
-
-      // Add click event listener to each toggle
-      keyIssuesToggles.forEach((toggle) => {
-        toggle.addEventListener("click", function (event) {
-          // Stop the event from propagating to the parent label,
-          // which would also toggle the radio button
-          event.stopPropagation();
-
-          // Find the next sibling element which is the content div
-          const content = this.nextElementSibling;
-          // Toggle the 'active' class to show/hide the content
-          content.classList.toggle("active");
-
-          // Optional: Change the text of the toggle based on state
-          if (content.classList.contains("active")) {
-            this.innerHTML = "<strong>Key Issues:</strong> (Click to collapse)";
-          } else {
-            this.innerHTML = "<strong>Key Issues:</strong> (Click to expand)";
-          }
+      // Add event listeners to language buttons
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const lang = this.getAttribute("data-lang");
+          updateStaticLanguage(lang); // Update static text
+          renderCandidates(lang); // Re-render candidates with new language
         });
       });
 
-      // Add click listeners to the candidate labels to check the radio button
-      const candidateLabels = document.querySelectorAll(".candidate-label");
-      candidateLabels.forEach((label) => {
-        label.addEventListener("click", function () {
-          const radio = document.getElementById(this.getAttribute("for"));
-          if (radio) {
-            radio.checked = true;
-          }
-        });
-      });
+      // Set default language and render candidates on page load
+      const defaultLang = "en";
+      updateStaticLanguage(defaultLang);
+      renderCandidates(defaultLang);
+
     </script>
   </body>
 </html>
