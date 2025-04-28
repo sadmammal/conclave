@@ -174,6 +174,7 @@
 
       .candidate-section {
         /* Removed direct styling, moved to label */
+        background-color: #e7f522;
       }
 
       /* Style the label to be the clickable area */
@@ -301,13 +302,18 @@
         background-color: #e2e8f0; /* Match left column background */
         border: 2px solid #6648b1; /* Border matching the purple accent */
         border-radius: 8px; /* Subtle rounded corners */
-        display: none;
+        display: none; /* Initially hidden */
         font-size: 1.5rem; /* Slightly larger size for emphasis */
         font-weight: 600; /* Semi-bold */
         color: #2d3748; /* Match body text color */
         text-align: center;
         line-height: 1.4; /* Improved line height */
         animation: fadeInScale 0.5s ease-out; /* Kept the subtle animation */
+        /* Added flexbox for image and text layout */
+        align-items: center;
+        justify-content: center;
+        flex-direction: column; /* Stack image and text vertically */
+        gap: 15px; /* Space between image and text */
       }
 
       @keyframes fadeInScale {
@@ -326,6 +332,14 @@
         font-weight: 800; /* Extra bold for emphasis */
       }
 
+      .selected-candidate img {
+        width: 100px; /* Adjust size as needed */
+        height: 100px; /* Adjust size as needed */
+        border-radius: 50%; /* Make image round */
+        object-fit: cover; /* Ensure image covers the area without distortion */
+        border: 3px solid #6648b1; /* Add a border around the image */
+      }
+
       /* Footer text */
       .footer-text {
         text-align: center;
@@ -341,7 +355,8 @@
       /* lg: min-width: 1024px */
       /* xl: min-width: 1280px */
 
-      @media (max-width: 767px) { /* Mobile styles below md breakpoint */
+      @media (max-width: 767px) {
+        /* Mobile styles below md breakpoint */
         .container {
           grid-template-columns: 1fr; /* Stack columns */
           margin: 20px auto;
@@ -452,12 +467,11 @@
           shall guide the electors to choose.
         </p>
         <p data-translate="introPara2">
-          Indicate your preference by marking the circle adjacent to the name of
-          the esteemed cardinal. Provided herein is a brief compendium of each
-          candidate's background and general disposition on matters pertinent to
-          the Universal Church, compiled for the purposes of this simulation.
-          Let your conscience be your guide in this most significant
-          deliberation.
+          Indicate your preference by marking the esteemed cardinal you have
+          chosen. Provided herein is a brief compendium of each candidate's
+          background and general disposition on matters pertinent to the
+          Universal Church, compiled for the purposes of this simulation. Let
+          your conscience be your guide in this most significant deliberation.
         </p>
       </div>
 
@@ -467,8 +481,7 @@
             Illustrious Candidates for the Papacy:
           </h2>
           <form id="ballotForm" aria-label="Sacred Conclave Ballot Form">
-            <div class="candidate-grid" id="candidateGrid">
-              </div>
+            <div class="candidate-grid" id="candidateGrid"></div>
           </form>
         </div>
 
@@ -484,7 +497,18 @@
         </div>
 
         <div>
-          <div id="selectedCandidate" class="selected-candidate" role="status" aria-live="polite">
+          <div
+            id="selectedCandidate"
+            class="selected-candidate"
+            role="status"
+            aria-live="polite"
+          >
+            <img
+              id="selectedCandidateImage"
+              src=""
+              alt="Selected Cardinal"
+              class="hidden"
+            />
             <span data-translate="selectionPrefix">Your selection:</span>
             <span id="selectionResult" class="font-semibold"></span>
           </div>
@@ -497,13 +521,13 @@
     </div>
 
     <script>
-      // Candidate data array with translations
+      // Candidate data array with translations and image URLs
       const candidates = [
         {
           id: "cardinal_ambongo",
           name: {
             en: "Cardinal Fridolin Ambongo Besungu",
-            es: "Cardenal Fridolin Ambongo Besungu"
+            es: "Cardenal Fridolin Ambongo Besungu",
           },
           flag: "🇨🇩",
           age: 65,
@@ -545,12 +569,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_arborelius",
           name: {
             en: "Cardinal Anders Arborelius",
-            es: "Cardenal Anders Arborelius"
+            es: "Cardenal Anders Arborelius",
           },
           flag: "🇸🇪",
           age: 75,
@@ -592,12 +618,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_aveline",
           name: {
             en: "Cardinal Jean-Marc Aveline",
-            es: "Cardenal Jean-Marc Aveline"
+            es: "Cardenal Jean-Marc Aveline",
           },
           flag: "🇫🇷",
           age: 66,
@@ -639,12 +667,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_bagnasco",
           name: {
             en: "Cardinal Angelo Bagnasco",
-            es: "Cardenal Angelo Bagnasco"
+            es: "Cardenal Angelo Bagnasco",
           },
           flag: "🇮🇹",
           age: 82, // Not eligible to vote
@@ -686,12 +716,14 @@
             en: "Pope Benedict XVI",
             es: "Papa Benedicto XVI",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_bo",
           name: {
             en: "Cardinal Charles Maung Bo",
-            es: "Cardenal Charles Maung Bo"
+            es: "Cardenal Charles Maung Bo",
           },
           flag: "🇲🇲",
           age: 76,
@@ -733,12 +765,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_brislin",
           name: {
             en: "Cardinal Stephen Brislin",
-            es: "Cardenal Stephen Brislin"
+            es: "Cardenal Stephen Brislin",
           },
           flag: "🇿🇦",
           age: 68,
@@ -780,12 +814,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_burke",
           name: {
             en: "Cardinal Raymond Leo Burke",
-            es: "Cardenal Raymond Leo Burke"
+            es: "Cardenal Raymond Leo Burke",
           },
           flag: "🇺🇸",
           age: 76,
@@ -827,12 +863,14 @@
             en: "Pope Benedict XVI",
             es: "Papa Benedicto XVI",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_eijk",
           name: {
             en: "Cardinal Willem Jacobus Eijk",
-            es: "Cardenal Willem Jacobus Eijk"
+            es: "Cardenal Willem Jacobus Eijk",
           },
           flag: "🇳🇱",
           age: 71,
@@ -874,12 +912,14 @@
             en: "Pope Benedict XVI",
             es: "Papa Benedicto XVI",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_erdo",
           name: {
             en: "Cardinal Péter Erdő",
-            es: "Cardenal Péter Erdő"
+            es: "Cardenal Péter Erdő",
           },
           flag: "🇭🇺",
           age: 72,
@@ -919,14 +959,16 @@
           },
           createdBy: {
             en: "Pope John Paul II",
-            es: "Papa Juan Pablo II",
+            es: "Papa Juan Paul II",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_filoni",
           name: {
             en: "Cardinal Fernando Filoni",
-            es: "Cardenal Fernando Filoni"
+            es: "Cardenal Fernando Filoni",
           },
           flag: "🇮🇹",
           age: 79,
@@ -968,12 +1010,14 @@
             en: "Pope Benedict XVI",
             es: "Papa Benedicto XVI",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_koch",
           name: {
             en: "Cardinal Kurt Koch",
-            es: "Cardenal Kurt Koch"
+            es: "Cardenal Kurt Koch",
           },
           flag: "🇨🇭",
           age: 75,
@@ -1015,12 +1059,14 @@
             en: "Pope Benedict XVI",
             es: "Papa Benedicto XVI",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_mendonca",
           name: {
             en: "Cardinal José Tolentino de Mendonça",
-            es: "Cardenal José Tolentino de Mendonça"
+            es: "Cardenal José Tolentino de Mendonça",
           },
           flag: "🇵🇹",
           age: 59,
@@ -1062,12 +1108,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_muller",
           name: {
             en: "Cardinal Gerhard Ludwig Müller",
-            es: "Cardenal Gerhard Ludwig Müller"
+            es: "Cardenal Gerhard Ludwig Müller",
           },
           flag: "🇩🇪",
           age: 77,
@@ -1109,12 +1157,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_ouellet",
           name: {
             en: "Cardinal Marc Ouellet",
-            es: "Cardenal Marc Ouellet"
+            es: "Cardenal Marc Ouellet",
           },
           flag: "🇨🇦",
           age: 80, // Not eligible to vote
@@ -1156,12 +1206,14 @@
             en: "Pope John Paul II",
             es: "Papa Juan Pablo II",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_parolin",
           name: {
             en: "Cardinal Pietro Parolin",
-            es: "Cardenal Pietro Parolin"
+            es: "Cardenal Pietro Parolin",
           },
           flag: "🇮🇹",
           age: 70,
@@ -1203,12 +1255,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_piacenza",
           name: {
             en: "Cardinal Mauro Piacenza",
-            es: "Cardenal Mauro Piacenza"
+            es: "Cardenal Mauro Piacenza",
           },
           flag: "🇮🇹",
           age: 80, // Not eligible to vote
@@ -1250,12 +1304,14 @@
             en: "Pope Benedict XVI",
             es: "Papa Benedicto XVI",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_pizzaballa",
           name: {
             en: "Cardinal Pierbattista Pizzaballa",
-            es: "Cardenal Pierbattista Pizzaballa"
+            es: "Cardenal Pierbattista Pizzaballa",
           },
           flag: "🇮🇹",
           age: 60,
@@ -1297,12 +1353,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_ranjith",
           name: {
             en: "Cardinal Albert Malcolm Ranjith Patabendige Don",
-            es: "Cardenal Albert Malcolm Ranjith Patabendige Don"
+            es: "Cardenal Albert Malcolm Ranjith Patabendige Don",
           },
           flag: "🇱🇰",
           age: 77,
@@ -1344,12 +1402,14 @@
             en: "Pope Benedict XVI",
             es: "Papa Benedicto XVI",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_sarah",
           name: {
             en: "Cardinal Robert Sarah",
-            es: "Cardenal Robert Sarah"
+            es: "Cardenal Robert Sarah",
           },
           flag: "🇬🇳",
           age: 79, // Turns 80 in June 2025, will lose voting rights
@@ -1391,12 +1451,14 @@
             en: "Pope Benedict XVI",
             es: "Papa Benedicto XVI",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_sturla",
           name: {
             en: "Cardinal Daniel Fernando Sturla Berhouet",
-            es: "Cardenal Daniel Fernando Sturla Berhouet"
+            es: "Cardenal Daniel Fernando Sturla Berhouet",
           },
           flag: "🇺🇾",
           age: 65,
@@ -1438,12 +1500,14 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_tagle",
           name: {
             en: "Cardinal Luis Antonio Gokim Tagle",
-            es: "Cardenal Luis Antonio Gokim Tagle"
+            es: "Cardenal Luis Antonio Gokim Tagle",
           },
           flag: "🇵🇭",
           age: 67,
@@ -1485,12 +1549,14 @@
             en: "Pope Benedict XVI",
             es: "Papa Benedicto XVI",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
         {
           id: "cardinal_zuppi",
           name: {
             en: "Cardinal Matteo Maria Zuppi",
-            es: "Cardenal Matteo Maria Zuppi"
+            es: "Cardenal Matteo Maria Zuppi",
           },
           flag: "🇮🇹",
           age: 69,
@@ -1532,6 +1598,8 @@
             en: "Pope Francis",
             es: "Papa Francisco",
           },
+          // Placeholder image URL - replace with actual image
+          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
         },
       ];
 
@@ -1543,7 +1611,7 @@
           introPara1:
             "In the solemn spirit of the Sacred Conclave Simulation, you are invited to cast your vote. Select the cardinal you deem most worthy to ascend to the See of Peter, or the one you believe the Holy Spirit shall guide the electors to choose.",
           introPara2:
-            "Indicate your preference by marking the circle adjacent to the name of the esteemed cardinal. Provided herein is a brief compendium of each candidate's background and general disposition on matters pertinent to the Universal Church, compiled for the purposes of this simulation. Let your conscience be your guide in this most significant deliberation.",
+            "Indicate your preference by marking the esteemed cardinal you have chosen. Provided herein is a brief compendium of each candidate's background and general disposition on matters pertinent to the Universal Church, compiled for the purposes of this simulation. Let your conscience be your guide in this most significant deliberation.",
           candidatesTitle: "Illustrious Candidates for the Papacy:",
           keyIssuesToggle: "<strong>Key Issues:</strong> (Click to expand)",
           keyIssuesToggleCollapsed:
@@ -1560,40 +1628,40 @@
           humanaeLabel: "Humanae Vitae/Contraception:",
           marriageLabel: "Marriage and Divorce:",
           leaningLabel: "Perceived Leaning:",
-          createdLabel: "Created Cardinal by:",
+          createdLabel: "Created by:",
           noCandidateSelected: "No candidate selected.",
         },
         es: {
           pageTitle: "Boleta del Sagrado Cónclave",
           mainTitle: "Boleta del Sagrado Cónclave",
           introPara1:
-            "En el espíritu solemne de la Simulación del Sagrado Cónclave, está invitado a emitir su voto. Seleccione al cardenal que considere más digno de ascender a la Sede de Pedro, o aquel que crea que el Espíritu Santo guiará a los electores a elegir.",
+            "En el espíritu solemne de la Simulación del Sagrado Cónclave, está invitado a emitir su voto. Seleccione al cardenal que considere más digno de ascender a la Sede de San Pedro, o aquel que crea que el Espíritu Santo guiará a los electores a elegir.",
           introPara2:
-            "Indique su preferencia marcando el círculo adyacente al nombre del estimado cardenal. Aquí se presenta un breve compendio de los antecedentes de cada candidato y su disposición general sobre asuntos pertinentes a la Iglesia Universal, compilado para los fines de esta simulación. Deje que su conciencia sea su guía en esta deliberación tan significativa.",
+            "Indique su preferencia pulsando sobre el candidato elegido. Aquí se presenta un breve compendio de los antecedentes de cada candidato y su disposición general sobre asuntos pertinentes a la Iglesia Universal, compilado para los fines de esta simulación. Deje que su conciencia sea su guía en esta deliberación tan significativa.",
           candidatesTitle: "Ilustres Candidatos al Papado:",
           keyIssuesToggle:
-            "<strong>Temas Clave:</strong> (Haga clic para expandir)",
+            "<strong>Asuntos relevantes:</strong> (Clic para expandir)",
           keyIssuesToggleCollapsed:
-            "<strong>Temas Clave:</strong> (Haga clic para colapsar)",
+            "<strong>Asuntos relevante:</strong> (Clic para colapsar)",
           submitButton: "Enviar Boleta",
           selectionPrefix: "Su selección:",
           footerText:
             "Que su candidato elegido sea guiado por la sabiduría divina.",
           ageLabel: "Edad:",
           roleLabel: "Rol:",
-          countryLabel: "País de Origen:",
-          synodalLabel: "Camino Sinodal:",
-          womenLabel: "Participación de la Mujer:",
-          sameSexLabel: "Relaciones entre Personas del Mismo Sexo:",
+          countryLabel: "País de origen:",
+          synodalLabel: "Camino sinodal:",
+          womenLabel: "Participación de la mujer:",
+          sameSexLabel: "Relaciones entre personas del mismo sexo:",
           humanaeLabel: "Humanae Vitae/Anticoncepción:",
-          marriageLabel: "Matrimonio y Divorcio:",
-          leaningLabel: "Orientación Percibida:",
-          createdLabel: "Creado Cardenal por:",
+          marriageLabel: "Matrimonio y divorcio:",
+          leaningLabel: "Orientación percibida:",
+          createdLabel: "Creado por:",
           noCandidateSelected: "Ningún candidato seleccionado.",
         },
       };
 
-      // Function to generate candidate HTML
+      // Function to generate candidate HTML (used only for initial render)
       function generateCandidateHTML(candidate, lang) {
         const t = translations[lang]; // Get current language translations
 
@@ -1603,7 +1671,9 @@
               type="radio"
               id="${candidate.id}"
               name="cardinal"
-              value="${candidate.name[lang]}"> <label for="${candidate.id}" class="candidate-label"> <div class="candidate-info">
+              value="${candidate.name[lang]}"
+              data-image-url="${candidate.imageUrl}" > <label for="${candidate.id}" class="candidate-label">
+              <div class="candidate-info">
                 <h3 id="${candidate.id}_name">
                   ${candidate.name[lang]} <span class="flag">${candidate.flag}</span>
                 </h3>
@@ -1663,17 +1733,135 @@
         `;
       }
 
-      // Function to render candidates
+      // Function to update the content of existing candidate HTML elements
+      function updateCandidateHTML(candidateElement, candidateData, lang) {
+        const t = translations[lang];
+
+        // Update name and flag
+        const nameElement = candidateElement.querySelector("h3");
+        if (nameElement) {
+          nameElement.innerHTML = `${candidateData.name[lang]} <span class="flag">${candidateData.flag}</span>`;
+          nameElement.id = `${candidateData.id}_name`; // Ensure ID is correct and matches aria-labelledby
+        }
+
+        // Update other list item text using data-translate attributes
+        const updateTextContent = (selector, text) => {
+          const element = candidateElement.querySelector(selector);
+          if (element && element.nextSibling) {
+            element.nextSibling.textContent = ` ${text}`;
+          }
+        };
+
+        updateTextContent('[data-translate="ageLabel"]', candidateData.age);
+        updateTextContent(
+          '[data-translate="roleLabel"]',
+          candidateData.role[lang]
+        );
+        updateTextContent(
+          '[data-translate="countryLabel"]',
+          candidateData.country[lang]
+        );
+        updateTextContent(
+          '[data-translate="leaningLabel"]',
+          candidateData.leaning[lang]
+        );
+        updateTextContent(
+          '[data-translate="createdLabel"]',
+          candidateData.createdBy[lang]
+        );
+
+        // Update key issues content
+        const keyIssuesContent = candidateElement.querySelector(
+          ".key-issues-content"
+        );
+        if (keyIssuesContent) {
+          updateTextContent(
+            "#" + keyIssuesContent.id + ' [data-translate="synodalLabel"]',
+            candidateData.keyIssues.synodal[lang]
+          );
+          updateTextContent(
+            "#" + keyIssuesContent.id + ' [data-translate="womenLabel"]',
+            candidateData.keyIssues.women[lang]
+          );
+          updateTextContent(
+            "#" + keyIssuesContent.id + ' [data-translate="sameSexLabel"]',
+            candidateData.keyIssues.sameSex[lang]
+          );
+          updateTextContent(
+            "#" + keyIssuesContent.id + ' [data-translate="humanaeLabel"]',
+            candidateData.keyIssues.humanae[lang]
+          );
+          updateTextContent(
+            "#" + keyIssuesContent.id + ' [data-translate="marriageLabel"]',
+            candidateData.keyIssues.marriage[lang]
+          );
+        }
+
+        // Update radio button value and ID
+        const radioInput = candidateElement.querySelector(
+          'input[type="radio"]'
+        );
+        if (radioInput) {
+          radioInput.value = candidateData.name[lang];
+          radioInput.id = candidateData.id;
+          radioInput.setAttribute("data-image-url", candidateData.imageUrl); // Update data attribute
+        }
+
+        // Update label's 'for' attribute
+        const labelElement = candidateElement.querySelector("label");
+        if (labelElement && radioInput) {
+          labelElement.setAttribute("for", candidateData.id);
+        }
+
+        // Update the key issues toggle text based on current state and language
+        const toggle = candidateElement.querySelector(".key-issues-toggle");
+        if (toggle && keyIssuesContent) {
+          const toggleLabelStrong = toggle.querySelector("strong");
+          if (toggleLabelStrong) {
+            const currentLang = document.documentElement.lang; // Get current language
+            if (keyIssuesContent.classList.contains("active")) {
+              toggleLabelStrong.textContent = translations[
+                currentLang
+              ].keyIssuesToggleCollapsed.replace(/<\/?strong>/g, ""); // Use textContent and regex
+            } else {
+              toggleLabelStrong.textContent = translations[
+                currentLang
+              ].keyIssuesToggle.replace(/<\/?strong>/g, ""); // Use textContent and regex
+            }
+          }
+        }
+      }
+
+      // Function to render candidates (initial render) or update (language change)
       function renderCandidates(lang) {
         const candidateGrid = document.getElementById("candidateGrid");
-        candidateGrid.innerHTML = ""; // Clear existing candidates
+        if (!candidateGrid) return; // Error handling
 
-        candidates.forEach((candidate) => {
-          candidateGrid.innerHTML += generateCandidateHTML(candidate, lang);
-        });
+        const candidateSections =
+          candidateGrid.querySelectorAll(".candidate-section");
 
-        // Re-attach event listeners after rendering
-        attachEventListeners();
+        if (candidateSections.length === 0) {
+          // Initial render - create the HTML
+          candidates.forEach((candidate) => {
+            candidateGrid.innerHTML += generateCandidateHTML(candidate, lang);
+          });
+          attachEventListeners(); // Attach listeners initially after creating elements
+        } else {
+          // Subsequent renders - update existing HTML
+          candidateSections.forEach((section) => {
+            const radioInput = section.querySelector('input[type="radio"]');
+            if (radioInput) {
+              const candidateId = radioInput.id;
+              const candidateData = candidates.find(
+                (c) => c.id === candidateId
+              );
+              if (candidateData) {
+                updateCandidateHTML(section, candidateData, lang);
+              }
+            }
+          });
+          // No need to re-attach event listeners if updating existing elements
+        }
       }
 
       // Function to update static text content based on language
@@ -1682,8 +1870,11 @@
           const key = element.getAttribute("data-translate");
           if (translations[lang] && translations[lang][key]) {
             // Handle the keyIssuesToggleLabel separately as it changes based on state
-            if (key !== 'keyIssuesToggle' && key !== 'keyIssuesToggleCollapsed') {
-               element.innerHTML = translations[lang][key]; // Use innerHTML to preserve potential tags like <strong>
+            if (
+              key !== "keyIssuesToggle" &&
+              key !== "keyIssuesToggleCollapsed"
+            ) {
+              element.innerHTML = translations[lang][key]; // Use innerHTML to preserve potential tags like <strong>
             }
           }
         });
@@ -1701,10 +1892,11 @@
         document.documentElement.lang = lang;
       }
 
-      // Function to attach event listeners (called after rendering candidates)
+      // Function to attach event listeners (called after initial rendering candidates)
       function attachEventListeners() {
         // Get all the key issues toggles
-        const keyIssuesToggles = document.querySelectorAll(".key-issues-toggle");
+        const keyIssuesToggles =
+          document.querySelectorAll(".key-issues-toggle");
 
         // Add click event listener to each toggle
         keyIssuesToggles.forEach((toggle) => {
@@ -1715,6 +1907,8 @@
 
             // Find the next sibling element which is the content div
             const content = this.nextElementSibling;
+            if (!content) return; // Error handling
+
             // Toggle the 'active' class to show/hide the content
             content.classList.toggle("active");
 
@@ -1723,24 +1917,26 @@
             this.setAttribute("aria-expanded", isExpanded);
             content.setAttribute("aria-hidden", !isExpanded);
 
-
             // Update the toggle text based on the new state and current language
             const currentLang = document.documentElement.lang;
-            const toggleLabel = this.querySelector('strong'); // Get the strong tag within the toggle
-            if (content.classList.contains("active")) {
-              toggleLabel.innerHTML = translations[currentLang].keyIssuesToggleCollapsed.replace('<strong>', '').replace('</strong>', ''); // Update text, remove strong tags
-            } else {
-               toggleLabel.innerHTML = translations[currentLang].keyIssuesToggle.replace('<strong>', '').replace('</strong>', ''); // Update text, remove strong tags
+            const toggleLabelStrong = this.querySelector("strong"); // Get the strong tag within the toggle
+            if (toggleLabelStrong) {
+              if (content.classList.contains("active")) {
+                toggleLabelStrong.textContent = translations[
+                  currentLang
+                ].keyIssuesToggleCollapsed.replace(/<\/?strong>/g, ""); // Use textContent and regex
+              } else {
+                toggleLabelStrong.textContent = translations[
+                  currentLang
+                ].keyIssuesToggle.replace(/<\/?strong>/g, ""); // Use textContent and regex
+              }
             }
-             // Re-add the strong tag around the updated text
-             this.innerHTML = `<strong>${toggleLabel.innerHTML}</strong>`;
           });
         });
 
         // Add click listeners to the candidate labels to check the radio button
         const candidateLabels = document.querySelectorAll(".candidate-label");
         candidateLabels.forEach((label) => {
-          // Since all cardinals are now selectable, no need to check for cursor-not-allowed
           label.addEventListener("click", function () {
             const radio = document.getElementById(this.getAttribute("for"));
             if (radio) {
@@ -1750,54 +1946,91 @@
         });
       }
 
+      // Wrap main logic in DOMContentLoaded
+      window.addEventListener("DOMContentLoaded", function () {
+        // Get the form and the result display area
+        const ballotForm = document.getElementById("ballotForm");
+        const selectedCandidateDiv =
+          document.getElementById("selectedCandidate");
+        const selectedCandidateImage = document.getElementById(
+          "selectedCandidateImage"
+        ); // Get the image element
+        const selectionResultSpan = document.getElementById("selectionResult");
+        const languageButtons = document.querySelectorAll(".language-button");
 
-      // Get the form and the result display area
-      const ballotForm = document.getElementById("ballotForm");
-      const selectedCandidateDiv = document.getElementById("selectedCandidate");
-      const selectionResultSpan = document.getElementById("selectionResult");
-      const languageButtons = document.querySelectorAll(".language-button");
-
-      // Add an event listener for the form submission
-      ballotForm.addEventListener("submit", function (event) {
-        // Prevent the default form submission
-        event.preventDefault();
-
-        // Get the selected radio button
-        const selectedRadio = ballotForm.querySelector(
-          'input[name="cardinal"]:checked'
-        );
-
-        // Check if a candidate was selected
-        if (selectedRadio) {
-          // Get the value (cardinal's name)
-          const selectedValue = selectedRadio.value;
-
-          // Display the selected candidate
-          selectionResultSpan.textContent = selectedValue;
-          selectedCandidateDiv.style.display = "block"; // Make the result div visible
-        } else {
-          // If no candidate is selected, display a message or hide the result div
-          const currentLang = document.documentElement.lang;
-          selectionResultSpan.textContent =
-            translations[currentLang].noCandidateSelected;
-          selectedCandidateDiv.style.display = "block"; // Show the message
+        // Initially hide the selected candidate display area
+        if (selectedCandidateDiv) {
+          selectedCandidateDiv.style.display = "none";
         }
+
+
+        // Add an event listener for the form submission
+        if (
+          ballotForm &&
+          selectedCandidateDiv &&
+          selectedCandidateImage &&
+          selectionResultSpan
+        ) {
+          ballotForm.addEventListener("submit", function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+
+            // Get the selected radio button
+            const selectedRadio = ballotForm.querySelector(
+              'input[name="cardinal"]:checked'
+            );
+
+            // Hide the image by default
+            selectedCandidateImage.classList.add("hidden");
+            selectedCandidateImage.src = ""; // Clear previous image
+
+            // Check if a candidate was selected
+            if (selectedRadio) {
+              // Get the value (cardinal's name) and image URL
+              const selectedValue = selectedRadio.value;
+              const imageUrl = selectedRadio.getAttribute("data-image-url");
+
+              // Display the selected candidate name
+              selectionResultSpan.textContent = selectedValue;
+
+              // Set the image source and make it visible if a URL exists
+              if (imageUrl) {
+                selectedCandidateImage.src = imageUrl;
+                selectedCandidateImage.classList.remove("hidden"); // Make image visible
+              }
+
+              // Show the selected candidate div
+              selectedCandidateDiv.style.display = "flex"; // Use flex to show image and text
+              selectedCandidateDiv.scrollIntoView({ behavior: "smooth" }); // Scroll into view after showing
+
+            } else {
+              // If no candidate is selected, hide the display area
+              selectedCandidateDiv.style.display = "none";
+              // Optionally, you could show a message to the user that they need to select a candidate
+              // alert("Please select a candidate before submitting.");
+            }
+          });
+        }
+
+        // Add event listeners to language buttons
+        if (languageButtons.length > 0) {
+          languageButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+              const lang = this.getAttribute("data-lang");
+              if (lang) {
+                updateStaticLanguage(lang); // Update static text
+                renderCandidates(lang); // Update candidates with new language
+              }
+            });
+          });
+        }
+
+        // Set default language and render candidates on page load
+        const defaultLang = "en";
+        updateStaticLanguage(defaultLang);
+        renderCandidates(defaultLang);
       });
-
-      // Add event listeners to language buttons
-      languageButtons.forEach((button) => {
-        button.addEventListener("click", function () {
-          const lang = this.getAttribute("data-lang");
-          updateStaticLanguage(lang); // Update static text
-          renderCandidates(lang); // Re-render candidates with new language
-        });
-      });
-
-      // Set default language and render candidates on page load
-      const defaultLang = "en";
-      updateStaticLanguage(defaultLang);
-      renderCandidates(defaultLang);
-
     </script>
   </body>
 </html>
