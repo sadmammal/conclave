@@ -20,7 +20,7 @@
         justify-content: center;
         align-items: flex-start;
         min-height: 100vh;
-        padding-bottom: 100px; /* Adjust this value based on the height of the sticky button */
+        /* Removed body padding-bottom as padding is now on right-column */
         transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
       }
 
@@ -113,10 +113,12 @@
       /* Right Column */
       .right-column {
         padding: 30px;
+        padding-bottom: 100px; /* Add padding at the bottom for the fixed button */
         display: grid;
         grid-template-columns: 1fr;
         gap: 30px;
         transition: background-color 0.3s ease; /* Smooth transition */
+        position: relative; /* Needed for z-index context if button is inside */
       }
 
       h1 {
@@ -283,7 +285,7 @@
         line-height: 1.5;
       }
 
-      /* Submit Button */
+      /* Submit Button Container */
       .submit-button-container {
         position: fixed;
         bottom: 0;
@@ -292,33 +294,53 @@
         background-color: #ffffff;
         padding: 15px 30px;
         box-sizing: border-box;
-        z-index: 10;
+        z-index: 1000;
         border-top: 1px solid #e2e8f0;
+        display: flex; /* Use flexbox to align buttons */
+        justify-content: center; /* Center buttons horizontally */
+        gap: 20px; /* Space between buttons */
         transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
       }
 
-      .submit-button {
+      /* Submit and Reset Buttons */
+      .submit-button,
+      .reset-button {
         display: block;
-        width: 100%;
-        max-width: 400px;
-        margin: 0 auto;
+        flex-grow: 0; /* Prevent buttons from stretching */
+        flex-shrink: 0; /* Prevent buttons from shrinking */
         padding: 15px 25px;
-        background-color: #8b1e3f;
-        color: #ffffff;
         border: none;
         border-radius: 6px;
         font-size: 1.2rem;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease, opacity 0.3s ease;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
       }
-      .submit-button:hover {
+
+      .submit-button {
+        background-color: #8b1e3f;
+        color: #ffffff;
+      }
+      .submit-button:hover:not(:disabled) {
         background-color: #6a1731;
       }
+      .submit-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
 
-      /* Selected Candidate */
+      .reset-button {
+          background-color: #e2e8f0; /* Light grey background */
+          color: #2d3748; /* Dark text */
+      }
+      .reset-button:hover {
+          background-color: #cbd5e0; /* Slightly darker grey on hover */
+      }
+
+
+      /* Selected Candidate & Feedback */
       .selected-candidate {
         margin-top: 40px;
         padding: 30px;
@@ -365,6 +387,20 @@
         border: 3px solid #6648b1;
         transition: border-color 0.3s ease; /* Smooth transition */
       }
+
+      /* Feedback Message Styles */
+      .feedback-message {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: #6648b1;
+          margin-top: 10px;
+          min-height: 1.5em; /* Reserve space to prevent layout shift */
+          transition: color 0.3s ease;
+      }
+      html.dark .feedback-message {
+          color: #9f7aea;
+      }
+
 
       /* Footer text */
       .footer-text {
@@ -424,6 +460,7 @@
         }
         .right-column {
           background-color: #2d3748; /* Darker background */
+          padding-bottom: 100px; /* Dark mode padding */
         }
 
         /* Dark mode headings */
@@ -484,6 +521,23 @@
           background-color: #2d3748;
           border-top-color: #4a5568;
         }
+
+        /* Dark mode submit and reset buttons */
+        html.dark .submit-button {
+            background-color: #9f7aea;
+        }
+         html.dark .submit-button:hover:not(:disabled) {
+            background-color: #b794f4;
+        }
+
+        html.dark .reset-button {
+            background-color: #4a5568;
+            color: #e2e8f0;
+        }
+        html.dark .reset-button:hover {
+            background-color: #636b7a;
+        }
+
 
         /* Dark mode selected candidate display */
         .selected-candidate {
@@ -547,6 +601,7 @@
         }
         .right-column {
           padding: 20px;
+          padding-bottom: 100px; /* Mobile padding */
           gap: 20px; /* Reduced gap */
         }
         h1 {
@@ -577,17 +632,20 @@
         }
         .submit-button-container {
           padding: 10px 20px; /* Adjusted padding for mobile */
+          flex-direction: column; /* Stack buttons vertically on mobile */
+          gap: 10px; /* Smaller gap on mobile */
         }
-        .submit-button {
-          padding: 12px 20px;
-          font-size: 1rem;
-          letter-spacing: 0.8px;
-          border-radius: 4px;
+        .submit-button,
+        .reset-button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            letter-spacing: 0.8px;
+            border-radius: 4px;
         }
         .selected-candidate {
           padding: 25px; /* Adjusted padding for mobile */
           font-size: 1.4rem; /* Adjusted size for mobile */
-          border-radius: 6px;
+          border-radius: 6mm;
         }
         .footer-text {
           margin-top: 30px;
@@ -610,6 +668,10 @@
           border-right: 1px solid #cbd5e0; /* Add right border */
           border-bottom: none; /* Remove bottom border */
         }
+        .submit-button-container {
+             flex-direction: row; /* Arrange buttons horizontally on larger screens */
+             gap: 20px; /* Larger gap on larger screens */
+        }
       }
 
       /* Desktop and larger (lg and up) - Further refinements if needed */
@@ -618,6 +680,129 @@
           max-width: 1200px;
         }
       } */
+
+      /* Confirmation Modal Styles */
+      .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.7);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 2000; /* Above the submit button */
+          visibility: hidden; /* Hidden by default */
+          opacity: 0;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .modal-overlay.visible {
+          visibility: visible;
+          opacity: 1;
+      }
+
+      .modal-content {
+          background-color: #ffffff;
+          padding: 30px;
+          border-radius: 8px;
+          text-align: center;
+          max-width: 500px;
+          width: 90%;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          transform: scale(0.95);
+          transition: transform 0.3s ease;
+      }
+
+       .modal-overlay.visible .modal-content {
+           transform: scale(1);
+       }
+
+      .modal-content h3 {
+          font-family: "Lora", serif;
+          color: #8b1e3f;
+          font-size: 1.8rem;
+          margin-bottom: 15px;
+      }
+
+      .modal-content p {
+          font-size: 1.1rem;
+          margin-bottom: 20px;
+          color: #4a5568;
+      }
+
+      .modal-content img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-bottom: 15px;
+          border: 3px solid #6648b1;
+      }
+
+      .modal-buttons {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+      }
+
+      .modal-button {
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 600;
+          transition: background-color 0.2s ease, opacity 0.2s ease;
+      }
+
+      .modal-button.confirm {
+          background-color: #6648b1;
+          color: #ffffff;
+      }
+
+      .modal-button.confirm:hover {
+          background-color: #4a3a9d;
+      }
+
+      .modal-button.cancel {
+          background-color: #e2e8f0;
+          color: #2d3748;
+      }
+
+      .modal-button.cancel:hover {
+          background-color: #cbd5e0;
+      }
+
+      /* Dark Mode Modal Styles */
+      html.dark .modal-content {
+          background-color: #2d3748;
+          color: #a0aec0;
+      }
+
+      html.dark .modal-content h3 {
+          color: #f56565;
+      }
+
+      html.dark .modal-content p {
+          color: #a0aec0;
+      }
+
+      html.dark .modal-content img {
+          border-color: #9f7aea;
+      }
+
+      html.dark .modal-button.cancel {
+          background-color: #4a5568;
+          color: #e2e8f0;
+      }
+
+      html.dark .modal-button.cancel:hover {
+          background-color: #636b7a;
+      }
+
+
     </style>
   </head>
   <body>
@@ -658,17 +843,6 @@
           </form>
         </div>
 
-        <div class="submit-button-container">
-          <button
-            type="submit"
-            class="submit-button"
-            form="ballotForm"
-            data-translate="submitButton"
-          >
-            Submit Ballot
-          </button>
-        </div>
-
         <div>
           <div
             id="selectedCandidate"
@@ -684,14 +858,47 @@
             />
             <span data-translate="selectionPrefix">Your selection:</span>
             <span id="selectionResult" class="font-semibold"></span>
+             <div id="feedbackMessage" class="feedback-message"></div>
           </div>
         </div>
 
         <p class="footer-text" data-translate="footerText">
           May your chosen candidate be guided by divine wisdom.
         </p>
+
+        <div class="submit-button-container">
+          <button
+            type="submit"
+            id="submitBallotButton"  class="submit-button"
+            form="ballotForm"
+            data-translate="submitButton"
+          >
+            Submit Ballot
+          </button>
+           <button
+            type="button"
+            id="resetBallotButton"  class="reset-button"
+            data-translate="resetButton"
+          >
+            Reset Ballot
+          </button>
+        </div>
       </div>
     </div>
+
+    <div id="confirmationModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <h3 data-translate="confirmSelectionTitle">Confirm Your Selection</h3>
+            <p data-translate="confirmSelectionText">You have selected:</p>
+            <img id="modalCandidateImage" src="" alt="Selected Cardinal" class="hidden mx-auto" />
+            <p><span id="modalCandidateName" class="font-semibold"></span></p>
+            <div class="modal-buttons">
+                <button id="confirmSubmitButton" class="modal-button confirm" data-translate="confirmButton">Confirm</button>
+                <button id="cancelSubmitButton" class="modal-button cancel" data-translate="cancelButton">Cancel</button>
+            </div>
+        </div>
+    </div>
+
 
     <script>
       // Candidate data array with translations and image URLs
@@ -743,7 +950,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/FF5733/ffffff?text=Ambongo", // Different placeholder
         },
         {
           id: "cardinal_arborelius",
@@ -755,7 +962,7 @@
           age: 75,
           role: {
             en: "Bishop of Stockholm. First Swedish cardinal.",
-            es: "Obispo de Estocolmo. Primer cardenal sueco.",
+            es: "Obispo de Estocolm. Primer cardenal sueco.",
           },
           country: {
             en: "Sweden",
@@ -789,10 +996,10 @@
           },
           createdBy: {
             en: "Pope Francis",
-            es: "Papa Francisco",
+            es: "Papa Francis",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/33FF57/ffffff?text=Arborelius", // Different placeholder
         },
         {
           id: "cardinal_aveline",
@@ -841,7 +1048,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/5733FF/ffffff?text=Aveline", // Different placeholder
         },
         {
           id: "cardinal_bagnasco",
@@ -878,7 +1085,7 @@
             },
             marriage: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, pero generalmente conservador).",
+              es: "(Postura específica no disponible, but generalmente conservador).",
             },
           },
           leaning: {
@@ -890,7 +1097,7 @@
             es: "Papa Benedicto XVI",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/FF33A1/ffffff?text=Bagnasco", // Different placeholder
         },
         {
           id: "cardinal_bo",
@@ -939,7 +1146,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/33A1FF/ffffff?text=Bo", // Different placeholder
         },
         {
           id: "cardinal_brislin",
@@ -964,7 +1171,7 @@
             },
             women: {
               en: "Reaffirmed prohibition against women's ordination but allowed a dissident group supporting women priests in his diocese.",
-              es: "Reafirmó la prohibición contra la ordenación de mujeres pero permitió un grupo disidente que apoya a mujeres sacerdotes en su diócesis.",
+              es: "Reafirmó la prohibición contra la ordenación de mujeres but permitió un grupo disidente que apoya a mujeres sacerdotes en su diócesis.",
             },
             sameSex: {
               en: "Supported <em>Fiducia Supplicans</em>, emphasizing the union isn't blessed and chastity.",
@@ -972,7 +1179,7 @@
             },
             humanae: {
               en: "(Specific stance not readily available, but addresses social issues with a 'seamless garment' approach).",
-              es: "(Postura específica no disponible, pero aborda temas sociales con un enfoque de 'tejido sin costuras').",
+              es: "(Postura específica no disponible, but aborda temas sociales con un enfoque de 'tejido sin costuras').",
             },
             marriage: {
               en: "(Specific stance not readily available)",
@@ -988,7 +1195,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/AA33FF/ffffff?text=Brislin", // Different placeholder
         },
         {
           id: "cardinal_burke",
@@ -1034,10 +1241,10 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedicto XVI",
+            es: "Papa Benedict XVI",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/FF3333/ffffff?text=Burke", // Different placeholder
         },
         {
           id: "cardinal_eijk",
@@ -1058,23 +1265,23 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, pero generalmente conservador).",
+              es: "(Postura específica no disponible, but generalmente conservador).",
             },
             women: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, pero generalmente conservador).",
+              es: "(Postura específica no disponible, but generalmente conservador).",
             },
             sameSex: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, pero generalmente conservador).",
+              es: "(Postura específica no disponible, but generalmente conservador).",
             },
             humanae: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, pero generalmente conservador).",
+              es: "(Postura específica no disponible, but generalmente conservador).",
             },
             marriage: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, pero generalmente conservador).",
+              es: "(Postura específica no disponible, but generalmente conservador).",
             },
           },
           leaning: {
@@ -1083,10 +1290,10 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedicto XVI",
+            es: "Papa Benedict XVI",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/33FFD1/ffffff?text=Eijk", // Different placeholder
         },
         {
           id: "cardinal_erdo",
@@ -1107,7 +1314,7 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but focus on canon law might suggest caution).",
-              es: "(Postura específica no disponible, pero el enfoque en el derecho canónico podría sugerir cautela).",
+              es: "(Postura específica no disponible, but el enfoque en el derecho canónico podría sugerir cautela).",
             },
             women: {
               en: "Opposed to ordaining women as deacons.",
@@ -1115,7 +1322,7 @@
             },
             sameSex: {
               en: "Firmly against the acceptance of homosexual unions, but favors pastoral support.",
-              es: "Firmemente en contra de la aceptación de uniones homosexuales, pero favorece el apoyo pastoral.",
+              es: "Firmemente en contra de la aceptación de uniones homosexuales, but favorece el apoyo pastoral.",
             },
             humanae: {
               en: "Strongly pro-life (implies upholding Humanae Vitae).",
@@ -1128,14 +1335,14 @@
           },
           leaning: {
             en: "Seen as a staunch conservative, but pragmatic.",
-            es: "Visto como un conservador acérrimo, pero pragmático.",
+            es: "Visto como un conservador acérrimo, but pragmático.",
           },
           createdBy: {
             en: "Pope John Paul II",
             es: "Papa Juan Paul II",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/FFC300/ffffff?text=Erdo", // Different placeholder
         },
         {
           id: "cardinal_filoni",
@@ -1181,10 +1388,10 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedicto XVI",
+            es: "Papa Benedict XVI",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/C70039/ffffff?text=Filoni", // Different placeholder
         },
         {
           id: "cardinal_koch",
@@ -1209,7 +1416,7 @@
             },
             women: {
               en: 'Previously said female priesthood is "desirable" but later stated sacramental priesthood is linked to the male sex.',
-              es: 'Anteriormente dijo que el sacerdocio femenino es "deseable" pero luego afirmó que el sacerdocio sacramental está ligado al sexo masculino.',
+              es: 'Anteriormente dijo que el sacerdocio femenino es "deseable" but luego afirmó que el sacerdocio sacramental está ligado al sexo masculino.',
             },
             sameSex: {
               en: "(Specific stance not readily available)",
@@ -1230,10 +1437,10 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedicto XVI",
+            es: "Papa Benedict XVI",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/900C3F/ffffff?text=Koch", // Different placeholder
         },
         {
           id: "cardinal_mendonca",
@@ -1262,7 +1469,7 @@
             },
             sameSex: {
               en: 'Sympathizing with "tolerant approaches to homosexuality" mentioned, but reportedly not publicly against Church teaching.',
-              es: 'Mencionada simpatía con "enfoques tolerantes hacia la homosexualidad", pero según se informa, no públicamente en contra de la enseñanza de la Iglesia.',
+              es: 'Mencionada simpatía con "enfoques tolerantes hacia la homosexualidad", but según se informa, no públicamente en contra de la enseñanza de la Iglesia.',
             },
             humanae: {
               en: "Allying with a sister who promotes abortion mentioned (seen as engaging with culture).",
@@ -1282,7 +1489,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/581845/ffffff?text=Mendonca", // Different placeholder
         },
         {
           id: "cardinal_muller",
@@ -1331,7 +1538,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/FF0000/ffffff?text=Muller", // Different placeholder
         },
         {
           id: "cardinal_ouellet",
@@ -1352,23 +1559,23 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+              es: "(Postura específica no disponible, but antecedentes tradicionales).",
             },
             women: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+              es: "(Postura específica no disponible, but antecedentes tradicionales).",
             },
             sameSex: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+              es: "(Postura específica no disponible, but antecedentes tradicionales).",
             },
             humanae: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+              es: "(Postura específica no disponible, but antecedentes tradicionales).",
             },
             marriage: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, pero antecedentes tradicionales).",
+              es: "(Postura específica no disponible, but antecedentes tradicionales).",
             },
           },
           leaning: {
@@ -1380,7 +1587,7 @@
             es: "Papa Juan Pablo II",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/00FF00/ffffff?text=Ouellet", // Different placeholder
         },
         {
           id: "cardinal_parolin",
@@ -1429,7 +1636,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/0000FF/ffffff?text=Parolin", // Different placeholder
         },
         {
           id: "cardinal_piacenza",
@@ -1475,10 +1682,10 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedicto XVI",
+            es: "Papa Benedict XVI",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/FFFF00/000000?text=Piacenza", // Different placeholder
         },
         {
           id: "cardinal_pizzaballa",
@@ -1527,7 +1734,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/FF00FF/ffffff?text=Pizzaballa", // Different placeholder
         },
         {
           id: "cardinal_ranjith",
@@ -1552,7 +1759,7 @@
             },
             women: {
               en: "(Specific stance not readily available, but traditional approach to practice).",
-              es: "(Postura específica no disponible, pero enfoque tradicional a la práctica).",
+              es: "(Postura específica no disponible, but enfoque tradicional a la práctica).",
             },
             sameSex: {
               en: "Takes an uncompromising view, upholding Church teaching.",
@@ -1573,10 +1780,10 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedicto XVI",
+            es: "Papa Benedict XVI",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/00FFFF/000000?text=Ranjith", // Different placeholder
         },
         {
           id: "cardinal_sarah",
@@ -1597,11 +1804,11 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but generally critical of perceived deviations).",
-              es: "(Postura específica no disponible, pero generalmente crítico de las desviaciones percibidas).",
+              es: "(Postura específica no disponible, but generalmente crítico de las desviaciones percibidas).",
             },
             women: {
               en: "(Specific stance not readily available, but generally traditionalist).",
-              es: "(Postura específica no disponible, pero generalmente tradicionalista).",
+              es: "(Postura específica no disponible, but generalmente tradicionalista).",
             },
             sameSex: {
               en: "Vocal defender of conservative moral teachings (implies opposition).",
@@ -1622,10 +1829,10 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedicto XVI",
+            es: "Papa Benedict XVI",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/800080/ffffff?text=Sarah", // Different placeholder
         },
         {
           id: "cardinal_sturla",
@@ -1674,7 +1881,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/FFA500/ffffff?text=Sturla", // Different placeholder
         },
         {
           id: "cardinal_tagle",
@@ -1695,7 +1902,7 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but aligns with Francis on evangelization).",
-              es: "(Postura específica no disponible, pero se alinea con Francisco en evangelización).",
+              es: "(Postura específica no disponible, but se alinea con Francisco en evangelización).",
             },
             women: {
               en: "(Specific stance not readily available).",
@@ -1720,10 +1927,10 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedicto XVI",
+            es: "Papa Benedict XVI",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/4169E1/ffffff?text=Tagle", // Different placeholder
         },
         {
           id: "cardinal_zuppi",
@@ -1747,7 +1954,7 @@
               es: "Probablemente de apoyo, cercano a Francisco.",
             },
             women: {
-              en: "Does not exclude optional priestly celibacy (mentioning Eastern Rites).",
+              en: "Does not exclude optional priestly celibacy (mencionando Eastern Rites).",
               es: "No excluye el celibato sacerdotal opcional (mencionando los Ritos Orientales).",
             },
             sameSex: {
@@ -1756,7 +1963,7 @@
             },
             humanae: {
               en: "(Specific stance not readily available, but focus on pastoral care and poor).",
-              es: "(Postura específica no disponible, pero enfoque en la atención pastoral y los pobres).",
+              es: "(Postura específica no disponible, but enfoque en la atención pastoral y los pobres).",
             },
             marriage: {
               en: "Supports a new pastoral attitude towards divorced and civilly 'remarried.'",
@@ -1772,7 +1979,7 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/e2e8f0/2d3748?text=Cardinal",
+          imageUrl: "https://placehold.co/100x100/D2B48C/ffffff?text=Zuppi", // Different placeholder
         },
       ];
 
@@ -1790,6 +1997,7 @@
           keyIssuesToggleCollapsed:
             "<strong>Key Issues:</strong> (Click to collapse)",
           submitButton: "Submit Ballot",
+          resetButton: "Reset Ballot", // New translation
           selectionPrefix: "Your selection:",
           footerText: "May your chosen candidate be guided by divine wisdom.",
           ageLabel: "Age:",
@@ -1804,6 +2012,13 @@
           createdLabel: "Created by:",
           noCandidateSelected: "No candidate selected.",
           darkModeToggleLabel: "Toggle Dark Mode",
+          submittingMessage: "Submitting your ballot...", // New translation
+          submittedMessage: "Ballot Submitted!", // New translation
+          selectCandidateMessage: "Please select a candidate before submitting.", // New translation
+          confirmSelectionTitle: "Confirm Your Selection", // New translation
+          confirmSelectionText: "You have selected:", // New translation
+          confirmButton: "Confirm", // New translation
+          cancelButton: "Cancel", // New translation
         },
         es: {
           pageTitle: "Boleta del Sagrado Cónclave",
@@ -1818,6 +2033,7 @@
           keyIssuesToggleCollapsed:
             "<strong>Asuntos relevante:</strong> (Clic para colapsar)",
           submitButton: "Enviar Boleta",
+          resetButton: "Reiniciar Boleta", // New translation
           selectionPrefix: "Su selección:",
           footerText:
             "Que su candidato elegido sea guiado por la sabiduría divina.",
@@ -1833,6 +2049,13 @@
           createdLabel: "Creado por:",
           noCandidateSelected: "Ningún candidato seleccionado.",
           darkModeToggleLabel: "Cambiar a modo oscuro",
+          submittingMessage: "Enviando su boleta...", // New translation
+          submittedMessage: "Boleta Enviada!", // New translation
+          selectCandidateMessage: "Por favor, seleccione un candidato antes de enviar.", // New translation
+          confirmSelectionTitle: "Confirmar su selección", // New translation
+          confirmSelectionText: "Ha seleccionado:", // New translation
+          confirmButton: "Confirmar", // New translation
+          cancelButton: "Cancelar", // New translation
         },
       };
 
@@ -1866,7 +2089,7 @@
                   </li>
                   <li>
                     <span class="key-issues-toggle" role="button" aria-expanded="false" aria-controls="${candidate.id}_issues">
-                      <strong data-translate="keyIssuesToggleLabel">${t.keyIssuesToggle}</strong>
+                      <strong data-translate="keyIssuesToggle">${t.keyIssuesToggle.replace(/<\/?strong>/g, '')}</strong>
                     </span>
                     <div class="key-issues-content" id="${candidate.id}_issues" aria-hidden="true">
                       <ul>
@@ -1910,7 +2133,7 @@
 
       // Function to update the content of existing candidate HTML elements
       function updateCandidateHTML(candidateElement, candidateData, lang) {
-        const t = translations[lang];
+        const t = translations[lang]; // Get current language translations
 
         // Update name and flag
         const nameElement = candidateElement.querySelector("h3");
@@ -1985,7 +2208,7 @@
         // Update label's 'for' attribute
         const labelElement = candidateElement.querySelector("label");
         if (labelElement && radioInput) {
-          labelElement.setAttribute("for", candidateData.id);
+          labelElement.setAttribute("for", radioInput.id);
         }
 
         // Update the key issues toggle text based on current state and language
@@ -2010,7 +2233,10 @@
       // Function to render candidates (initial render) or update (language change)
       function renderCandidates(lang) {
         const candidateGrid = document.getElementById("candidateGrid");
-        if (!candidateGrid) return; // Error handling
+        if (!candidateGrid) {
+            console.error("renderCandidates: candidateGrid element not found!"); // Specific error log
+            return; // Error handling
+        }
 
         const candidateSections =
           candidateGrid.querySelectorAll(".candidate-section");
@@ -2071,6 +2297,37 @@
         if (darkModeToggle) {
           darkModeToggle.textContent = translations[lang].darkModeToggleLabel;
         }
+
+        // Update feedback messages if they are currently displayed
+        const feedbackMessageElement = document.getElementById("feedbackMessage");
+        if (feedbackMessageElement && feedbackMessageElement.textContent) {
+            const currentText = feedbackMessageElement.textContent;
+            const langKeys = Object.keys(translations.en); // Use English keys as reference
+
+            for (const key of langKeys) {
+                if (translations.en[key] === currentText) {
+                    feedbackMessageElement.textContent = translations[lang][key];
+                    break;
+                }
+            }
+        }
+
+        // Update modal text based on current language
+        const modalTitle = document.querySelector('#confirmationModalOverlay [data-translate="confirmSelectionTitle"]');
+        if (modalTitle) modalTitle.textContent = translations[lang].confirmSelectionTitle;
+        const modalText = document.querySelector('#confirmationModalOverlay [data-translate="confirmSelectionText"]');
+        if (modalText) modalText.textContent = translations[lang].confirmSelectionText;
+        const confirmButton = document.querySelector('#confirmationModalOverlay [data-translate="confirmButton"]');
+        if (confirmButton) confirmButton.textContent = translations[lang].confirmButton;
+        const cancelButton = document.querySelector('#confirmationModalOverlay [data-translate="cancelButton"]');
+        if (cancelButton) cancelButton.textContent = translations[lang].cancelButton;
+
+        // Update reset button text based on current language
+        const resetButton = document.getElementById("resetBallotButton");
+        if (resetButton) {
+             resetButton.textContent = translations[lang].resetButton;
+        }
+
       }
 
       // Function to attach event listeners (called after initial rendering candidates)
@@ -2143,6 +2400,84 @@
         }
       }
 
+      // Function to show the confirmation modal
+      function showConfirmationModal(candidateName, imageUrl) {
+          const modalOverlay = document.getElementById("confirmationModalOverlay");
+          const modalCandidateName = document.getElementById("modalCandidateName");
+          const modalCandidateImage = document.getElementById("modalCandidateImage");
+
+          if (modalOverlay && modalCandidateName && modalCandidateImage) {
+              modalCandidateName.textContent = candidateName;
+              if (imageUrl) {
+                  modalCandidateImage.src = imageUrl;
+                  modalCandidateImage.classList.remove("hidden");
+              } else {
+                   modalCandidateImage.classList.add("hidden");
+                   modalCandidateImage.src = ""; // Clear src if no image
+              }
+              modalOverlay.classList.add("visible");
+          } else {
+              console.error("Confirmation modal elements not found!");
+          }
+      }
+
+      // Function to hide the confirmation modal
+      function hideConfirmationModal() {
+          const modalOverlay = document.getElementById("confirmationModalOverlay");
+          if (modalOverlay) {
+              modalOverlay.classList.remove("visible");
+          }
+      }
+
+      // Function to reset the ballot
+      function resetBallot() {
+          const ballotForm = document.getElementById("ballotForm");
+          const selectedCandidateDiv = document.getElementById("selectedCandidate");
+          const selectedCandidateImage = document.getElementById("selectedCandidateImage");
+          const selectionResultSpan = document.getElementById("selectionResult");
+          const feedbackMessageElement = document.getElementById("feedbackMessage");
+          const submitButton = document.getElementById('submitBallotButton');
+          const currentLang = document.documentElement.lang; // Get current language
+
+          if (ballotForm) {
+              // Uncheck all radio buttons in the form
+              const selectedRadio = ballotForm.querySelector('input[name="cardinal"]:checked');
+              if (selectedRadio) {
+                  selectedRadio.checked = false;
+              }
+          }
+
+          // Collapse all expanded key issues sections
+          const expandedIssues = document.querySelectorAll('.key-issues-content.active');
+          expandedIssues.forEach(content => {
+              content.classList.remove('active');
+              content.setAttribute('aria-hidden', 'true');
+              const toggle = content.previousElementSibling; // Get the preceding toggle span
+              if (toggle && toggle.classList.contains('key-issues-toggle')) {
+                  toggle.setAttribute('aria-expanded', 'false');
+                   const toggleLabelStrong = toggle.querySelector("strong");
+                   if (toggleLabelStrong) {
+                       // Update the text to the collapsed state translation
+                       toggleLabelStrong.textContent = translations[currentLang].keyIssuesToggle.replace(/<\/?strong>/g, '');
+                   }
+              }
+          });
+
+
+          // Clear and hide the selected candidate display
+          if (selectedCandidateDiv) selectedCandidateDiv.style.display = "none";
+          if (selectedCandidateImage) {
+              selectedCandidateImage.classList.add("hidden");
+              selectedCandidateImage.src = "";
+          }
+          if (selectionResultSpan) selectionResultSpan.textContent = "";
+          if (feedbackMessageElement) feedbackMessageElement.textContent = "";
+
+          // Ensure the submit button is enabled
+          if (submitButton) submitButton.disabled = false;
+      }
+
+
       // Wrap main logic in DOMContentLoaded
       window.addEventListener("DOMContentLoaded", function () {
         // Get the form and the result display area
@@ -2154,6 +2489,15 @@
         ); // Get the image element
         const selectionResultSpan = document.getElementById("selectionResult");
         const languageButtons = document.querySelectorAll(".language-button");
+        // Updated to get button by ID
+        const submitButton = document.getElementById('submitBallotButton');
+        const resetButton = document.getElementById('resetBallotButton'); // Get the reset button
+        const feedbackMessageElement = document.getElementById("feedbackMessage"); // Get the feedback message element
+
+        // Get modal buttons
+        const confirmSubmitButton = document.getElementById("confirmSubmitButton");
+        const cancelSubmitButton = document.getElementById("cancelSubmitButton");
+
 
         // Check for saved dark mode preference on load
         const savedDarkMode = localStorage.getItem("darkMode");
@@ -2166,7 +2510,12 @@
           ballotForm &&
           selectedCandidateDiv &&
           selectedCandidateImage &&
-          selectionResultSpan
+          selectionResultSpan &&
+          submitButton &&
+          resetButton && // Check for reset button
+          feedbackMessageElement &&
+          confirmSubmitButton && // Check for new modal buttons
+          cancelSubmitButton
         ) {
           ballotForm.addEventListener("submit", function (event) {
             // Prevent the default form submission
@@ -2175,10 +2524,15 @@
             const selectedRadio = ballotForm.querySelector(
               'input[name="cardinal"]:checked'
             );
+            const currentLang = document.documentElement.lang; // Get current language
 
-            // Hide the image by default
+            // Hide previous selection details and feedback
             selectedCandidateImage.classList.add("hidden");
-            selectedCandidateImage.src = ""; // Clear previous image
+            selectedCandidateImage.src = "";
+            selectionResultSpan.textContent = "";
+            feedbackMessageElement.textContent = "";
+            selectedCandidateDiv.style.display = "none"; // Hide the whole div initially
+
 
             // Check if a candidate was selected
             if (selectedRadio) {
@@ -2186,28 +2540,92 @@
               const selectedValue = selectedRadio.value;
               const imageUrl = selectedRadio.getAttribute("data-image-url");
 
-              // Display the selected candidate name
-              selectionResultSpan.textContent = selectedValue;
+              // Show the confirmation modal
+              showConfirmationModal(selectedValue, imageUrl);
 
-              // Set the image source and make it visible if a URL exists
-              if (imageUrl) {
-                selectedCandidateImage.src = imageUrl;
-                selectedCandidateImage.classList.remove("hidden"); // Make image visible
-              }
-
-              // Show the selected candidate div
-              selectedCandidateDiv.style.display = "flex"; // Use flex to show image and text
-              selectedCandidateDiv.scrollIntoView({ behavior: "smooth" }); // Scroll only if shown
             } else {
-              // If no candidate is selected, display a message and keep the div hidden
-              const currentLang = document.documentElement.lang;
-              selectionResultSpan.textContent =
-                translations[currentLang].noCandidateSelected;
-              // Keep the div hidden
-              selectedCandidateDiv.style.display = "none";
+              // If no candidate is selected, display a message
+              feedbackMessageElement.textContent = translations[currentLang].selectCandidateMessage;
+              selectedCandidateDiv.style.display = "flex"; // Show the div to display the message
+              selectedCandidateDiv.scrollIntoView({ behavior: "smooth" });
             }
           });
+
+          // Add event listener for the Confirm button in the modal
+          confirmSubmitButton.addEventListener("click", function() {
+              hideConfirmationModal(); // Hide the modal
+
+              const selectedRadio = ballotForm.querySelector(
+                'input[name="cardinal"]:checked'
+              );
+              const currentLang = document.documentElement.lang; // Get current language
+
+              if (selectedRadio) {
+                // Disable the submit button and show submitting message
+                submitButton.disabled = true;
+                feedbackMessageElement.textContent = translations[currentLang].submittingMessage;
+                selectedCandidateDiv.style.display = "flex"; // Show the div to display the message
+                selectedCandidateDiv.scrollIntoView({ behavior: "smooth" });
+
+                // Simulate submission time
+                setTimeout(() => {
+                  // Get the value (cardinal's name) and image URL
+                  const selectedValue = selectedRadio.value;
+                  const imageUrl = selectedRadio.getAttribute("data-image-url");
+
+                  // Display the selected candidate name
+                  selectionResultSpan.textContent = selectedValue;
+
+                  // Set the image source and make it visible if a URL exists
+                  if (imageUrl) {
+                    selectedCandidateImage.src = imageUrl;
+                    selectedCandidateImage.classList.remove("hidden"); // Make image visible
+                  }
+
+                  // Show submitted message
+                  feedbackMessageElement.textContent = translations[currentLang].submittedMessage;
+
+                  // Re-enable the submit button after a short delay or on a "reset" action
+                   setTimeout(() => {
+                       submitButton.disabled = false;
+                   }, 1000); // Re-enable after 1 second
+
+                }, 2000); // Simulate a 2-second submission process
+              } else {
+                  // Should not happen if modal is shown only when candidate is selected,
+                  // but as a fallback:
+                  feedbackMessageElement.textContent = translations[currentLang].selectCandidateMessage;
+                  selectedCandidateDiv.style.display = "flex";
+                  selectedCandidateDiv.scrollIntoView({ behavior: "smooth" });
+              }
+          });
+
+          // Add event listener for the Cancel button in the modal
+          cancelSubmitButton.addEventListener("click", function() {
+              hideConfirmationModal(); // Hide the modal
+              // No need to re-enable the submit button here, as it wasn't disabled yet
+          });
+
+          // Add event listener for the Reset button
+          resetButton.addEventListener("click", function() {
+              resetBallot(); // Call the reset function
+          });
+
+
+        } else {
+            // More specific logging to see which element is null
+            console.error("DOMContentLoaded: One or more required elements not found!");
+            if (!ballotForm) console.error("DOMContentLoaded: ballotForm not found!");
+            if (!selectedCandidateDiv) console.error("DOMContentLoaded: selectedCandidateDiv not found!");
+            if (!selectedCandidateImage) console.error("DOMContentLoaded: selectedCandidateImage not found!");
+            if (!selectionResultSpan) console.error("DOMContentLoaded: selectionResultSpan not found!");
+            if (!submitButton) console.error("DOMContentLoaded: submitButton not found by ID 'submitBallotButton'!"); // Specific log for button
+            if (!resetButton) console.error("DOMContentLoaded: resetButton not found by ID 'resetBallotButton'!"); // Specific log for reset button
+            if (!feedbackMessageElement) console.error("DOMContentLoaded: feedbackMessageElement not found!");
+            if (!confirmSubmitButton) console.error("DOMContentLoaded: confirmSubmitButton not found!");
+            if (!cancelSubmitButton) console.error("DOMContentLoaded: cancelSubmitButton not found!");
         }
+
 
         // Add event listeners to language buttons
         if (languageButtons.length > 0) {
@@ -2217,6 +2635,16 @@
               if (lang) {
                 updateStaticLanguage(lang); // Update static text
                 renderCandidates(lang); // Update candidates with new language
+                // Also update the feedback message if it's visible
+                const feedbackMessageElement = document.getElementById("feedbackMessage");
+                if (feedbackMessageElement && feedbackMessageElement.textContent) {
+                     const currentText = feedbackMessageElement.textContent;
+                     // Find the corresponding key in the English translations
+                     const englishKey = Object.keys(translations.en).find(key => translations.en[key] === currentText);
+                     if (englishKey && translations[lang][englishKey]) {
+                         feedbackMessageElement.textContent = translations[lang][englishKey];
+                     }
+                }
               }
             });
           });
