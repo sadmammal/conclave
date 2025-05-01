@@ -3,42 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-translate="pageTitle">Sacred Conclave Ballot</title>
+    <title data-translate="pageTitle">Fantasy Conclave Vote</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Manrope:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
-      /* Base styles */
+      /*
+      =========================================================================
+      CSS Styles
+      This section defines the visual appearance and layout of the page
+      using custom CSS rules and Tailwind CSS classes. It includes styles
+      for general elements, layout containers, interactive components,
+      modals, and responsive adjustments.
+      =========================================================================
+      */
+
+      /* Base styles for the body */
       body {
         font-family: "Manrope", sans-serif;
         line-height: 1.6;
         padding: 0;
         margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        min-height: 100vh;
-        /* Removed body padding-bottom as padding is now on right-column */
-        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        background-color: #f3f4f6;
+        color: #2d3748;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        padding-top: 80px;
       }
-
+      /* Container for the main two-column layout */
       .container {
         width: 100%;
         max-width: 1000px;
         margin: 40px auto;
         padding: 0;
-        border-radius: 12px;
-        border: none;
-        display: grid;
-        grid-template-columns: 1fr 1.8fr;
-        gap: 0;
+        border-radius: 12mm;
         overflow: hidden;
-        transition: background-color 0.3s ease; /* Smooth transition */
+        display: grid;
+        grid-template-columns: minmax(auto, 400px) 1fr;
+        gap: 0;
       }
 
-      /* Language Toggle */
+      /* Styles for the language toggle buttons */
       .language-toggle {
         position: absolute;
         top: 20px;
@@ -46,7 +52,7 @@
         z-index: 20;
         display: inline-flex;
         border: 1px solid #cbd5e0;
-        border-radius: 4px;
+        border-radius: 4mm;
         overflow: hidden;
         background-color: #ffffff;
       }
@@ -73,72 +79,71 @@
       }
 
       .language-button.active {
-        background-color: #6648b1;
+        background-color: #8b1e3f;
         color: #ffffff;
       }
 
-      /* Dark Mode Toggle */
+      /* Styles for the dark mode toggle button */
       .dark-mode-toggle {
         position: absolute;
         top: 20px;
-        right: 120px; /* Position next to language toggle */
+        right: 120px;
         z-index: 20;
+      }
+
+      .dark-mode-button {
         padding: 6px 10px;
-        border: 1px solid #cbd5e0;
-        border-radius: 4px;
         background-color: #ffffff;
+        color: #4a5568;
+        border: 1px solid #cbd5e0;
+        border-radius: 4mm;
         cursor: pointer;
         font-size: 0.85rem;
         font-weight: 600;
         transition: background-color 0.2s ease, color 0.2s ease,
           border-color 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 4px;
       }
 
-      .dark-mode-toggle:hover {
+      .dark-mode-button:hover {
         background-color: #edf2f7;
         color: #2d3748;
+        border-color: #a0aec0;
       }
 
-      /* Left Column */
+      /* Styles for the left content column */
       .left-column {
         padding: 30px;
-        border-right: 1px solid #cbd5e0;
+        background-color: #ffffff;
+        border-right: 1px solid #e2e8f0;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         gap: 20px;
-        transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+        transition: background-color 0.3s ease, border-color 0.3s ease;
       }
 
-      /* Right Column */
+      /* Styles for the right content column */
       .right-column {
         padding: 30px;
-        padding-bottom: 100px; /* Add padding at the bottom for the fixed button */
+        background-color: #ffffff;
         display: grid;
-        grid-template-columns: 1fr;
         gap: 30px;
-        transition: background-color 0.3s ease; /* Smooth transition */
-        position: relative; /* Needed for z-index context if button is inside */
+        transition: background-color 0.3s ease;
+        padding-bottom: 120px;
       }
 
+      /* Typography styles for headings and paragraphs */
       h1 {
         font-family: "Lora", serif;
         color: #8b1e3f;
         text-align: left;
         margin-top: 0;
-        margin-bottom: 0;
-        font-size: 4rem;
-        font-weight: 700;
-        line-height: 1.1;
-        text-transform: none;
-        border-bottom: none;
-        padding-bottom: 0;
-        transition: color 0.3s ease; /* Smooth transition */
-      }
-      .left-column h1 {
         margin-bottom: 20px;
+        line-height: 1.1;
       }
-
       h2 {
         font-family: "Lora", serif;
         color: #6648b1;
@@ -148,7 +153,7 @@
         font-weight: 700;
         border-bottom: 1px solid #e2e8f0;
         padding-bottom: 6px;
-        transition: color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+        transition: color 0.3s ease, border-color 0.3s ease;
       }
       h3 {
         font-family: "Manrope", sans-serif;
@@ -160,7 +165,7 @@
         display: flex;
         align-items: center;
         line-height: 1.4;
-        transition: color 0.3s ease; /* Smooth transition */
+        transition: color 0.3s ease;
       }
       h3 .flag {
         margin-left: 8px;
@@ -171,7 +176,7 @@
         text-align: left;
         font-size: 0.9rem;
         line-height: 1.7;
-        transition: color 0.3s ease; /* Smooth transition */
+        transition: color 0.3s ease;
       }
       ul {
         list-style: none;
@@ -181,15 +186,15 @@
       ul li {
         margin-bottom: 6px;
         font-size: 0.9rem;
-        transition: color 0.3s ease; /* Smooth transition */
+        transition: color 0.3s ease;
       }
       strong {
         color: #4a5568;
         font-weight: 600;
-        transition: color 0.3s ease; /* Smooth transition */
+        transition: color 0.3s ease;
       }
 
-      /* Candidate Grid */
+      /* Styles for the grid layout of candidate selections */
       .candidate-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -199,43 +204,113 @@
       }
 
       .candidate-section {
-        /* Removed direct styling, moved to label */
       }
 
-      /* Candidate Label */
+      /* Styles for individual candidate labels (clickable areas) */
       .candidate-label {
         display: flex;
         align-items: flex-start;
         border: 1px solid #e2e8f0;
         padding: 20px;
-        border-radius: 8px;
+        border-radius: 8mm;
         background-color: #ffffff;
+        color: #2d3748;
         cursor: pointer;
         transition: background-color 0.3s ease-in-out,
-          border-color 0.3s ease-in-out;
+          border-color 0.3s ease-in-out, color 0.3s ease;
         height: 100%;
         box-sizing: border-box;
         position: relative;
-      }
-
-      .candidate-section:nth-child(odd) .candidate-label {
-        background-color: #f7fafc;
       }
 
       .candidate-label:hover {
         background-color: #edf2f7;
       }
 
-      /* Style for the selected candidate */
-      .candidate-section input[type="radio"]:checked + .candidate-label {
-        background-color: #e2e8f0;
+      .candidate-label.selected {
         border-color: #6648b1;
       }
 
-      .candidate-section input[type="radio"] {
+      /* Styles for the rank indicator circle */
+      .rank-indicator {
         position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+        font-size: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         opacity: 0;
-        pointer-events: none;
+        transition: opacity 0.3s ease, background-color 0.3s ease,
+          border-color 0.3s ease, color 0.3s ease;
+      }
+
+      .candidate-label.selected .rank-indicator {
+        opacity: 1;
+      }
+
+      /* Color coding for selected ranks */
+      .candidate-label.selected.rank-1 {
+        background-color: #fffacd;
+        border-color: #daa520;
+      }
+      body.dark-mode .candidate-label.selected.rank-1 {
+        background-color: #4a4020; /* Dark Gold */
+        border-color: #c0a040; /* Muted Gold */
+        color: #e0e0e0; /* Primary Text */
+      }
+      .candidate-label.selected.rank-1 .rank-indicator {
+        background-color: #daa520;
+        border-color: #fffacd;
+      }
+      body.dark-mode .candidate-label.selected.rank-1 .rank-indicator {
+        background-color: #c0a040; /* Muted Gold */
+        border-color: #4a4020; /* Dark Gold */
+        color: #e0e0e0; /* Primary Text */
+      }
+
+      .candidate-label.selected.rank-2 {
+        background-color: #e6e6fa;
+        border-color: #b0c4de;
+      }
+      body.dark-mode .candidate-label.selected.rank-2 {
+        background-color: #304040; /* Dark Blue-Gray */
+        border-color: #80a0a0; /* Muted Blue-Gray */
+        color: #e0e0e0; /* Primary Text */
+      }
+      .candidate-label.selected.rank-2 .rank-indicator {
+        background-color: #b0c4de;
+        border-color: #e6e6fa;
+      }
+      body.dark-mode .candidate-label.selected.rank-2 .rank-indicator {
+        background-color: #80a0a0; /* Muted Blue-Gray */
+        border-color: #304040; /* Dark Blue-Gray */
+        color: #e0e0e0; /* Primary Text */
+      }
+
+      .candidate-label.selected.rank-3 {
+        background-color: #f0e68c;
+        border-color: #b8860b;
+      }
+      body.dark-mode .candidate-label.selected.rank-3 {
+        background-color: #403020; /* Dark Brown */
+        border-color: #a08060; /* Muted Bronze */
+        color: #e0e0e0; /* Primary Text */
+      }
+      .candidate-label.selected.rank-3 .rank-indicator {
+        background-color: #b8860b;
+        border-color: #f0e68c;
+      }
+      body.dark-mode .candidate-label.selected.rank-3 .rank-indicator {
+        background-color: #a08060; /* Muted Bronze */
+        border-color: #403020; /* Dark Brown */
+        color: #e0e0e0; /* Primary Text */
       }
 
       .candidate-info {
@@ -245,7 +320,7 @@
         margin-bottom: 5px;
       }
 
-      /* Collapsible Key Issues */
+      /* Styles for the collapsible key issues section */
       .key-issues-toggle {
         font-weight: 600;
         cursor: pointer;
@@ -257,9 +332,18 @@
         text-underline-offset: 2px;
         transition: color 0.2s ease, text-decoration 0.2s ease;
       }
+
+      body.dark-mode .key-issues-toggle {
+        color: #80cbc4;
+      }
+
       .key-issues-toggle:hover {
         color: #4a3a9d;
-        text-decoration: underline;
+        text-decoration: none;
+      }
+
+      body.dark-mode .key-issues-toggle:hover {
+        color: #4db6ac;
       }
 
       .key-issues-content {
@@ -267,6 +351,7 @@
         margin-top: 10px;
         border-top: 1px solid #e2e8f0;
         padding-top: 10px;
+        transition: border-color 0.3s ease;
       }
 
       .key-issues-content.active {
@@ -285,7 +370,71 @@
         line-height: 1.5;
       }
 
-      /* Submit Button Container */
+      /* Styles for the list of papal names */
+      .papal-name-list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      /* Styles for individual papal name list items */
+      .papal-name-item {
+        border: 1px solid #e2e8f0;
+        padding: 10px;
+        border-radius: 4mm;
+        background-color: #ffffff;
+        color: #2d3748;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out,
+          border-color 0.2s ease-in-out, color 0.3s ease;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      .papal-name-item:hover {
+        background-color: #edf2f7;
+      }
+
+      .papal-name-item.selected {
+        background-color: #d1e7dd;
+        border-color: #0f5132;
+        color: #0f5132;
+      }
+      body.dark-mode .papal-name-item.selected {
+        background-color: #1a3a3a;
+        border-color: #5a9a9a;
+        color: #e0e0e0;
+      }
+
+      .papal-name-item input[type="checkbox"] {
+        margin-right: 10px;
+      }
+
+      .papal-name-item label {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+      }
+
+      .papal-name-item span {
+        flex-grow: 1;
+      }
+
+      .papal-name-item .name-info {
+        font-size: 0.8rem;
+        color: #4a5568;
+        margin-left: auto;
+        transition: color 0.3s ease;
+      }
+      body.dark-mode .papal-name-item .name-info {
+        color: #bdbdbd;
+      }
+
+      /* Styles for the fixed submit button container at the bottom */
       .submit-button-container {
         position: fixed;
         bottom: 0;
@@ -296,26 +445,38 @@
         box-sizing: border-box;
         z-index: 1000;
         border-top: 1px solid #e2e8f0;
-        display: flex; /* Use flexbox to align buttons */
-        justify-content: center; /* Center buttons horizontally */
-        gap: 20px; /* Space between buttons */
-        transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+      body.dark-mode .submit-button-container {
+        background-color: #1a2b3c;
+        border-top-color: #304055;
       }
 
-      /* Submit and Reset Buttons */
+      /* Wrapper for submit and reset buttons */
+      .button-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+      }
+
+      /* Styles for submit and reset buttons */
       .submit-button,
       .reset-button {
         display: block;
-        flex-grow: 0; /* Prevent buttons from stretching */
-        flex-shrink: 0; /* Prevent buttons from shrinking */
-        padding: 15px 25px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        padding: 12px 20px;
         border: none;
-        border-radius: 6px;
-        font-size: 1.2rem;
+        border-radius: 6mm;
+        font-size: 1rem;
         cursor: pointer;
         transition: background-color 0.3s ease, opacity 0.3s ease;
         font-weight: 700;
-        text-transform: uppercase;
         letter-spacing: 1px;
       }
 
@@ -332,34 +493,41 @@
       }
 
       .reset-button {
-          background-color: #e2e8f0; /* Light grey background */
-          color: #2d3748; /* Dark text */
+        background-color: #e2e8f0;
+        color: #2d3748;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
       .reset-button:hover {
-          background-color: #cbd5e0; /* Slightly darker grey on hover */
+        background-color: #cbd5e0;
+      }
+      body.dark-mode .reset-button {
+        background-color: #607d8b;
+        color: #e0e0e0;
+      }
+      body.dark-mode .reset-button:hover {
+        background-color: #78909c;
       }
 
-
-      /* Selected Candidate & Feedback */
-      .selected-candidate {
+      /* Styles for the submission output area */
+      .submission-output {
         margin-top: 40px;
         padding: 30px;
         background-color: #e2e8f0;
         border: 2px solid #6648b1;
-        border-radius: 8px;
-        display: none; /* Initially hidden */
-        font-size: 1.5rem;
-        font-weight: 600;
+        border-radius: 8mm;
+        display: none;
+        font-size: 1rem;
         color: #2d3748;
-        text-align: center;
-        line-height: 1.4;
+        text-align: left;
+        line-height: 1.6;
         animation: fadeInScale 0.5s ease-out;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 15px;
         transition: background-color 0.3s ease, border-color 0.3s ease,
-          color 0.3s ease; /* Smooth transition */
+          color 0.3s ease;
+      }
+      body.dark-mode .submission-output {
+        background-color: #1a2b3c;
+        border-color: #b39ddb;
+        color: #e0e0e0;
       }
 
       @keyframes fadeInScale {
@@ -373,536 +541,741 @@
         }
       }
 
-      .selected-candidate .font-semibold {
+      .submission-output h3 {
+        font-family: "Lora", serif;
         color: #8b1e3f;
-        font-weight: 800;
-        transition: color 0.3s ease; /* Smooth transition */
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #cbd5e0;
+        padding-bottom: 5px;
+        transition: color 0.3s ease, border-color 0.3s ease;
+      }
+      body.dark-mode .submission-output h3 {
+        color: #e0e0e0;
+        border-bottom-color: #304055;
       }
 
-      .selected-candidate img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #6648b1;
-        transition: border-color 0.3s ease; /* Smooth transition */
+      .submission-output pre {
+        white-space: pre-wrap;
+        word-break: break-word;
       }
 
-      /* Feedback Message Styles */
-      .feedback-message {
-          font-size: 1.2rem;
-          font-weight: 600;
-          color: #6648b1;
-          margin-top: 10px;
-          min-height: 1.5em; /* Reserve space to prevent layout shift */
-          transition: color 0.3s ease;
-      }
-      html.dark .feedback-message {
-          color: #9f7aea;
-      }
-
-
-      /* Footer text */
+      /* Styles for the footer text */
       .footer-text {
         text-align: center;
         margin-top: 40px;
         font-size: 0.85rem;
         color: #718096;
-        transition: color 0.3s ease; /* Smooth transition */
+        transition: color 0.3s ease;
+      }
+      body.dark-mode .footer-text {
+        color: #bdbdbd;
       }
 
-      /* Dark Mode Styles */
-      html.dark {
-        /* Dark mode body background and text */
-        body {
-          background-color: #1a202c; /* Dark background */
-          color: #a0aec0; /* Light grey text */
-        }
-
-        /* Dark mode container */
-        .container {
-          background-color: #2d3748; /* Darker container background */
-        }
-
-        /* Dark mode language toggle */
-        .language-toggle {
-          border-color: #4a5568;
-          background-color: #2d3748;
-        }
-        .language-button {
-          color: #a0aec0;
-          border-right-color: #4a5568;
-        }
-        .language-button:hover {
-          background-color: #4a5568;
-          color: #e2e8f0;
-        }
-        .language-button.active {
-          background-color: #6648b1; /* Keep accent color */
-          color: #ffffff;
-        }
-
-        /* Dark mode toggle */
-        .dark-mode-toggle {
-          border-color: #4a5568;
-          background-color: #2d3748;
-          color: #a0aec0;
-        }
-        .dark-mode-toggle:hover {
-          background-color: #4a5568;
-          color: #e2e8f0;
-        }
-
-        /* Dark mode columns */
-        .left-column {
-          background-color: #2d3748; /* Even darker background */
-          border-right-color: #4a5568;
-        }
-        .right-column {
-          background-color: #2d3748; /* Darker background */
-          padding-bottom: 100px; /* Dark mode padding */
-        }
-
-        /* Dark mode headings */
-        h1 {
-          color: #f56565; /* Lighter red accent */
-        }
-        h2 {
-          color: #9f7aea; /* Lighter purple accent */
-          border-bottom-color: #4a5568;
-        }
-        h3 {
-          color: #f56565; /* Lighter red for names */
-        }
-        p {
-          color: #a0aec0; /* Light grey text */
-        }
-        ul li {
-          color: #a0aec0; /* Light grey text */
-        }
-        strong {
-          color: #e2e8f0; /* Lighter grey for labels */
-        }
-
-        /* Dark mode candidate labels */
-        .candidate-label {
-          border-color: #4a5568;
-          background-color: #2d3748;
-        }
-        .candidate-section:nth-child(odd) .candidate-label {
-          background-color: #2d3748; /* Keep consistent dark background */
-        }
-        .candidate-label:hover {
-          background-color: #4a5568;
-        }
-
-        /* Dark mode selected candidate */
-        .candidate-section input[type="radio"]:checked + .candidate-label {
-          background-color: #4a5568;
-          border-color: #9f7aea;
-        }
-
-        /* Dark mode key issues */
-        .key-issues-toggle {
-          color: #9f7aea; /* Lighter purple */
-        }
-        .key-issues-toggle:hover {
-          color: #b794f4; /* Even lighter purple on hover */
-        }
-        .key-issues-content {
-          border-top-color: #4a5568;
-        }
-        .key-issues-content ul li {
-          color: #a0aec0; /* Light grey text */
-        }
-
-        /* Dark mode submit button container */
-        .submit-button-container {
-          background-color: #2d3748;
-          border-top-color: #4a5568;
-        }
-
-        /* Dark mode submit and reset buttons */
-        html.dark .submit-button {
-            background-color: #9f7aea;
-        }
-         html.dark .submit-button:hover:not(:disabled) {
-            background-color: #b794f4;
-        }
-
-        html.dark .reset-button {
-            background-color: #4a5568;
-            color: #e2e8f0;
-        }
-        html.dark .reset-button:hover {
-            background-color: #636b7a;
-        }
-
-
-        /* Dark mode selected candidate display */
-        .selected-candidate {
-          background-color: #2d3748;
-          border-color: #9f7aea;
-          color: #a0aec0;
-        }
-        .selected-candidate .font-semibold {
-          color: #f56565; /* Lighter red */
-        }
-        .selected-candidate img {
-          border-color: #9f7aea;
-        }
-
-        /* Dark mode footer */
-        .footer-text {
-          color: #a0aec0; /* Light grey text */
-        }
-
-        /* Responsive adjustments for dark mode */
-        @media (max-width: 767px) {
-          html.dark .left-column {
-            border-bottom-color: #4a5568;
-          }
-        }
+      /* Styles for modal overlays and content */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
       }
 
-      /* Responsive adjustments: Maintaining Structure and Readability */
-      /* Using Tailwind breakpoints as a guide for custom CSS */
-      /* sm: min-width: 640px */
-      /* md: min-width: 768px */
-      /* lg: min-width: 1024px */
-      /* xl: min-width: 1280px */
+      .modal-overlay.visible {
+        visibility: visible;
+        opacity: 1;
+      }
 
+      .modal-content {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8mm;
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: scale(0.95);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+      }
+      body.dark-mode .modal-content {
+        background-color: #1a2b3c;
+      }
+
+      .modal-overlay.visible .modal-content {
+        transform: scale(1);
+      }
+
+      .modal-content h3 {
+        font-family: "Lora", serif;
+        color: #8b1e3f;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        font-weight: 700;
+        transition: color 0.3s ease;
+      }
+      body.dark-mode .modal-content h3 {
+        color: #e0e0e0;
+      }
+
+      .modal-content p {
+        font-family: "Manrope", sans-serif;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        color: #4a5568;
+        transition: color 0.3s ease;
+      }
+      body.dark-mode .modal-content p {
+        color: #e0e0e0;
+      }
+
+      .modal-content ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 15px;
+        text-align: left;
+      }
+
+      .modal-content ul li {
+        font-family: "Manrope", sans-serif;
+        margin-bottom: 5px;
+        font-size: 1rem;
+        color: #2d3748;
+        transition: color 0.3s ease;
+      }
+      body.dark-mode .modal-content ul li {
+        color: #e0e0e0;
+      }
+
+      /* Styles for modal buttons */
+      .modal-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .modal-button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4mm;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: background-color 0.2s ease, opacity 0.2s ease;
+      }
+
+      .modal-button.confirm {
+        background-color: #8b1e3f;
+        color: #ffffff;
+      }
+
+      .modal-button.confirm:hover {
+        background-color: #6a1731;
+      }
+
+      .modal-button.cancel {
+        background-color: #e2e8f0;
+        color: #2d3748;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .modal-button.cancel:hover {
+        background-color: #cbd5e0;
+      }
+      body.dark-mode .modal-button.cancel {
+        background-color: #607d8b;
+        color: #e0e0e0;
+      }
+      body.dark-mode .modal-button.cancel:hover {
+        background-color: #78909c;
+      }
+
+      /* Specific styles for the validation modal */
+      .validation-modal-content h3 {
+        color: #8b1e3f;
+        font-weight: 700;
+      }
+      body.dark-mode .validation-modal-content h3 {
+        color: #e0e0e0;
+      }
+
+      .validation-modal-content p {
+        color: #2d3748;
+      }
+      body.dark-mode .validation-modal-content p {
+        color: #e0e0e0;
+      }
+
+      .validation-modal-content .modal-button.ok {
+        background-color: #8b1e3f;
+        color: #ffffff;
+      }
+
+      .validation-modal-content .modal-button.ok:hover {
+        background-color: #6a1731;
+      }
+
+      /* Dark mode specific styles */
+      body.dark-mode {
+        background-color: #0f1a2a;
+        color: #e0e0e0;
+      }
+
+      body.dark-mode .left-column {
+        background-color: #1a2b3c;
+        border-right-color: #304055;
+      }
+
+      body.dark-mode .right-column {
+        background-color: #1a2b3c;
+      }
+
+      body.dark-mode h1,
+      body.dark-mode h2,
+      body.dark-mode h3 {
+        color: #e0e0e0;
+      }
+
+      body.dark-mode h2 {
+        border-bottom-color: #304055;
+      }
+
+      body.dark-mode p {
+        color: #e0e0e0;
+      }
+
+      body.dark-mode ul li {
+        color: #e0e0e0;
+      }
+
+      body.dark-mode strong {
+        color: #ffffff;
+      }
+
+      body.dark-mode .language-toggle {
+        background-color: #1a2b3c;
+        border-color: #304055;
+      }
+
+      body.dark-mode .language-button {
+        color: #e0e0e0;
+        border-right-color: #304055;
+      }
+
+      body.dark-mode .language-button:hover {
+        background-color: #304055;
+        color: #ffffff;
+      }
+
+      body.dark-mode .language-button.active {
+        background-color: #8b1e3f;
+        color: #ffffff;
+      }
+
+      body.dark-mode .dark-mode-button {
+        background-color: #1a2b3c;
+        color: #e0e0e0;
+        border-color: #304055;
+      }
+
+      body.dark-mode .dark-mode-button:hover {
+        background-color: #304055;
+        color: #ffffff;
+        border-color: #4a5568;
+      }
+
+      body.dark-mode .candidate-label {
+        border-color: #304055;
+        background-color: #1a2b3c;
+        color: #e0e0e0;
+      }
+
+      body.dark-mode .candidate-label:hover {
+        background-color: #304055;
+      }
+
+      body.dark-mode .key-issues-content {
+        border-top-color: #304055;
+      }
+
+      body.dark-mode .papal-name-item {
+        border-color: #304055;
+        background-color: #1a2b3c;
+        color: #e0e0e0;
+      }
+
+      body.dark-mode .papal-name-item:hover {
+        background-color: #304055;
+      }
+
+      body.dark-mode .yourNameLabel {
+        color: #e0e0e0;
+      }
+
+      body.dark-mode input[type="text"] {
+        background-color: #0f1a2a;
+        color: #e0e0e0;
+        border-color: #e0e0e0;
+      }
+      body.dark-mode input[type="text"]::placeholder {
+        color: #a0a0a0;
+      }
+
+      body.dark-mode label[for="playerName"] {
+        color: #e0e0e0;
+      }
+
+      /* Responsive adjustments for different screen sizes */
       @media (max-width: 767px) {
-        /* Mobile styles below md breakpoint */
+        body {
+          padding-top: 60px;
+        }
         .container {
-          grid-template-columns: 1fr; /* Stack columns */
+          grid-template-columns: 1fr;
           margin: 20px auto;
-          border-radius: 0; /* Remove rounded corners on small screens */
-        }
-        .language-toggle {
-          top: 10px;
-          right: 10px;
-          gap: 0; /* Remove gap, border handles separation */
-        }
-        .language-button {
-          padding: 6px 10px;
-          font-size: 0.8rem;
-        }
-        .dark-mode-toggle {
-          top: 10px;
-          right: 100px; /* Adjust position for mobile */
-          padding: 6px 10px;
-          font-size: 0.8rem;
+          border-radius: 0;
         }
         .left-column {
           border-right: none;
-          border-bottom: 1px solid #cbd5e0; /* Add bottom border */
+          border-bottom: 1px solid #e2e8f0;
           padding: 20px;
+        }
+        body.dark-mode .left-column {
+          border-bottom-color: #304055;
         }
         .right-column {
           padding: 20px;
-          padding-bottom: 100px; /* Mobile padding */
-          gap: 20px; /* Reduced gap */
+          padding-bottom: 150px;
+          gap: 20px;
         }
         h1 {
-          font-size: 2.8rem; /* Adjusted size for mobile */
+          font-size: 2.8rem;
         }
         h2 {
-          font-size: 1.6rem; /* Adjusted size for mobile */
+          font-size: 1.6rem;
         }
         h3 {
-          font-size: 1.1rem; /* Adjusted size for mobile */
+          font-size: 1.1rem;
         }
         p {
-          font-size: 0.9rem; /* Adjusted body text on mobile */
+          font-size: 0.9rem;
         }
         ul li {
-          font-size: 0.9rem; /* Match body text size on mobile */
+          font-size: 0.9rem;
         }
         .candidate-grid {
           gap: 15px;
         }
         .candidate-label {
-          /* Apply responsive padding to the label */
           padding: 15px;
-          border-radius: 6px; /* Adjusted rounded corners */
-        }
-        .candidate-section input[type="radio"] {
-          /* Hidden, no responsive size needed */
+          border-radius: 6mm;
         }
         .submit-button-container {
-          padding: 10px 20px; /* Adjusted padding for mobile */
-          flex-direction: column; /* Stack buttons vertically on mobile */
-          gap: 10px; /* Smaller gap on mobile */
+          padding: 10px 20px;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .button-wrapper {
+          flex-direction: column;
+          gap: 10px;
         }
         .submit-button,
         .reset-button {
-            padding: 12px 20px;
-            font-size: 1rem;
-            letter-spacing: 0.8px;
-            border-radius: 4px;
+          padding: 12px 20px;
+          font-size: 1rem;
+          letter-spacing: 0.8px;
+          border-radius: 4mm;
         }
         .selected-candidate {
-          padding: 25px; /* Adjusted padding for mobile */
-          font-size: 1.4rem; /* Adjusted size for mobile */
+          padding: 25px;
+          font-size: 1.4rem;
           border-radius: 6mm;
         }
         .footer-text {
           margin-top: 30px;
-          font-size: 0.85rem; /* Slightly smaller footer text on mobile */
+          font-size: 0.85rem;
         }
         .key-issues-toggle {
-          font-size: 0.9rem; /* Match body text size on mobile */
+          font-size: 0.9rem;
         }
         .key-issues-content ul li {
-          font-size: 0.85rem; /* Slightly smaller size for detailed points within the toggle on mobile */
+          font-size: 0.85rem;
+        }
+        .papal-name-list {
+          grid-template-columns: 1fr;
+        }
+        .papal-name-item {
+          padding: 8px 10px;
+        }
+        .language-toggle {
+          top: 10px;
+          right: 10px;
+          gap: 0;
+        }
+        .language-button {
+          padding: 6px 10px;
+          font-size: 0.8rem;
+        }
+        .dark-mode-toggle {
+          top: 10px;
+          right: 100px;
         }
       }
 
-      /* Tablet and larger (md and up) - Keep existing styles or add md: prefixes if using Tailwind classes */
       @media (min-width: 768px) {
         .container {
-          grid-template-columns: 1fr 1.8fr; /* Two columns */
+          grid-template-columns: minmax(auto, 400px) 1fr;
         }
         .left-column {
-          border-right: 1px solid #cbd5e0; /* Add right border */
-          border-bottom: none; /* Remove bottom border */
+          border-right: 1px solid #e2e8f0;
+          border-bottom: none;
+        }
+        body.dark-mode .left-column {
+          border-right-color: #304055;
+        }
+        .right-column {
+          padding-bottom: 120px;
         }
         .submit-button-container {
-             flex-direction: row; /* Arrange buttons horizontally on larger screens */
-             gap: 20px; /* Larger gap on larger screens */
+          flex-direction: column;
+          gap: 15px;
         }
-      }
-
-      /* Desktop and larger (lg and up) - Further refinements if needed */
-      /* @media (min-width: 1024px) {
-        .container {
-          max-width: 1200px;
-        }
-      } */
-
-      /* Confirmation Modal Styles */
-      .modal-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.7);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 2000; /* Above the submit button */
-          visibility: hidden; /* Hidden by default */
-          opacity: 0;
-          transition: opacity 0.3s ease, visibility 0.3s ease;
-      }
-
-      .modal-overlay.visible {
-          visibility: visible;
-          opacity: 1;
-      }
-
-      .modal-content {
-          background-color: #ffffff;
-          padding: 30px;
-          border-radius: 8px;
-          text-align: center;
-          max-width: 500px;
-          width: 90%;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-          transform: scale(0.95);
-          transition: transform 0.3s ease;
-      }
-
-       .modal-overlay.visible .modal-content {
-           transform: scale(1);
-       }
-
-      .modal-content h3 {
-          font-family: "Lora", serif;
-          color: #8b1e3f;
-          font-size: 1.8rem;
-          margin-bottom: 15px;
-      }
-
-      .modal-content p {
-          font-size: 1.1rem;
-          margin-bottom: 20px;
-          color: #4a5568;
-      }
-
-      .modal-content img {
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          object-fit: cover;
-          margin-bottom: 15px;
-          border: 3px solid #6648b1;
-      }
-
-      .modal-buttons {
-          display: flex;
-          justify-content: center;
+        .button-wrapper {
+          flex-direction: row;
           gap: 20px;
+        }
+        .papal-name-list {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
       }
-
-      .modal-button {
-          padding: 10px 20px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 1rem;
-          font-weight: 600;
-          transition: background-color 0.2s ease, opacity 0.2s ease;
-      }
-
-      .modal-button.confirm {
-          background-color: #6648b1;
-          color: #ffffff;
-      }
-
-      .modal-button.confirm:hover {
-          background-color: #4a3a9d;
-      }
-
-      .modal-button.cancel {
-          background-color: #e2e8f0;
-          color: #2d3748;
-      }
-
-      .modal-button.cancel:hover {
-          background-color: #cbd5e0;
-      }
-
-      /* Dark Mode Modal Styles */
-      html.dark .modal-content {
-          background-color: #2d3748;
-          color: #a0aec0;
-      }
-
-      html.dark .modal-content h3 {
-          color: #f56565;
-      }
-
-      html.dark .modal-content p {
-          color: #a0aec0;
-      }
-
-      html.dark .modal-content img {
-          border-color: #9f7aea;
-      }
-
-      html.dark .modal-button.cancel {
-          background-color: #4a5568;
-          color: #e2e8f0;
-      }
-
-      html.dark .modal-button.cancel:hover {
-          background-color: #636b7a;
-      }
-
-
     </style>
   </head>
   <body>
-    <button id="darkModeToggle" class="dark-mode-toggle">
-      Toggle Dark Mode
-    </button>
-
     <div class="language-toggle">
       <button class="language-button active" data-lang="en">EN</button>
       <button class="language-button" data-lang="es">ES</button>
     </div>
 
+    <div class="dark-mode-toggle">
+      <button id="darkModeToggle" class="dark-mode-button">
+        <span class="icon">🌙</span>
+        <span data-translate="darkModeText">Dark Mode</span>
+      </button>
+    </div>
+
     <div class="container">
       <div class="left-column">
-        <h1 data-translate="mainTitle">Sacred Conclave Ballot</h1>
-        <p data-translate="introPara1">
-          In the solemn spirit of the Sacred Conclave Simulation, you are
-          invited to cast your vote. Select the cardinal you deem most worthy to
-          ascend to the See of Peter, or the one you believe the Holy Spirit
-          shall guide the electors to choose.
+        <h1
+          class="text-2xl font-semibold text-gray-800 mb-4"
+          data-translate="mainTitle"
+        >
+          Fantasy Conclave Vote
+        </h1>
+        <p data-translate="introText1">
+          Welcome to the Fantasy Conclave Vote! Cast your predictions for the
+          next Pope and their chosen name.
         </p>
-        <p data-translate="introPara2">
-          Indicate your preference by marking the esteemed cardinal you have
-          chosen. Provided herein is a brief compendium of each candidate's
-          background and general disposition on matters pertinent to the
-          Universal Church, compiled for the purposes of this simulation. Let
-          your conscience be your guide in this most significant deliberation.
+        <p data-translate="introText2">
+          In Round 1, you will select *three* cardinals you believe are most
+          likely to be elected. Your first pick is worth 5 points, your second 3
+          points, and your third 1 point, *if* that cardinal is eventually
+          elected.
+        </p>
+        <p data-translate="introText3">
+          In Round 2, you will select 5 names from a list of historical papal
+          names. If the elected cardinal chooses one of your names, you get 10
+          points.
         </p>
       </div>
-
       <div class="right-column">
-        <div>
-          <h2 data-translate="candidatesTitle">
-            Illustrious Candidates for the Papacy:
+        <div class="mb-8">
+          <label
+            for="playerName"
+            class="block text-lg font-semibold text-gray-700 mb-2 yourNameLabel"
+            data-translate="yourNameLabel"
+            >Your Name:</label
+          >
+          <input
+            type="text"
+            id="playerName"
+            name="playerName"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+
+        <div class="mb-8 p-6 rounded-lg border border-gray-200 shadow-none">
+          <h2
+            class="text-2xl font-semibold text-gray-800 mb-4"
+            data-translate="round1Title"
+          >
+            Round 1: Pick Your Papabili (Top 3)
           </h2>
-          <form id="ballotForm" aria-label="Sacred Conclave Ballot Form">
+          <p class="text-gray-600 mb-6" data-translate="round1Instructions">
+            Click on the three cardinals you predict will be elected, in order
+            of likelihood.
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mb-6">
+            <li data-translate="round1Points1">
+              1st Pick (first click): 5 points
+            </li>
+            <li data-translate="round1Points2">
+              2nd Pick (second click): 3 points
+            </li>
+            <li data-translate="round1Points3">
+              3rd Pick (third click): 1 point
+            </li>
+          </ul>
+          <p class="text-sm text-gray-500 mb-6" data-translate="round1Deselect">
+            Click a selected cardinal again to deselect them.
+          </p>
+
+          <form id="cardinalForm" aria-label="Cardinal Selection Form">
             <div class="candidate-grid" id="candidateGrid"></div>
           </form>
         </div>
 
-        <div>
-          <div
-            id="selectedCandidate"
-            class="selected-candidate"
-            role="status"
-            aria-live="polite"
+        <div class="mb-8 p-6 rounded-lg border border-gray-200 shadow-none">
+          <h2
+            class="text-2xl font-semibold text-gray-800 mb-4"
+            data-translate="round2Title"
           >
-            <img
-              id="selectedCandidateImage"
-              src=""
-              alt="Selected Cardinal"
-              class="hidden"
-            />
-            <span data-translate="selectionPrefix">Your selection:</span>
-            <span id="selectionResult" class="font-semibold"></span>
-             <div id="feedbackMessage" class="feedback-message"></div>
+            Round 2: Pick Your Papal Names
+          </h2>
+          <p class="text-gray-600 mb-6" data-translate="round2Instructions">
+            Select 5 names from the list below. If the eventual Pope chooses one
+            of your names, you get 10 points.
+          </p>
+
+          <ul class="papal-name-list" id="papalNameList"></ul>
+          <p class="text-sm text-gray-500 mt-4" data-translate="round2Note">
+            Note: It includes Popes and Antipopes names.
+          </p>
+        </div>
+
+        <div class="text-center mt-8 submit-button-container">
+          <div class="button-wrapper">
+            <button
+              id="submitBtn"
+              class="submit-button"
+              data-translate="submitButton"
+            >
+              Submit Your Picks
+            </button>
+            <button
+              id="resetBallotButton"
+              class="reset-button"
+              data-translate="resetButton"
+            >
+              Reset Ballot
+            </button>
           </div>
         </div>
 
-        <p class="footer-text" data-translate="footerText">
+        <div
+          id="submissionOutput"
+          class="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200 hidden submission-output"
+        >
+          <h3 data-translate="submissionOutputTitle">Your Submission:</h3>
+          <pre id="outputContent"></pre>
+        </div>
+        <p class="footer-text text-gray-700 mt-8" data-translate="footerText">
           May your chosen candidate be guided by divine wisdom.
         </p>
+      </div>
+    </div>
 
-        <div class="submit-button-container">
+    <div id="confirmationModalOverlay" class="modal-overlay">
+      <div class="modal-content">
+        <h3 data-translate="confirmModalTitle">Confirm Your Selection</h3>
+        <p data-translate="confirmModalPicksLabel">You have selected:</p>
+        <ul id="modalCardinalPicks" class="text-left mb-4"></ul>
+        <p data-translate="confirmModalNamesLabel">
+          And the following Papal Names:
+        </p>
+        <ul id="modalPapalNamePicks" class="text-left mb-4"></ul>
+        <div class="modal-buttons">
           <button
-            type="submit"
-            id="submitBallotButton"  class="submit-button"
-            form="ballotForm"
-            data-translate="submitButton"
+            id="confirmSubmitButton"
+            class="modal-button confirm"
+            data-translate="confirmButton"
           >
-            Submit Ballot
+            Confirm
           </button>
-           <button
-            type="button"
-            id="resetBallotButton"  class="reset-button"
-            data-translate="resetButton"
+          <button
+            id="cancelSubmitButton"
+            class="modal-button cancel"
+            data-translate="cancelButton"
           >
-            Reset Ballot
+            Cancel
           </button>
         </div>
       </div>
     </div>
 
-    <div id="confirmationModalOverlay" class="modal-overlay">
-        <div class="modal-content">
-            <h3 data-translate="confirmSelectionTitle">Confirm Your Selection</h3>
-            <p data-translate="confirmSelectionText">You have selected:</p>
-            <img id="modalCandidateImage" src="" alt="Selected Cardinal" class="hidden mx-auto" />
-            <p><span id="modalCandidateName" class="font-semibold"></span></p>
-            <div class="modal-buttons">
-                <button id="confirmSubmitButton" class="modal-button confirm" data-translate="confirmButton">Confirm</button>
-                <button id="cancelSubmitButton" class="modal-button cancel" data-translate="cancelButton">Cancel</button>
-            </div>
+    <div id="validationModalOverlay" class="modal-overlay">
+      <div class="modal-content validation-modal-content">
+        <h3 data-translate="validationModalTitle">Validation Error</h3>
+        <p id="validationModalMessage"></p>
+        <div class="modal-buttons">
+          <button
+            id="validationModalOkButton"
+            class="modal-button ok"
+            data-translate="okButton"
+          >
+            OK
+          </button>
         </div>
+      </div>
     </div>
 
-
     <script>
-      // Candidate data array with translations and image URLs
-      const candidates = [
+      /*
+      =========================================================================
+      JavaScript Logic
+      This section contains the JavaScript code to handle interactivity,
+      language switching, dark mode toggling, form validation, data
+      management, rendering lists, and interacting with modal dialogs.
+      =========================================================================
+      */
+
+      // Translations object containing text for different languages
+      const translations = {
+        en: {
+          pageTitle: "Fantasy Conclave Vote",
+          mainTitle: "Fantasy Conclave Vote",
+          introText1:
+            "Welcome to the Fantasy Conclave Vote! Cast your predictions for the next Pope and their chosen name.",
+          introText2:
+            "In Round 1, you will select *three* cardinals you believe are most likely to be elected. Your first pick is worth 5 points, your second 3 points, and your third 1 point, *if* that cardinal is eventually elected.",
+          introText3:
+            "In Round 2, you will select 5 names from a list of historical papal names. If the elected cardinal chooses one of your names, you get 10 points.",
+          yourNameLabel: "Your Name:",
+          round1Title: "Round 1: Pick Your Papabili (Top 3)",
+          round1Instructions:
+            "Click on the three cardinals you predict will be elected, in order of likelihood.",
+          round1Points1: "1st Pick (first click): 5 points",
+          round1Points2: "2nd Pick (second click): 3 points",
+          round1Points3: "3rd Pick (third click): 1 point",
+          round1Deselect: "Click a selected cardinal again to deselect them.",
+          round2Title: "Round 2: Pick Your Papal Names",
+          round2Instructions:
+            "Select 5 names from the list below. If the eventual Pope chooses one of your names, you get 10 points.",
+          round2Note: "Note: It includes Popes and Antipopes names.",
+          submitButton: "Submit Your Picks",
+          submissionOutputTitle: "Your Submission:",
+          footerText: "May your chosen candidate be guided by divine wisdom.",
+          confirmModalTitle: "Ready to Submit Your Ballot?",
+          confirmModalPicksLabel:
+            "You are about to submit the following cardinal picks:",
+          confirmModalNamesLabel: "And these chosen papal names:",
+          confirmButton: "Yes, Submit!",
+          cancelButton: "Hold On, Let Me Check",
+          resetButton: "Reset Ballot",
+          leaningLabel: "Leaning:",
+          keyIssuesLabel: "Key Issues:",
+          clickToExpand: "(Click to expand)",
+          clickToCollapse: "(Click to collapse)",
+          synodalIssue: "Synodal Way:",
+          womenIssue: "Women's Role:",
+          sameSexIssue: "Same-Sex:",
+          humanaeIssue: "Humanae Vitae:",
+          marriageIssue: "Marriage:",
+          stanceNotAvailable: "(Specific stance not readily available)",
+          usedTimes: "Used {count} times",
+          playerNameAlert: "Oops! Please enter your name before submitting.",
+          round1LimitAlert:
+            "Almost there! Please select exactly 3 cardinals for Round 1.",
+          round2LimitAlert:
+            "Just a few more! Please select exactly 5 papal names for Round 2.",
+          submissionSuccessAlert:
+            "Success! Your picks have been recorded. Good luck!",
+          resetModalTitle: "Confirm Reset",
+          resetModalMessage:
+            "Are you sure you want to reset your ballot? This will clear all your current selections.",
+          resetButtonOK: "Yes, Reset",
+          resetButtonCancel: "No, Keep My Picks",
+          validationModalTitle: "Just a heads-up!",
+          okButton: "Got it!",
+          darkMode: "Dark Mode",
+          lightMode: "Light Mode",
+        },
+        es: {
+          pageTitle: "Voto del Cónclave Fantástico",
+          mainTitle: "Voto del Cónclave Fantástico",
+          introText1:
+            "¡Bienvenido al Voto del Cónclave Fantástico! Emite tus predicciones para el próximo Papa y el nombre que elegirá.",
+          introText2:
+            "En la Ronda 1, seleccionarás *tres* cardenales que crees que tienen más probabilidades de ser elegidos. Tu primera elección vale 5 puntos, la segunda 3 puntos y la tercera 1 punto, *si* ese cardenal es finalmente elegido.",
+          introText3:
+            "En la Ronda 2, seleccionarás 5 nombres de una lista de nombres papales históricos. Si el cardenal elegido elige uno de tus nombres, obtendrás 10 puntos.",
+          yourNameLabel: "Tu nombre:",
+          round1Title: "Ronda 1: Elige a tus papables (Top 3)",
+          round1Instructions:
+            "Haz clic en los tres cardenales que predices que serán elegidos, en orden de probabilidad.",
+          round1Points1: "1ª Elección (primer clic): 5 puntos",
+          round1Points2: "2ª Elección (segundo clic): 3 puntos",
+          round1Points3: "3ª Elección (tercer clic): 1 punto",
+          round1Deselect:
+            "Haz clic de nuevo en un cardenal seleccionado para deseleccionarlo.",
+          round2Title: "Ronda 2: Elige tus nombres papales",
+          round2Instructions:
+            "Selecciona 5 nombres de la lista a continuación. Si el eventual Papa elige uno de tus nombres, obtendrás 10 puntos.",
+          round2Note: "Nota: Están incluidos los nombres de Papas y Antipapas.",
+          submitButton: "Enviar mis elecciones",
+          submissionOutputTitle: "Tu envío:",
+          footerText:
+            "Que tu candidato elegido sea guiado por la sabiduría divina.",
+          confirmModalTitle: "¿Listo para enviar tu boleta?",
+          confirmModalPicksLabel:
+            "Estás a punto de enviar las siguientes elecciones de cardenales:",
+          confirmModalNamesLabel: "Y estos nombres papales elegidos:",
+          confirmButton: "¡Sí, enviar!",
+          cancelButton: "Espera, déjame revisar",
+          resetButton: "Reiniciar boleta",
+          leaningLabel: "Postura percibida:",
+          keyIssuesLabel: "Temas clave:",
+          clickToExpand: "(Haz clic para expandir)",
+          clickToCollapse: "(Haz clic para contraer)",
+          synodalIssue: "Camino Sinodal:",
+          womenIssue: "Rol de la Mujer:",
+          sameSexIssue: "Relaciones del mismo sexo:",
+          humanaeIssue: "Humanae Vitae:",
+          marriageIssue: "Divorcio:",
+          stanceNotAvailable: "(Postura específica no disponible)",
+          usedTimes: "Usado {count} veces",
+          playerNameAlert:
+            "¡Uy! Por favor, introduce tu nombre antes de enviar.",
+          round1LimitAlert:
+            "¡Casi listo! Por favor, selecciona exactamente 3 cardenales para la Ronda 1.",
+          round2LimitAlert:
+            "¡Solo un poco más! Por favor, selecciona exactamente 5 nombres papales para la Ronda 2.",
+          submissionSuccessAlert:
+            "¡Éxito! Tus elecciones han sido registradas. ¡Buena suerte!",
+          resetModalTitle: "Confirmar reinicio",
+          resetModalMessage:
+            "¿Estás seguro de que quieres reiniciar tu boleta? Esto borrará todas tus selecciones actuales.",
+          resetButtonOK: "Sí, reiniciar",
+          resetButtonCancel: "No, mantener mis elecciones",
+          validationModalTitle: "¡Solo un aviso!",
+          okButton: "¡Entendido!",
+          darkMode: "Modo oscuro",
+          lightMode: "Modo claro",
+        },
+      };
+
+      // Current language state variable
+      let currentLang = "en"; // Default language
+
+      // Data for cardinals and papal names
+      const cardinals = [
         {
           id: "cardinal_ambongo",
           name: {
@@ -962,7 +1335,7 @@
           age: 75,
           role: {
             en: "Bishop of Stockholm. First Swedish cardinal.",
-            es: "Obispo de Estocolm. Primer cardenal sueco.",
+            es: "Obispo de Estocolmo. Primer cardenal sueco.", // Corrected 'Estocolm' to 'Estocolmo'
           },
           country: {
             en: "Sweden",
@@ -996,10 +1369,11 @@
           },
           createdBy: {
             en: "Pope Francis",
-            es: "Papa Francis",
+            es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/33FF57/ffffff?text=Arborelius", // Different placeholder
+          imageUrl:
+            "https://placehold.co/100x100/33FF57/ffffff?text=Arborelius", // Different placeholder
         },
         {
           id: "cardinal_aveline",
@@ -1085,7 +1459,7 @@
             },
             marriage: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, but generalmente conservador).",
+              es: "(Postura específica no disponible, pero generalmente conservador).", // Corrected 'but' to 'pero'
             },
           },
           leaning: {
@@ -1094,7 +1468,7 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedicto XVI",
+            es: "Papa Benedicto XVI", // Corrected 'Benedict XVI'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/FF33A1/ffffff?text=Bagnasco", // Different placeholder
@@ -1171,7 +1545,7 @@
             },
             women: {
               en: "Reaffirmed prohibition against women's ordination but allowed a dissident group supporting women priests in his diocese.",
-              es: "Reafirmó la prohibición contra la ordenación de mujeres but permitió un grupo disidente que apoya a mujeres sacerdotes en su diócesis.",
+              es: "Reafirmó la prohibición contra la ordenación de mujeres pero permitió un grupo disidente que apoya a mujeres sacerdotes en su diócesis.", // Corrected 'but' to 'pero'
             },
             sameSex: {
               en: "Supported <em>Fiducia Supplicans</em>, emphasizing the union isn't blessed and chastity.",
@@ -1179,7 +1553,7 @@
             },
             humanae: {
               en: "(Specific stance not readily available, but addresses social issues with a 'seamless garment' approach).",
-              es: "(Postura específica no disponible, but aborda temas sociales con un enfoque de 'tejido sin costuras').",
+              es: "(Postura específica no disponible, pero aborda temas sociales con un enfoque de 'tejido sin costuras').", // Corrected 'but' to 'pero'
             },
             marriage: {
               en: "(Specific stance not readily available)",
@@ -1241,7 +1615,7 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedict XVI",
+            es: "Papa Benedicto XVI", // Corrected 'Benedict XVI'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/FF3333/ffffff?text=Burke", // Different placeholder
@@ -1265,23 +1639,23 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, but generalmente conservador).",
+              es: "(Postura específica no disponible, pero generalmente conservador).", // Corrected 'but' to 'pero'
             },
             women: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, but generalmente conservador).",
+              es: "(Postura específica no disponible, pero generalmente conservador).", // Corrected 'but' to 'pero'
             },
             sameSex: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, but generalmente conservador).",
+              es: "(Postura específica no disponible, pero generalmente conservador).", // Corrected 'but' to 'pero'
             },
             humanae: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, but generalmente conservador).",
+              es: "(Postura específica no disponible, pero generalmente conservador).", // Corrected 'but' to 'pero'
             },
             marriage: {
               en: "(Specific stance not readily available, but generally conservative).",
-              es: "(Postura específica no disponible, but generalmente conservador).",
+              es: "(Postura específica no disponible, pero generalmente conservador).", // Corrected 'but' to 'pero'
             },
           },
           leaning: {
@@ -1290,7 +1664,7 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedict XVI",
+            es: "Papa Benedicto XVI", // Corrected 'Benedict XVI'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/33FFD1/ffffff?text=Eijk", // Different placeholder
@@ -1314,7 +1688,7 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but focus on canon law might suggest caution).",
-              es: "(Postura específica no disponible, but el enfoque en el derecho canónico podría sugerir cautela).",
+              es: "(Postura específica no disponible, pero el enfoque en el derecho canónico podría sugerir cautela).", // Corrected 'but' to 'pero'
             },
             women: {
               en: "Opposed to ordaining women as deacons.",
@@ -1322,7 +1696,7 @@
             },
             sameSex: {
               en: "Firmly against the acceptance of homosexual unions, but favors pastoral support.",
-              es: "Firmemente en contra de la aceptación de uniones homosexuales, but favorece el apoyo pastoral.",
+              es: "Firmemente en contra de la aceptación de uniones homosexuales, pero favorece el apoyo pastoral.", // Corrected 'but' to 'pero'
             },
             humanae: {
               en: "Strongly pro-life (implies upholding Humanae Vitae).",
@@ -1335,11 +1709,11 @@
           },
           leaning: {
             en: "Seen as a staunch conservative, but pragmatic.",
-            es: "Visto como un conservador acérrimo, but pragmático.",
+            es: "Visto como un conservador acérrimo, pero pragmático.", // Corrected 'but' to 'pero'
           },
           createdBy: {
             en: "Pope John Paul II",
-            es: "Papa Juan Paul II",
+            es: "Papa Juan Pablo II", // Corrected 'Juan Paul II'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/FFC300/ffffff?text=Erdo", // Different placeholder
@@ -1388,7 +1762,7 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedict XVI",
+            es: "Papa Benedicto XVI", // Corrected 'Benedict XVI'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/C70039/ffffff?text=Filoni", // Different placeholder
@@ -1416,7 +1790,7 @@
             },
             women: {
               en: 'Previously said female priesthood is "desirable" but later stated sacramental priesthood is linked to the male sex.',
-              es: 'Anteriormente dijo que el sacerdocio femenino es "deseable" but luego afirmó que el sacerdocio sacramental está ligado al sexo masculino.',
+              es: 'Anteriormente dijo que el sacerdocio femenino es "deseable" pero luego afirmó que el sacerdocio sacramental está ligado al sexo masculino.', // Corrected 'but' to 'pero'
             },
             sameSex: {
               en: "(Specific stance not readily available)",
@@ -1437,7 +1811,7 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedict XVI",
+            es: "Papa Benedicto XVI", // Corrected 'Benedict XVI'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/900C3F/ffffff?text=Koch", // Different placeholder
@@ -1469,7 +1843,7 @@
             },
             sameSex: {
               en: 'Sympathizing with "tolerant approaches to homosexuality" mentioned, but reportedly not publicly against Church teaching.',
-              es: 'Mencionada simpatía con "enfoques tolerantes hacia la homosexualidad", but según se informa, no públicamente en contra de la enseñanza de la Iglesia.',
+              es: 'Mencionada simpatía con "enfoques tolerantes hacia la homosexualidad", pero según se informa, no públicamente en contra de la enseñanza de la Iglesia.', // Corrected 'but' to 'pero'
             },
             humanae: {
               en: "Allying with a sister who promotes abortion mentioned (seen as engaging with culture).",
@@ -1559,23 +1933,23 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, but antecedentes tradicionales).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).", // Corrected 'but' to 'pero'
             },
             women: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, but antecedentes tradicionales).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).", // Corrected 'but' to 'pero'
             },
             sameSex: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, but antecedentes tradicionales).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).", // Corrected 'but' to 'pero'
             },
             humanae: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, but antecedentes tradicionales).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).", // Corrected 'but' to 'pero'
             },
             marriage: {
               en: "(Specific stance not readily available, but traditional background).",
-              es: "(Postura específica no disponible, but antecedentes tradicionales).",
+              es: "(Postura específica no disponible, pero antecedentes tradicionales).", // Corrected 'but' to 'pero'
             },
           },
           leaning: {
@@ -1584,7 +1958,7 @@
           },
           createdBy: {
             en: "Pope John Paul II",
-            es: "Papa Juan Pablo II",
+            es: "Papa Juan Pablo II", // Corrected 'Juan Pablo II'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/00FF00/ffffff?text=Ouellet", // Different placeholder
@@ -1682,7 +2056,7 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedict XVI",
+            es: "Papa Benedicto XVI", // Corrected 'Benedict XVI'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/FFFF00/000000?text=Piacenza", // Different placeholder
@@ -1706,7 +2080,7 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available)",
-              es: "(Postura específica no disponible)",
+              es: "(Postura específica no disponible).", // Added period for consistency
             },
             women: {
               en: "Desires a greater role for women in the Church.",
@@ -1734,7 +2108,8 @@
             es: "Papa Francisco",
           },
           // Placeholder image URL - replace with actual image
-          imageUrl: "https://placehold.co/100x100/FF00FF/ffffff?text=Pizzaballa", // Different placeholder
+          imageUrl:
+            "https://placehold.co/100x100/FF00FF/ffffff?text=Pizzaballa", // Different placeholder
         },
         {
           id: "cardinal_ranjith",
@@ -1759,7 +2134,7 @@
             },
             women: {
               en: "(Specific stance not readily available, but traditional approach to practice).",
-              es: "(Postura específica no disponible, but enfoque tradicional a la práctica).",
+              es: "(Postura específica no disponible, pero enfoque tradicional a la práctica).", // Corrected 'but' to 'pero'
             },
             sameSex: {
               en: "Takes an uncompromising view, upholding Church teaching.",
@@ -1780,7 +2155,7 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedict XVI",
+            es: "Papa Benedicto XVI", // Corrected 'Benedict XVI'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/00FFFF/000000?text=Ranjith", // Different placeholder
@@ -1804,11 +2179,11 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but generally critical of perceived deviations).",
-              es: "(Postura específica no disponible, but generalmente crítico de las desviaciones percibidas).",
+              es: "(Postura específica no disponible, pero generalmente crítico de las desviaciones percibidas).", // Corrected 'but' to 'pero'
             },
             women: {
               en: "(Specific stance not readily available, but generally traditionalist).",
-              es: "(Postura específica no disponible, but generalmente tradicionalista).",
+              es: "(Postura específica no disponible, pero generalmente tradicionalista).", // Corrected 'but' to 'pero'
             },
             sameSex: {
               en: "Vocal defender of conservative moral teachings (implies opposition).",
@@ -1829,7 +2204,7 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedict XVI",
+            es: "Papa Benedicto XVI", // Corrected 'Benedict XVI'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/800080/ffffff?text=Sarah", // Different placeholder
@@ -1902,7 +2277,7 @@
           keyIssues: {
             synodal: {
               en: "(Specific stance not readily available, but aligns with Francis on evangelization).",
-              es: "(Postura específica no disponible, but se alinea con Francisco en evangelización).",
+              es: "(Postura específica no disponible, pero se alinea con Francisco en evangelización).", // Corrected 'but' to 'pero'
             },
             women: {
               en: "(Specific stance not readily available).",
@@ -1927,7 +2302,7 @@
           },
           createdBy: {
             en: "Pope Benedict XVI",
-            es: "Papa Benedict XVI",
+            es: "Papa Benedicto XVI", // Corrected 'Benedict XVI'
           },
           // Placeholder image URL - replace with actual image
           imageUrl: "https://placehold.co/100x100/4169E1/ffffff?text=Tagle", // Different placeholder
@@ -1963,7 +2338,7 @@
             },
             humanae: {
               en: "(Specific stance not readily available, but focus on pastoral care and poor).",
-              es: "(Postura específica no disponible, but enfoque en la atención pastoral y los pobres).",
+              es: "(Postura específica no disponible, pero enfoque en la atención pastoral y los pobres).", // Corrected 'but' to 'pero'
             },
             marriage: {
               en: "Supports a new pastoral attitude towards divorced and civilly 'remarried.'",
@@ -1983,304 +2358,379 @@
         },
       ];
 
-      // Translations object for static text
-      const translations = {
-        en: {
-          pageTitle: "Sacred Conclave Ballot",
-          mainTitle: "Sacred Conclave Ballot",
-          introPara1:
-            "In the solemn spirit of the Sacred Conclave Simulation, you are invited to cast your vote. Select the cardinal you deem most worthy to ascend to the See of Peter, or the one you believe the Holy Spirit shall guide the electors to choose.",
-          introPara2:
-            "Indicate your preference by marking the esteemed cardinal you have chosen. Provided herein is a brief compendium of each candidate's background and general disposition on matters pertinent to the Universal Church, compiled for the purposes of this simulation. Let your conscience be your guide in this most significant deliberation.",
-          candidatesTitle: "Illustrious Candidates for the Papacy:",
-          keyIssuesToggle: "<strong>Key Issues:</strong> (Click to expand)",
-          keyIssuesToggleCollapsed:
-            "<strong>Key Issues:</strong> (Click to collapse)",
-          submitButton: "Submit Ballot",
-          resetButton: "Reset Ballot", // New translation
-          selectionPrefix: "Your selection:",
-          footerText: "May your chosen candidate be guided by divine wisdom.",
-          ageLabel: "Age:",
-          roleLabel: "Role:",
-          countryLabel: "Country of Origin:",
-          synodalLabel: "Synodal Way:",
-          womenLabel: "Women's Participation:",
-          sameSexLabel: "Same-Sex Relationships:",
-          humanaeLabel: "Humanae Vitae/Contraception:",
-          marriageLabel: "Marriage and Divorce:",
-          leaningLabel: "Perceived Leaning:",
-          createdLabel: "Created by:",
-          noCandidateSelected: "No candidate selected.",
-          darkModeToggleLabel: "Toggle Dark Mode",
-          submittingMessage: "Submitting your ballot...", // New translation
-          submittedMessage: "Ballot Submitted!", // New translation
-          selectCandidateMessage: "Please select a candidate before submitting.", // New translation
-          confirmSelectionTitle: "Confirm Your Selection", // New translation
-          confirmSelectionText: "You have selected:", // New translation
-          confirmButton: "Confirm", // New translation
-          cancelButton: "Cancel", // New translation
+      const papalNames = [
+        // Data structure for unique Pope and Antipope names with Spanish translations and counts.
+        // Unique Pope Names
+
+        { id: "name_adrian", name: { en: "Adrian", es: "Adrián" }, count: 6 },
+        {
+          id: "name_agapetus",
+          name: { en: "Agapetus", es: "Agapeto" },
+          count: 2,
         },
-        es: {
-          pageTitle: "Boleta del Sagrado Cónclave",
-          mainTitle: "Boleta del Sagrado Cónclave",
-          introPara1:
-            "En el espíritu solemne de la Simulación del Sagrado Cónclave, está invitado a emitir su voto. Seleccione al cardenal que considere más digno de ascender a la Sede de San Pedro, o aquel que crea que el Espíritu Santo guiará a los electores a elegir.",
-          introPara2:
-            "Indique su preferencia pulsando sobre el candidato elegido. Aquí se presenta un breve compendio de los antecedentes de cada candidato y su disposición general sobre asuntos pertinentes a la Iglesia Universal, compilado para los fines de esta simulación. Deje que su conciencia sea su guía en esta deliberación tan significativa.",
-          candidatesTitle: "Ilustres Candidatos al Papado:",
-          keyIssuesToggle:
-            "<strong>Asuntos relevantes:</strong> (Clic para expandir)",
-          keyIssuesToggleCollapsed:
-            "<strong>Asuntos relevante:</strong> (Clic para colapsar)",
-          submitButton: "Enviar Boleta",
-          resetButton: "Reiniciar Boleta", // New translation
-          selectionPrefix: "Su selección:",
-          footerText:
-            "Que su candidato elegido sea guiado por la sabiduría divina.",
-          ageLabel: "Edad:",
-          roleLabel: "Rol:",
-          countryLabel: "País de origen:",
-          synodalLabel: "Camino sinodal:",
-          womenLabel: "Participación de la mujer:",
-          sameSexLabel: "Relaciones entre personas del mismo sexo:",
-          humanaeLabel: "Humanae Vitae/Anticoncepción:",
-          marriageLabel: "Matrimonio y divorcio:",
-          leaningLabel: "Orientación percibida:",
-          createdLabel: "Creado por:",
-          noCandidateSelected: "Ningún candidato seleccionado.",
-          darkModeToggleLabel: "Cambiar a modo oscuro",
-          submittingMessage: "Enviando su boleta...", // New translation
-          submittedMessage: "Boleta Enviada!", // New translation
-          selectCandidateMessage: "Por favor, seleccione un candidato antes de enviar.", // New translation
-          confirmSelectionTitle: "Confirmar su selección", // New translation
-          confirmSelectionText: "Ha seleccionado:", // New translation
-          confirmButton: "Confirmar", // New translation
-          cancelButton: "Cancelar", // New translation
+        { id: "name_agatho", name: { en: "Agatho", es: "Agatón" }, count: 1 },
+        {
+          id: "name_alexander",
+          name: { en: "Alexander", es: "Alejandro" },
+          count: 8,
         },
-      };
+        {
+          id: "name_anastasius",
+          name: { en: "Anastasius", es: "Anastasio" },
+          count: 4,
+        },
+        {
+          id: "name_anacletus",
+          name: { en: "Anacletus", es: "Anacleto" },
+          count: 1,
+        },
+        {
+          id: "name_anicetus",
+          name: { en: "Anicetus", es: "Aniceto" },
+          count: 1,
+        },
+        { id: "name_anterus", name: { en: "Anterus", es: "Antero" }, count: 1 },
+        {
+          id: "name_benedict",
+          name: { en: "Benedict", es: "Benedicto" },
+          count: 16,
+        },
+        {
+          id: "name_boniface",
+          name: { en: "Boniface", es: "Bonifacio" },
+          count: 9,
+        },
+        { id: "name_caius", name: { en: "Caius", es: "Cayo" }, count: 1 },
+        {
+          id: "name_callistus",
+          name: { en: "Callistus", es: "Calixto" },
+          count: 3,
+        },
+        {
+          id: "name_celestine",
+          name: { en: "Celestine", es: "Celestino" },
+          count: 5,
+        },
+        {
+          id: "name_clement",
+          name: { en: "Clement", es: "Clemente" },
+          count: 14,
+        },
+        { id: "name_conon", name: { en: "Conon", es: "Conón" }, count: 1 },
+        {
+          id: "name_constantine",
+          name: { en: "Constantine", es: "Constantino" },
+          count: 2,
+        },
+        {
+          id: "name_cornelius",
+          name: { en: "Cornelius", es: "Cornelio" },
+          count: 1,
+        },
+        { id: "name_damasus", name: { en: "Damasus", es: "Dámaso" }, count: 2 },
+        {
+          id: "name_deusdedit",
+          name: { en: "Deusdedit", es: "Deusdedit or Adeodato" },
+          count: 1,
+        },
+        {
+          id: "name_dionysius",
+          name: { en: "Dionysius", es: "Dionisio" },
+          count: 1,
+        },
+        { id: "name_donus", name: { en: "Donus", es: "Dono" }, count: 1 },
+        { id: "name_eugene", name: { en: "Eugene", es: "Eugenio" }, count: 4 },
+        {
+          id: "name_eusebius",
+          name: { en: "Eusebius", es: "Eusebio" },
+          count: 1,
+        },
+        {
+          id: "name_eutychian",
+          name: { en: "Eutychian", es: "Eutiquiano" },
+          count: 1,
+        },
+        {
+          id: "name_evaristus",
+          name: { en: "Evaristus", es: "Evaristo" },
+          count: 1,
+        },
+        { id: "name_fabian", name: { en: "Fabian", es: "Fabián" }, count: 1 },
+        { id: "name_felix", name: { en: "Felix", es: "Félix" }, count: 5 },
+        {
+          id: "name_formosus",
+          name: { en: "Formosus", es: "Formoso" },
+          count: 1,
+        },
+        {
+          id: "name_francis",
+          name: { en: "Francis", es: "Francisco" },
+          count: 1,
+        },
+        {
+          id: "name_gelasius",
+          name: { en: "Gelasius", es: "Gelasio" },
+          count: 2,
+        },
+        {
+          id: "name_gregory",
+          name: { en: "Gregory", es: "Gregorio" },
+          count: 16,
+        },
+        {
+          id: "name_hadrian",
+          name: { en: "Hadrian", es: "Adriano" },
+          count: 1,
+        }, // Note: This seems to be a variation of Adrian, kept separate as per list
+        {
+          id: "name_hilarius",
+          name: { en: "Hilarius", es: "Hilario" },
+          count: 1,
+        },
+        {
+          id: "name_honorius",
+          name: { en: "Honorius", es: "Honorio" },
+          count: 4,
+        },
+        {
+          id: "name_hormisdas",
+          name: { en: "Hormisdas", es: "Hormisdas" },
+          count: 1,
+        },
+        {
+          id: "name_innocent",
+          name: { en: "Innocent", es: "Inocencio" },
+          count: 13,
+        },
+        { id: "name_john", name: { en: "John", es: "Juan" }, count: 23 },
+        {
+          id: "name_john_paul",
+          name: { en: "John Paul", es: "Juan Pablo" },
+          count: 2,
+        },
+        { id: "name_julius", name: { en: "Julius", es: "Julio" }, count: 3 },
+        { id: "name_leo", name: { en: "Leo", es: "León" }, count: 13 },
+        {
+          id: "name_liberius",
+          name: { en: "Liberius", es: "Liberio" },
+          count: 1,
+        },
+        { id: "name_linus", name: { en: "Linus", es: "Lino" }, count: 1 },
+        { id: "name_lucius", name: { en: "Lucius", es: "Lucio" }, count: 3 },
+        {
+          id: "name_marcellinus",
+          name: { en: "Marcellinus", es: "Marcelino" },
+          count: 1,
+        },
+        {
+          id: "name_marcellus",
+          name: { en: "Marcellus", es: "Marcelo" },
+          count: 2,
+        },
+        { id: "name_marinus", name: { en: "Marinus", es: "Marino" }, count: 2 },
+        { id: "name_martin", name: { en: "Martin", es: "Martín" }, count: 5 },
+        {
+          id: "name_maurice",
+          name: { en: "Maurice", es: "Mauricio" },
+          count: 1,
+        },
+        {
+          id: "name_miltiades",
+          name: { en: "Miltiades", es: "Melquíades" },
+          count: 1,
+        },
+        {
+          id: "name_nicholas",
+          name: { en: "Nicholas", es: "Nicolás" },
+          count: 5,
+        },
+        {
+          id: "name_paschal",
+          name: { en: "Paschal", es: "Pascual" },
+          count: 2,
+        },
+        { id: "name_paul", name: { en: "Paul", es: "Pablo" }, count: 6 },
+        {
+          id: "name_pelagius",
+          name: { en: "Pelagius", es: "Pelagio" },
+          count: 2,
+        },
+        { id: "name_peter", name: { en: "Peter", es: "Pedro" }, count: 1 },
+        { id: "name_pius", name: { en: "Pius", es: "Pío" }, count: 12 },
+        {
+          id: "name_pontian",
+          name: { en: "Pontian", es: "Pontiano" },
+          count: 1,
+        },
+        { id: "name_roman", name: { en: "Roman", es: "Romano" }, count: 1 },
+        { id: "name_sergius", name: { en: "Sergius", es: "Sergio" }, count: 4 },
+        {
+          id: "name_silverius",
+          name: { en: "Silverius", es: "Silverio" },
+          count: 1,
+        },
+        { id: "name_sint", name: { en: "Sint", es: "Sint" }, count: 1 }, // Name appears as "Sint" in list, kept as is
+        {
+          id: "name_siricius",
+          name: { en: "Siricius", es: "Siricio" },
+          count: 1,
+        },
+        { id: "name_sixtus", name: { en: "Sixtus", es: "Sixto" }, count: 5 },
+        {
+          id: "name_stephen",
+          name: { en: "Stephen", es: "Esteban" },
+          count: 9,
+        },
+        {
+          id: "name_sylvester",
+          name: { en: "Sylvester", es: "Silvestre" },
+          count: 3,
+        },
+        {
+          id: "name_symphorian",
+          name: { en: "Symphorian", es: "Sinforiano" },
+          count: 1,
+        },
+        {
+          id: "name_telesphorus",
+          name: { en: "Telesphorus", es: "Telesforo" },
+          count: 1,
+        },
+        {
+          id: "name_theodore",
+          name: { en: "Theodore", es: "Teodoro" },
+          count: 2,
+        },
+        { id: "name_titus", name: { en: "Titus", es: "Tito" }, count: 1 },
+        { id: "name_urban", name: { en: "Urban", es: "Urbano" }, count: 8 },
+        {
+          id: "name_valentine",
+          name: { en: "Valentine", es: "Valentín" },
+          count: 1,
+        },
+        { id: "name_victor", name: { en: "Victor", es: "Víctor" }, count: 3 },
+        {
+          id: "name_vigilius",
+          name: { en: "Vigilius", es: "Vigilio" },
+          count: 1,
+        },
+        {
+          id: "name_vitalian",
+          name: { en: "Vitalian", es: "Vitaliano" },
+          count: 1,
+        },
+        {
+          id: "name_zachary",
+          name: { en: "Zachary", es: "Zacarías" },
+          count: 1,
+        },
+        {
+          id: "name_zephyrinus",
+          name: { en: "Zephyrinus", es: "Ceferino" },
+          count: 1,
+        },
+        { id: "name_zosimus", name: { en: "Zosimus", es: "Zósimo" }, count: 1 },
+        {
+          id: "name_adeodatus",
+          name: { en: "Adeodatus", es: "Adeodato" },
+          count: 2,
+        },
 
-      // Function to generate candidate HTML (used only for initial render)
-      function generateCandidateHTML(candidate, lang) {
-        const t = translations[lang]; // Get current language translations
+        // Unique Antipope Names (Commented out if name duplicates a Pope name appearing earlier)
+        {
+          id: "name_adalbert",
+          name: { en: "Adalbert", es: "Adalberto" },
+          count: 1,
+        },
+        { id: "name_albert", name: { en: "Albert", es: "Alberto" }, count: 1 },
+        // { id: "name_alexander_antipope", name: { en: "Alexander", es: "Alejandro" }, count: 3 }, // Duplicates Pope Alexander
+        // { id: "name_anacletus_antipope", name: { en: "Anacletus", es: "Anacleto" }, count: 2 }, // Duplicates Pope Anacletus
+        // { id: "name_anastasius_antipope", name: { en: "Anastasius", es: "Anastasio" }, count: 2 }, // Duplicates Pope Anastasius
+        // { id: "name_benedict_antipope", name: { en: "Benedict", es: "Benedicto" }, count: 4 }, // Duplicates Pope Benedict
+        // { id: "name_boniface_antipope", name: { en: "Boniface", es: "Bonifacio" }, count: 2 }, // Duplicates Pope Boniface
+        // { id: "name_callistus_antipope", name: { en: "Callistus", es: "Calixto" }, count: 1 }, // Duplicates Pope Callistus
+        // { id: "name: "name_celestine_antipope", name: { en: "Celestine", es: "Celestino" }, count: 2 }, // Duplicates Pope Celestine
+        {
+          id: "name_christopher",
+          name: { en: "Christopher", es: "Cristóbal" },
+          count: 1,
+        },
+        // { id: "name_clement_antipope", name: { en: "Clement", es: "Clemente" }, count: 3 }, // Duplicates Pope Clement
+        // { id: "name_constantine_antipope", name: { en: "Constantine", es: "Constantino" }, count: 2 }, // Duplicates Pope Constantine
+        {
+          id: "name_dioscorus",
+          name: { en: "Dioscorus", es: "Dióscoro" },
+          count: 1,
+        },
+        {
+          id: "name_eulalius",
+          name: { en: "Eulalius", es: "Eulalio" },
+          count: 1,
+        },
+        // { id: "name_felix_antipope", name: { en: "Felix", es: "Félix" }, count: 2 }, // Duplicates Pope Felix
+        // { id: "name_gregory_antipope", name: { en: "Gregory", es: "Gregorio" }, count: 4 }, // Duplicates Pope Gregory
+        {
+          id: "name_heraclius",
+          name: { en: "Heraclius", es: "Heraclio" },
+          count: 1,
+        },
+        {
+          id: "name_hippolytus",
+          name: { en: "Hippolytus", es: "Hipólito" },
+          count: 1,
+        },
+        // { id: "name_honorius_antipope", name: { en: "Honorius", es: "Honorio" }, count: 1 }, // Duplicates Pope Honorius
+        // { id: "name_innocent_antipope", name: { en: "Innocent", es: "Inocencio" }, count: 1 }, // Duplicates Pope Innocent
+        // { id: "name_john_antipope", name: { en: "John", es: "Juan" }, count: 4 }, // Duplicates Pope John
+        {
+          id: "name_laurentius",
+          name: { en: "Laurentius", es: "Lorenzo" },
+          count: 1,
+        },
+        // { id: "name_leo_antipope", name: { en: "Leo", es: "León" }, count: 1 }, // Duplicates Pope Leo
+        // { id: "name_martin_antipope", name: { en: "Martin", es: "Martín" }, count: 1 }, // Duplicates Pope Martin
+        // { id: "name_paschal_antipope", name: { en: "Paschal", es: "Pascual" }, count: 1 }, // Duplicates Pope Paschal
+        { id: "name_philip", name: { en: "Philip", es: "Felipe" }, count: 1 },
+        // { id: "name_sylvester_antipope", name: { en: "Sylvester", es: "Silvestre" }, count: 1 }, // Duplicates Pope Sylvester
+        // { id: "name_theodore_antipope", name: { en: "Theodore", es: "Teodoro" }, count: 1 }, // Duplicates Pope Theodore
+        // { id: "name_victor_antipope", name: { en: "Victor", es: "Víctor" }, count: 3 }, // Duplicates Pope Victor
+        {
+          id: "name_ursicinus",
+          name: { en: "Ursicinus", es: "Ursicino" },
+          count: 1,
+        },
+        // { id: "name_zephyrinus_antipope", name: { en: "Zephyrinus", es: "Ceferino" }, count: 1 }, // Duplicates Pope Zephyrinus
+        {
+          id: "name_benedict_xiv",
+          name: { en: "Benedict XIV", es: "Benedicto XIV" },
+          count: 2,
+        },
+      ];
 
-        return `
-          <div class="candidate-section" aria-labelledby="${candidate.id}_name">
-            <input
-              type="radio"
-              id="${candidate.id}"
-              name="cardinal"
-              value="${candidate.name[lang]}"
-              data-image-url="${candidate.imageUrl}" > <label for="${candidate.id}" class="candidate-label">
-              <div class="candidate-info">
-                <h3 id="${candidate.id}_name">
-                  ${candidate.name[lang]} <span class="flag">${candidate.flag}</span>
-                </h3>
-                <ul>
-                  <li>
-                    <strong data-translate="ageLabel">${t.ageLabel}</strong> ${candidate.age}
-                  </li>
-                  <li>
-                    <strong data-translate="roleLabel">${t.roleLabel}</strong>
-                    ${candidate.role[lang]}
-                  </li>
-                  <li>
-                    <strong data-translate="countryLabel">${t.countryLabel}</strong>
-                    ${candidate.country[lang]}
-                  </li>
-                  <li>
-                    <span class="key-issues-toggle" role="button" aria-expanded="false" aria-controls="${candidate.id}_issues">
-                      <strong data-translate="keyIssuesToggle">${t.keyIssuesToggle.replace(/<\/?strong>/g, '')}</strong>
-                    </span>
-                    <div class="key-issues-content" id="${candidate.id}_issues" aria-hidden="true">
-                      <ul>
-                        <li>
-                          <strong data-translate="synodalLabel">${t.synodalLabel}</strong>
-                          ${candidate.keyIssues.synodal[lang]}
-                        </li>
-                        <li>
-                          <strong data-translate="womenLabel">${t.womenLabel}</strong>
-                          ${candidate.keyIssues.women[lang]}
-                        </li>
-                        <li>
-                          <strong data-translate="sameSexLabel">${t.sameSexLabel}</strong>
-                          ${candidate.keyIssues.sameSex[lang]}
-                        </li>
-                        <li>
-                          <strong data-translate="humanaeLabel">${t.humanaeLabel}</strong>
-                          ${candidate.keyIssues.humanae[lang]}
-                        </li>
-                        <li>
-                          <strong data-translate="marriageLabel">${t.marriageLabel}</strong>
-                          ${candidate.keyIssues.marriage[lang]}
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li>
-                    <strong data-translate="leaningLabel">${t.leaningLabel}</strong>
-                    ${candidate.leaning[lang]}
-                  </li>
-                  <li>
-                    <strong data-translate="createdLabel">${t.createdLabel}</strong>
-                    ${candidate.createdBy[lang]}
-                  </li>
-                </ul>
-              </div>
-            </label>
-          </div>
-        `;
-      }
+      // Arrays to store user's selections
+      let selectedCardinalPicks = []; // Stores objects like { id: '...', name: '...' }
+      let selectedPapalNameIds = []; // Stores string IDs like 'name_john'
 
-      // Function to update the content of existing candidate HTML elements
-      function updateCandidateHTML(candidateElement, candidateData, lang) {
-        const t = translations[lang]; // Get current language translations
+      // Variables to track validation modal state for re-rendering on language change
+      let currentValidationMessageKey = null;
+      let isCurrentModalResetConfirmation = false;
 
-        // Update name and flag
-        const nameElement = candidateElement.querySelector("h3");
-        if (nameElement) {
-          nameElement.innerHTML = `${candidateData.name[lang]} <span class="flag">${candidateData.flag}</span>`;
-          nameElement.id = `${candidateData.id}_name`; // Ensure ID is correct and matches aria-labelledby
-        }
-
-        // Update other list item text using data-translate attributes
-        const updateTextContent = (selector, text) => {
-          const element = candidateElement.querySelector(selector);
-          if (element && element.nextSibling) {
-            element.nextSibling.textContent = ` ${text}`;
-          }
-        };
-
-        updateTextContent('[data-translate="ageLabel"]', candidateData.age);
-        updateTextContent(
-          '[data-translate="roleLabel"]',
-          candidateData.role[lang]
-        );
-        updateTextContent(
-          '[data-translate="countryLabel"]',
-          candidateData.country[lang]
-        );
-        updateTextContent(
-          '[data-translate="leaningLabel"]',
-          candidateData.leaning[lang]
-        );
-        updateTextContent(
-          '[data-translate="createdLabel"]',
-          candidateData.createdBy[lang]
-        );
-
-        // Update key issues content
-        const keyIssuesContent = candidateElement.querySelector(
-          ".key-issues-content"
-        );
-        if (keyIssuesContent) {
-          updateTextContent(
-            "#" + keyIssuesContent.id + ' [data-translate="synodalLabel"]',
-            candidateData.keyIssues.synodal[lang]
-          );
-          updateTextContent(
-            "#" + keyIssuesContent.id + ' [data-translate="womenLabel"]',
-            candidateData.keyIssues.women[lang]
-          );
-          updateTextContent(
-            "#" + keyIssuesContent.id + ' [data-translate="sameSexLabel"]',
-            candidateData.keyIssues.sameSex[lang]
-          );
-          updateTextContent(
-            "#" + keyIssuesContent.id + ' [data-translate="humanaeLabel"]',
-            candidateData.keyIssues.humanae[lang]
-          );
-          updateTextContent(
-            "#" + keyIssuesContent.id + ' [data-translate="marriageLabel"]',
-            candidateData.keyIssues.marriage[lang]
-          );
-        }
-
-        // Update radio button value and ID
-        const radioInput = candidateElement.querySelector(
-          'input[type="radio"]'
-        );
-        if (radioInput) {
-          radioInput.value = candidateData.name[lang];
-          radioInput.id = candidateData.id;
-          radioInput.setAttribute("data-image-url", candidateData.imageUrl); // Update data attribute
-        }
-
-        // Update label's 'for' attribute
-        const labelElement = candidateElement.querySelector("label");
-        if (labelElement && radioInput) {
-          labelElement.setAttribute("for", radioInput.id);
-        }
-
-        // Update the key issues toggle text based on current state and language
-        const toggle = candidateElement.querySelector(".key-issues-toggle");
-        if (toggle && keyIssuesContent) {
-          const toggleLabelStrong = toggle.querySelector("strong");
-          if (toggleLabelStrong) {
-            const currentLang = document.documentElement.lang;
-            if (keyIssuesContent.classList.contains("active")) {
-              toggleLabelStrong.textContent = translations[
-                currentLang
-              ].keyIssuesToggleCollapsed.replace(/<\/?strong>/g, ""); // Use textContent and regex
-            } else {
-              toggleLabelStrong.textContent = translations[
-                currentLang
-              ].keyIssuesToggle.replace(/<\/?strong>/g, ""); // Use textContent and regex
-            }
-          }
-        }
-      }
-
-      // Function to render candidates (initial render) or update (language change)
-      function renderCandidates(lang) {
-        const candidateGrid = document.getElementById("candidateGrid");
-        if (!candidateGrid) {
-            console.error("renderCandidates: candidateGrid element not found!"); // Specific error log
-            return; // Error handling
-        }
-
-        const candidateSections =
-          candidateGrid.querySelectorAll(".candidate-section");
-
-        if (candidateSections.length === 0) {
-          // Initial render - create the HTML
-          candidates.forEach((candidate) => {
-            candidateGrid.innerHTML += generateCandidateHTML(candidate, lang);
-          });
-          attachEventListeners(); // Attach listeners initially after creating elements
-        } else {
-          // Subsequent renders - update existing HTML
-          candidateSections.forEach((section) => {
-            const radioInput = section.querySelector('input[type="radio"]');
-            if (radioInput) {
-              const candidateId = radioInput.id;
-              const candidateData = candidates.find(
-                (c) => c.id === candidateId
-              );
-              if (candidateData) {
-                updateCandidateHTML(section, candidateData, lang);
-              }
-            }
-          });
-          // No need to re-attach event listeners if updating existing elements
-        }
-      }
-
-      // Function to update static text content based on language
+      // Function to update static text based on current language
       function updateStaticLanguage(lang) {
+        currentLang = lang;
         document.querySelectorAll("[data-translate]").forEach((element) => {
           const key = element.getAttribute("data-translate");
           if (translations[lang] && translations[lang][key]) {
-            // Handle the keyIssuesToggleLabel separately as it changes based on state
             if (
-              key !== "keyIssuesToggle" &&
-              key !== "keyIssuesToggleCollapsed"
+              !element.closest(".modal-content") ||
+              element.hasAttribute("data-translate")
             ) {
-              element.innerHTML = translations[lang][key]; // Use innerHTML to preserve potential tags like <strong>
+              element.textContent = translations[lang][key];
             }
           }
         });
 
-        // Update active language button class
+        // Update language button active state
         document.querySelectorAll(".language-button").forEach((button) => {
           if (button.getAttribute("data-lang") === lang) {
             button.classList.add("active");
@@ -2289,371 +2739,667 @@
           }
         });
 
-        // Update the html lang attribute for accessibility and potential browser features
-        document.documentElement.lang = lang;
-
-        // Update dark mode toggle text based on current language
-        const darkModeToggle = document.getElementById("darkModeToggle");
-        if (darkModeToggle) {
-          darkModeToggle.textContent = translations[lang].darkModeToggleLabel;
+        // Update dark mode toggle text
+        const darkModeToggleText = document.querySelector(
+          "#darkModeToggle span[data-translate]"
+        );
+        if (darkModeToggleText) {
+          const isDarkMode = document.body.classList.contains("dark-mode");
+          darkModeToggleText.textContent = isDarkMode
+            ? translations[lang].lightMode
+            : translations[lang].darkMode;
         }
 
-        // Update feedback messages if they are currently displayed
-        const feedbackMessageElement = document.getElementById("feedbackMessage");
-        if (feedbackMessageElement && feedbackMessageElement.textContent) {
-            const currentText = feedbackMessageElement.textContent;
-            const langKeys = Object.keys(translations.en); // Use English keys as reference
+        // Re-render candidates and papal names to apply language
+        renderCardinals(currentLang);
+        renderPapalNames(currentLang);
 
-            for (const key of langKeys) {
-                if (translations.en[key] === currentText) {
-                    feedbackMessageElement.textContent = translations[lang][key];
-                    break;
-                }
-            }
+        // Check and update visible modals on language change
+        const confirmationModalOverlay = document.getElementById(
+          "confirmationModalOverlay"
+        );
+        const validationModalOverlay = document.getElementById(
+          "validationModalOverlay"
+        );
+
+        // If confirmation modal is open, re-populate its lists with the new language
+        if (
+          confirmationModalOverlay &&
+          confirmationModalOverlay.classList.contains("visible")
+        ) {
+          showConfirmationModal(selectedCardinalPicks, selectedPapalNameIds);
         }
 
-        // Update modal text based on current language
-        const modalTitle = document.querySelector('#confirmationModalOverlay [data-translate="confirmSelectionTitle"]');
-        if (modalTitle) modalTitle.textContent = translations[lang].confirmSelectionTitle;
-        const modalText = document.querySelector('#confirmationModalOverlay [data-translate="confirmSelectionText"]');
-        if (modalText) modalText.textContent = translations[lang].confirmSelectionText;
-        const confirmButton = document.querySelector('#confirmationModalOverlay [data-translate="confirmButton"]');
-        if (confirmButton) confirmButton.textContent = translations[lang].confirmButton;
-        const cancelButton = document.querySelector('#confirmationModalOverlay [data-translate="cancelButton"]');
-        if (cancelButton) cancelButton.textContent = translations[lang].cancelButton;
-
-        // Update reset button text based on current language
-        const resetButton = document.getElementById("resetBallotButton");
-        if (resetButton) {
-             resetButton.textContent = translations[lang].resetButton;
-        }
-
-      }
-
-      // Function to attach event listeners (called after initial rendering candidates)
-      function attachEventListeners() {
-        // Get all the key issues toggles
-        const keyIssuesToggles =
-          document.querySelectorAll(".key-issues-toggle");
-
-        // Add click event listener to each toggle
-        keyIssuesToggles.forEach((toggle) => {
-          toggle.addEventListener("click", function (event) {
-            // Stop the event from propagating to the parent label,
-            // which would also toggle the radio button
-            event.stopPropagation();
-
-            // Find the next sibling element which is the content div
-            const content = this.nextElementSibling;
-            if (!content) return; // Error handling
-
-            // Toggle the 'active' class to show/hide the content
-            content.classList.toggle("active");
-
-            // Update ARIA attribute
-            const isExpanded = content.classList.contains("active");
-            this.setAttribute("aria-expanded", isExpanded);
-            content.setAttribute("aria-hidden", !isExpanded);
-
-            // Update the toggle text based on the new state and current language
-            const currentLang = document.documentElement.lang;
-            const toggleLabelStrong = this.querySelector("strong"); // Get the strong tag within the toggle
-            if (toggleLabelStrong) {
-              if (content.classList.contains("active")) {
-                toggleLabelStrong.textContent = translations[
-                  currentLang
-                ].keyIssuesToggleCollapsed.replace(/<\/?strong>/g, ""); // Use textContent and regex
-              } else {
-                toggleLabelStrong.textContent = translations[
-                  currentLang
-                ].keyIssuesToggle.replace(/<\/?strong>/g, ""); // Use textContent and regex
-              }
-            }
-          });
-        });
-
-        // Add click listeners to the candidate labels to check the radio button
-        const candidateLabels = document.querySelectorAll(".candidate-label");
-        candidateLabels.forEach((label) => {
-          label.addEventListener("click", function () {
-            const radio = document.getElementById(this.getAttribute("for"));
-            if (radio) {
-              radio.checked = true;
-            }
-          });
-        });
-
-        // Dark mode toggle functionality
-        const darkModeToggle = document.getElementById("darkModeToggle");
-        if (darkModeToggle) {
-          darkModeToggle.addEventListener("click", () => {
-            const htmlElement = document.documentElement;
-            htmlElement.classList.toggle("dark");
-
-            // Save preference to local storage
-            if (htmlElement.classList.contains("dark")) {
-              localStorage.setItem("darkMode", "enabled");
-            } else {
-              localStorage.setItem("darkMode", "disabled");
-            }
-          });
-        }
-      }
-
-      // Function to show the confirmation modal
-      function showConfirmationModal(candidateName, imageUrl) {
-          const modalOverlay = document.getElementById("confirmationModalOverlay");
-          const modalCandidateName = document.getElementById("modalCandidateName");
-          const modalCandidateImage = document.getElementById("modalCandidateImage");
-
-          if (modalOverlay && modalCandidateName && modalCandidateImage) {
-              modalCandidateName.textContent = candidateName;
-              if (imageUrl) {
-                  modalCandidateImage.src = imageUrl;
-                  modalCandidateImage.classList.remove("hidden");
-              } else {
-                   modalCandidateImage.classList.add("hidden");
-                   modalCandidateImage.src = ""; // Clear src if no image
-              }
-              modalOverlay.classList.add("visible");
-          } else {
-              console.error("Confirmation modal elements not found!");
+        // If validation modal is open, re-display it using the stored state
+        if (
+          validationModalOverlay &&
+          validationModalOverlay.classList.contains("visible")
+        ) {
+          if (currentValidationMessageKey) {
+            showValidationModal(
+              currentValidationMessageKey,
+              isCurrentModalResetConfirmation
+            );
           }
+        }
+      }
+
+      // Function to generate HTML for a single cardinal item
+      function generateCardinalHTML(cardinal, lang) {
+        const t = translations[lang];
+        const name =
+          cardinal.name[lang] || cardinal.name["en"] || "Unknown Cardinal";
+        const leaning =
+          cardinal.leaning[lang] ||
+          cardinal.leaning["en"] ||
+          t.stanceNotAvailable;
+        const role =
+          cardinal.role[lang] || cardinal.role["en"] || t.stanceNotAvailable;
+        const country =
+          cardinal.country[lang] ||
+          cardinal.country["en"] ||
+          t.stanceNotAvailable;
+
+        // Build key issues list dynamically
+        let keyIssuesHtml = "";
+        const keyIssuesLabels = {
+          synodal: t.synodalIssue,
+          women: t.womenIssue,
+          sameSex: t.sameSexIssue,
+          humanae: t.humanaeIssue,
+          marriage: t.marriageIssue,
+        };
+
+        for (const issueKey in cardinal.keyIssues) {
+          if (cardinal.keyIssues.hasOwnProperty(issueKey)) {
+            const issueText =
+              cardinal.keyIssues[issueKey][lang] ||
+              cardinal.keyIssues[issueKey]["en"] ||
+              t.stanceNotAvailable;
+            const issueLabel = keyIssuesLabels[issueKey] || issueKey;
+            keyIssuesHtml += `<li><strong>${issueLabel}</strong> ${issueText}</li>`;
+          }
+        }
+
+        return `
+                      <div class="candidate-section" data-cardinal-id="${
+                        cardinal.id
+                      }">
+                           <label for="cardinal_${
+                             cardinal.id
+                           }" class="candidate-label">
+                              <div class="rank-indicator"></div> <div class="candidate-info">
+                                  <h3>
+                                      ${name} <span class="flag">${
+          cardinal.flag
+        }</span>
+                                  </h3>
+                                  <ul>
+                                      <li><strong>${
+                                        t.leaningLabel
+                                      }</strong> ${leaning}</li>
+                                      <li><strong>Role:</strong> ${role}</li>
+                                      <li><strong>Country:</strong> ${country}</li>
+                                      <li><strong>Age:</strong> ${
+                                        cardinal.age || "N/A"
+                                      }</li>
+                                      <li><strong>Created By:</strong> ${
+                                        cardinal.createdBy
+                                          ? cardinal.createdBy[lang] ||
+                                            cardinal.createdBy["en"] ||
+                                            "Unknown"
+                                          : "Unknown"
+                                      }</li>
+                                      <li>
+                                          <span class="key-issues-toggle" role="button" aria-expanded="false" aria-controls="${
+                                            cardinal.id
+                                          }_issues">
+                                              <strong>${
+                                                t.keyIssuesLabel
+                                              }</strong> <span class="toggle-text">${
+          t.clickToExpand
+        }</span>
+                                          </span>
+                                          <div class="key-issues-content" id="${
+                                            cardinal.id
+                                          }_issues" aria-hidden="true">
+                                              <ul>
+                                                  ${keyIssuesHtml}
+                                              </ul>
+                                          </div>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </label>
+                      </div>
+                  `;
+      }
+
+      // Function to render the list of cardinals in the UI
+      function renderCardinals(lang) {
+        const candidateGrid = document.getElementById("candidateGrid");
+        if (candidateGrid) {
+          candidateGrid.innerHTML = cardinals
+            .map((cardinal) => generateCardinalHTML(cardinal, lang))
+            .join("");
+          attachCardinalClickListeners();
+          updateCardinalVisuals();
+        }
+      }
+
+      // Function to generate HTML for a single papal name list item
+      function generatePapalNameHTML(nameData, lang) {
+        const t = translations[lang];
+        const name =
+          nameData.name[lang] || nameData.name["en"] || "Unknown Name";
+        const usedTimesText = t.usedTimes.replace("{count}", nameData.count);
+        const isSelected = selectedPapalNameIds.includes(nameData.id);
+        return `
+                      <li class="papal-name-item ${
+                        isSelected ? "selected" : ""
+                      }" data-name-id="${nameData.id}">
+                          <input type="checkbox" id="${
+                            nameData.id
+                          }" name="papalName" value="${name}" class="form-checkbox h-5 w-5 text-green-600 rounded focus:ring-green-500" ${
+          isSelected ? "checked" : ""
+        }>
+                          <label for="${
+                            nameData.id
+                          }" class="flex items-center w-full cursor-pointer">
+                               <span>${name}</span>
+                               <span class="name-info">${usedTimesText}</span>
+                          </label>
+                      </li>
+                  `;
+      }
+
+      // Function to render the list of papal names in the UI
+      function renderPapalNames(lang) {
+        const papalNameListElement = document.getElementById("papalNameList");
+        if (papalNameListElement) {
+          papalNameListElement.innerHTML = papalNames
+            .map((name) => generatePapalNameHTML(name, lang))
+            .join("");
+          attachPapalNameClickListeners();
+        }
+      }
+
+      // Function to update the visual feedback on selected cardinals (adding rank indicators and styles)
+      function updateCardinalVisuals() {
+        document.querySelectorAll(".candidate-label").forEach((label) => {
+          label.classList.remove("selected", "rank-1", "rank-2", "rank-3");
+          const rankIndicator = label.querySelector(".rank-indicator");
+          if (rankIndicator) {
+            rankIndicator.textContent = "";
+            rankIndicator.style.opacity = 0;
+          }
+        });
+
+        selectedCardinalPicks.forEach((pick, index) => {
+          const label = document.querySelector(
+            `.candidate-section[data-cardinal-id="${pick.id}"] .candidate-label`
+          );
+          if (label) {
+            const rank = index + 1;
+            label.classList.add("selected", `rank-${rank}`);
+            const rankIndicator = label.querySelector(".rank-indicator");
+            if (rankIndicator) {
+              rankIndicator.textContent = rank;
+              rankIndicator.style.opacity = 1;
+            }
+          }
+        });
+      }
+
+      // Function to attach click listeners to cardinal labels for selection logic
+      function attachCardinalClickListeners() {
+        document.querySelectorAll(".candidate-label").forEach((label) => {
+          label.addEventListener("click", function (event) {
+            if (event.target.closest(".key-issues-toggle")) {
+              return;
+            }
+
+            const candidateSection = this.closest(".candidate-section");
+            const cardinalId =
+              candidateSection.getAttribute("data-cardinal-id");
+            const cardinal = cardinals.find((c) => c.id === cardinalId);
+
+            if (!cardinal) return;
+
+            const existingIndex = selectedCardinalPicks.findIndex(
+              (pick) => pick.id === cardinalId
+            );
+
+            if (existingIndex === -1) {
+              if (selectedCardinalPicks.length < 3) {
+                selectedCardinalPicks.push({
+                  id: cardinal.id,
+                  name: cardinal.name[currentLang] || cardinal.name["en"],
+                });
+              } else {
+                showValidationModal("round1LimitAlert");
+                return;
+              }
+            } else {
+              selectedCardinalPicks.splice(existingIndex, 1);
+            }
+
+            updateCardinalVisuals();
+          });
+        });
+      }
+
+      // Function to attach change listeners to papal name checkboxes for selection logic
+      function attachPapalNameClickListeners() {
+        document
+          .querySelectorAll('.papal-name-item input[type="checkbox"]')
+          .forEach((checkbox) => {
+            checkbox.addEventListener("change", function () {
+              const listItem = this.closest(".papal-name-item");
+              const nameId = listItem.getAttribute("data-name-id");
+              const nameData = papalNames.find((name) => name.id === nameId);
+              const nameInCurrentLang = nameData
+                ? nameData.name[currentLang] || nameData.name["en"]
+                : nameId;
+
+              if (this.checked) {
+                if (selectedPapalNameIds.length < 5) {
+                  selectedPapalNameIds.push(nameId);
+                  listItem.classList.add("selected");
+                  this.value = nameInCurrentLang;
+                } else {
+                  this.checked = false;
+                  showValidationModal("round2LimitAlert");
+                }
+              } else {
+                const index = selectedPapalNameIds.indexOf(nameId);
+                if (index > -1) {
+                  selectedPapalNameIds.splice(index, 1);
+                  listItem.classList.remove("selected");
+                }
+              }
+            });
+          });
+      }
+
+      // Function to show the confirmation modal with current selections
+      function showConfirmationModal(cardinalPicks, papalNamePicks) {
+        const modalOverlay = document.getElementById(
+          "confirmationModalOverlay"
+        );
+        const modalCardinalPicksList =
+          document.getElementById("modalCardinalPicks");
+        const modalPapalNamePicksList = document.getElementById(
+          "modalPapalNamePicks"
+        );
+        const t = translations[currentLang];
+
+        if (modalOverlay && modalCardinalPicksList && modalPapalNamePicksList) {
+          modalCardinalPicksList.innerHTML = "";
+          modalPapalNamePicksList.innerHTML = "";
+
+          cardinalPicks.forEach((pick, index) => {
+            const listItem = document.createElement("li");
+            const points = [5, 3, 1][index];
+            const rankTranslationKey = `round1Points${index + 1}`;
+            const rankText = translations[currentLang][rankTranslationKey]
+              ? translations[currentLang][rankTranslationKey].split(" ")[0]
+              : `${pick.rank}${
+                  pick.rank === 1
+                    ? "st"
+                    : pick.rank === 2
+                    ? "nd"
+                    : pick.rank === 3
+                    ? "rd"
+                    : ""
+                }`;
+            const cardinal = cardinals.find((c) => c.id === pick.id);
+            const cardinalNameInCurrentLang = cardinal
+              ? cardinal.name[currentLang] || cardinal.name["en"]
+              : pick.name;
+
+            listItem.textContent = `${rankText} (${points} pts): ${cardinalNameInCurrentLang}`;
+            modalCardinalPicksList.appendChild(listItem);
+          });
+
+          papalNamePicks.forEach((nameId) => {
+            const nameData = papalNames.find((name) => name.id === nameId);
+            const nameInCurrentLang = nameData
+              ? nameData.name[currentLang] || nameData.name["en"]
+              : nameId;
+            const listItem = document.createElement("li");
+            listItem.textContent = `- ${nameInCurrentLang}`;
+            modalPapalNamePicksList.appendChild(listItem);
+          });
+
+          modalOverlay.querySelector("h3[data-translate]").textContent =
+            t.confirmModalTitle;
+          modalOverlay.querySelector(
+            'p[data-translate="confirmModalPicksLabel"]'
+          ).textContent = t.confirmModalPicksLabel;
+          modalOverlay.querySelector(
+            'p[data-translate="confirmModalNamesLabel"]'
+          ).textContent = t.confirmModalNamesLabel;
+          modalOverlay.querySelector(
+            'button[data-translate="confirmButton"]'
+          ).textContent = t.confirmButton;
+          modalOverlay.querySelector(
+            'button[data-translate="cancelButton"]'
+          ).textContent = t.cancelButton;
+
+          modalOverlay.classList.add("visible");
+        } else {
+          console.error("Confirmation modal elements not found!");
+        }
       }
 
       // Function to hide the confirmation modal
       function hideConfirmationModal() {
-          const modalOverlay = document.getElementById("confirmationModalOverlay");
-          if (modalOverlay) {
-              modalOverlay.classList.remove("visible");
-          }
-      }
-
-      // Function to reset the ballot
-      function resetBallot() {
-          const ballotForm = document.getElementById("ballotForm");
-          const selectedCandidateDiv = document.getElementById("selectedCandidate");
-          const selectedCandidateImage = document.getElementById("selectedCandidateImage");
-          const selectionResultSpan = document.getElementById("selectionResult");
-          const feedbackMessageElement = document.getElementById("feedbackMessage");
-          const submitButton = document.getElementById('submitBallotButton');
-          const currentLang = document.documentElement.lang; // Get current language
-
-          if (ballotForm) {
-              // Uncheck all radio buttons in the form
-              const selectedRadio = ballotForm.querySelector('input[name="cardinal"]:checked');
-              if (selectedRadio) {
-                  selectedRadio.checked = false;
-              }
-          }
-
-          // Collapse all expanded key issues sections
-          const expandedIssues = document.querySelectorAll('.key-issues-content.active');
-          expandedIssues.forEach(content => {
-              content.classList.remove('active');
-              content.setAttribute('aria-hidden', 'true');
-              const toggle = content.previousElementSibling; // Get the preceding toggle span
-              if (toggle && toggle.classList.contains('key-issues-toggle')) {
-                  toggle.setAttribute('aria-expanded', 'false');
-                   const toggleLabelStrong = toggle.querySelector("strong");
-                   if (toggleLabelStrong) {
-                       // Update the text to the collapsed state translation
-                       toggleLabelStrong.textContent = translations[currentLang].keyIssuesToggle.replace(/<\/?strong>/g, '');
-                   }
-              }
-          });
-
-
-          // Clear and hide the selected candidate display
-          if (selectedCandidateDiv) selectedCandidateDiv.style.display = "none";
-          if (selectedCandidateImage) {
-              selectedCandidateImage.classList.add("hidden");
-              selectedCandidateImage.src = "";
-          }
-          if (selectionResultSpan) selectionResultSpan.textContent = "";
-          if (feedbackMessageElement) feedbackMessageElement.textContent = "";
-
-          // Ensure the submit button is enabled
-          if (submitButton) submitButton.disabled = false;
-      }
-
-
-      // Wrap main logic in DOMContentLoaded
-      window.addEventListener("DOMContentLoaded", function () {
-        // Get the form and the result display area
-        const ballotForm = document.getElementById("ballotForm");
-        const selectedCandidateDiv =
-          document.getElementById("selectedCandidate");
-        const selectedCandidateImage = document.getElementById(
-          "selectedCandidateImage"
-        ); // Get the image element
-        const selectionResultSpan = document.getElementById("selectionResult");
-        const languageButtons = document.querySelectorAll(".language-button");
-        // Updated to get button by ID
-        const submitButton = document.getElementById('submitBallotButton');
-        const resetButton = document.getElementById('resetBallotButton'); // Get the reset button
-        const feedbackMessageElement = document.getElementById("feedbackMessage"); // Get the feedback message element
-
-        // Get modal buttons
-        const confirmSubmitButton = document.getElementById("confirmSubmitButton");
-        const cancelSubmitButton = document.getElementById("cancelSubmitButton");
-
-
-        // Check for saved dark mode preference on load
-        const savedDarkMode = localStorage.getItem("darkMode");
-        if (savedDarkMode === "enabled") {
-          document.documentElement.classList.add("dark");
+        const modalOverlay = document.getElementById(
+          "confirmationModalOverlay"
+        );
+        if (modalOverlay) {
+          modalOverlay.classList.remove("visible");
         }
+      }
 
-        // Add an event listener for the form submission
+      // Function to show the validation or reset confirmation modal
+      function showValidationModal(messageKey, isResetConfirmation = false) {
+        const modalOverlay = document.getElementById("validationModalOverlay");
+        const modalTitle = modalOverlay.querySelector("h3");
+        const modalMessage = document.getElementById("validationModalMessage");
+        const modalButtonsDiv = modalOverlay.querySelector(".modal-buttons");
+        const okButton = document.getElementById("validationModalOkButton");
+        const t = translations[currentLang];
+
         if (
-          ballotForm &&
-          selectedCandidateDiv &&
-          selectedCandidateImage &&
-          selectionResultSpan &&
-          submitButton &&
-          resetButton && // Check for reset button
-          feedbackMessageElement &&
-          confirmSubmitButton && // Check for new modal buttons
-          cancelSubmitButton
+          modalOverlay &&
+          modalTitle &&
+          modalMessage &&
+          modalButtonsDiv &&
+          okButton
         ) {
-          ballotForm.addEventListener("submit", function (event) {
-            // Prevent the default form submission
-            event.preventDefault();
+          currentValidationMessageKey = messageKey;
+          isCurrentModalResetConfirmation = isResetConfirmation;
 
-            const selectedRadio = ballotForm.querySelector(
-              'input[name="cardinal"]:checked'
-            );
-            const currentLang = document.documentElement.lang; // Get current language
+          modalMessage.innerHTML = "";
 
-            // Hide previous selection details and feedback
-            selectedCandidateImage.classList.add("hidden");
-            selectedCandidateImage.src = "";
-            selectionResultSpan.textContent = "";
-            feedbackMessageElement.textContent = "";
-            selectedCandidateDiv.style.display = "none"; // Hide the whole div initially
+          if (isResetConfirmation) {
+            modalTitle.textContent = t.resetModalTitle;
+            modalMessage.textContent = t.resetModalMessage;
+            okButton.textContent = t.resetButtonOK;
+          } else {
+            modalTitle.textContent = t.validationModalTitle;
+            modalMessage.textContent = t[messageKey] || messageKey;
+            okButton.textContent = t.okButton;
+          }
 
-
-            // Check if a candidate was selected
-            if (selectedRadio) {
-              // Get the value (cardinal's name) and image URL
-              const selectedValue = selectedRadio.value;
-              const imageUrl = selectedRadio.getAttribute("data-image-url");
-
-              // Show the confirmation modal
-              showConfirmationModal(selectedValue, imageUrl);
-
-            } else {
-              // If no candidate is selected, display a message
-              feedbackMessageElement.textContent = translations[currentLang].selectCandidateMessage;
-              selectedCandidateDiv.style.display = "flex"; // Show the div to display the message
-              selectedCandidateDiv.scrollIntoView({ behavior: "smooth" });
-            }
-          });
-
-          // Add event listener for the Confirm button in the modal
-          confirmSubmitButton.addEventListener("click", function() {
-              hideConfirmationModal(); // Hide the modal
-
-              const selectedRadio = ballotForm.querySelector(
-                'input[name="cardinal"]:checked'
-              );
-              const currentLang = document.documentElement.lang; // Get current language
-
-              if (selectedRadio) {
-                // Disable the submit button and show submitting message
-                submitButton.disabled = true;
-                feedbackMessageElement.textContent = translations[currentLang].submittingMessage;
-                selectedCandidateDiv.style.display = "flex"; // Show the div to display the message
-                selectedCandidateDiv.scrollIntoView({ behavior: "smooth" });
-
-                // Simulate submission time
-                setTimeout(() => {
-                  // Get the value (cardinal's name) and image URL
-                  const selectedValue = selectedRadio.value;
-                  const imageUrl = selectedRadio.getAttribute("data-image-url");
-
-                  // Display the selected candidate name
-                  selectionResultSpan.textContent = selectedValue;
-
-                  // Set the image source and make it visible if a URL exists
-                  if (imageUrl) {
-                    selectedCandidateImage.src = imageUrl;
-                    selectedCandidateImage.classList.remove("hidden"); // Make image visible
-                  }
-
-                  // Show submitted message
-                  feedbackMessageElement.textContent = translations[currentLang].submittedMessage;
-
-                  // Re-enable the submit button after a short delay or on a "reset" action
-                   setTimeout(() => {
-                       submitButton.disabled = false;
-                   }, 1000); // Re-enable after 1 second
-
-                }, 2000); // Simulate a 2-second submission process
-              } else {
-                  // Should not happen if modal is shown only when candidate is selected,
-                  // but as a fallback:
-                  feedbackMessageElement.textContent = translations[currentLang].selectCandidateMessage;
-                  selectedCandidateDiv.style.display = "flex";
-                  selectedCandidateDiv.scrollIntoView({ behavior: "smooth" });
-              }
-          });
-
-          // Add event listener for the Cancel button in the modal
-          cancelSubmitButton.addEventListener("click", function() {
-              hideConfirmationModal(); // Hide the modal
-              // No need to re-enable the submit button here, as it wasn't disabled yet
-          });
-
-          // Add event listener for the Reset button
-          resetButton.addEventListener("click", function() {
-              resetBallot(); // Call the reset function
-          });
-
-
+          modalOverlay.classList.add("visible");
         } else {
-            // More specific logging to see which element is null
-            console.error("DOMContentLoaded: One or more required elements not found!");
-            if (!ballotForm) console.error("DOMContentLoaded: ballotForm not found!");
-            if (!selectedCandidateDiv) console.error("DOMContentLoaded: selectedCandidateDiv not found!");
-            if (!selectedCandidateImage) console.error("DOMContentLoaded: selectedCandidateImage not found!");
-            if (!selectionResultSpan) console.error("DOMContentLoaded: selectionResultSpan not found!");
-            if (!submitButton) console.error("DOMContentLoaded: submitButton not found by ID 'submitBallotButton'!"); // Specific log for button
-            if (!resetButton) console.error("DOMContentLoaded: resetButton not found by ID 'resetBallotButton'!"); // Specific log for reset button
-            if (!feedbackMessageElement) console.error("DOMContentLoaded: feedbackMessageElement not found!");
-            if (!confirmSubmitButton) console.error("DOMContentLoaded: confirmSubmitButton not found!");
-            if (!cancelSubmitButton) console.error("DOMContentLoaded: cancelSubmitButton not found!");
+          console.error("Validation modal elements not found!");
+          alert(translations[currentLang][messageKey] || messageKey);
         }
+      }
 
+      // Function to hide the validation or reset confirmation modal
+      function hideValidationModal() {
+        const modalOverlay = document.getElementById("validationModalOverlay");
+        if (modalOverlay) {
+          modalOverlay.classList.remove("visible");
+          currentValidationMessageKey = null;
+          isCurrentModalResetConfirmation = false;
+        }
+      }
 
-        // Add event listeners to language buttons
+      //
+      // Event Listeners and Initialization
+      // This section sets up event listeners for user interactions and
+      // initializes the page content when the DOM is fully loaded.
+      //
+      document.addEventListener("DOMContentLoaded", function () {
+        const languageButtons = document.querySelectorAll(".language-button");
+        const submitBtn = document.getElementById("submitBtn");
+        const playerNameInput = document.getElementById("playerName");
+        const submissionOutputDiv = document.getElementById("submissionOutput");
+        const outputContentPre = document.getElementById("outputContent");
+        const confirmationModalOverlay = document.getElementById(
+          "confirmationModalOverlay"
+        );
+        const confirmSubmitButton = document.getElementById(
+          "confirmSubmitButton"
+        );
+        const cancelSubmitButton =
+          document.getElementById("cancelSubmitButton");
+        const resetButton = document.getElementById("resetBallotButton");
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const darkModeToggleText = darkModeToggle.querySelector(
+          "span[data-translate]"
+        );
+        const darkModeToggleIcon = darkModeToggle.querySelector(".icon");
+        const candidateGrid = document.getElementById("candidateGrid");
+
+        const validationModalOverlay = document.getElementById(
+          "validationModalOverlay"
+        );
+        const validationModalOkButton = document.getElementById(
+          "validationModalOkButton"
+        );
+
+        // Attach event listeners for language toggle buttons
         if (languageButtons.length > 0) {
           languageButtons.forEach((button) => {
             button.addEventListener("click", function () {
               const lang = this.getAttribute("data-lang");
               if (lang) {
-                updateStaticLanguage(lang); // Update static text
-                renderCandidates(lang); // Update candidates with new language
-                // Also update the feedback message if it's visible
-                const feedbackMessageElement = document.getElementById("feedbackMessage");
-                if (feedbackMessageElement && feedbackMessageElement.textContent) {
-                     const currentText = feedbackMessageElement.textContent;
-                     // Find the corresponding key in the English translations
-                     const englishKey = Object.keys(translations.en).find(key => translations.en[key] === currentText);
-                     if (englishKey && translations[lang][englishKey]) {
-                         feedbackMessageElement.textContent = translations[lang][englishKey];
-                     }
-                }
+                updateStaticLanguage(lang);
               }
             });
           });
         }
 
-        // Set default language and render candidates on page load
+        // Attach event listener for dark mode toggle button
+        if (darkModeToggle) {
+          darkModeToggle.addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+            const isDarkMode = document.body.classList.contains("dark-mode");
+
+            if (darkModeToggleText && darkModeToggleIcon) {
+              const t = translations[currentLang];
+              if (isDarkMode) {
+                darkModeToggleText.textContent = t.lightMode;
+                darkModeToggleIcon.textContent = "☀️";
+              } else {
+                darkModeToggleText.textContent = t.darkMode;
+                darkModeToggleIcon.textContent = "🌙";
+              }
+            }
+          });
+        }
+
+        // Set default language and render content on page load
         const defaultLang = "en";
         updateStaticLanguage(defaultLang);
-        renderCandidates(defaultLang);
+
+        // Use event delegation for key issues toggle clicks within the candidate grid
+        if (candidateGrid) {
+          candidateGrid.addEventListener("click", function (event) {
+            const toggle = event.target.closest(".key-issues-toggle");
+            if (toggle) {
+              event.stopPropagation();
+
+              const content = toggle.nextElementSibling;
+              const toggleTextSpan = toggle.querySelector(".toggle-text");
+
+              if (content && toggleTextSpan) {
+                content.classList.toggle("active");
+                const isExpanded = content.classList.contains("active");
+                toggle.setAttribute("aria-expanded", isExpanded);
+                content.setAttribute("aria-hidden", !isExpanded);
+
+                toggleTextSpan.textContent = isExpanded
+                  ? translations[currentLang].clickToCollapse
+                  : translations[currentLang].clickToExpand;
+              }
+            }
+          });
+        }
+
+        // Attach event listener for the submit button
+        submitBtn.addEventListener("click", function () {
+          const playerName = playerNameInput.value.trim();
+          if (!playerName) {
+            showValidationModal("playerNameAlert");
+            return;
+          }
+
+          if (selectedCardinalPicks.length !== 3) {
+            showValidationModal("round1LimitAlert");
+            return;
+          }
+
+          if (selectedPapalNameIds.length !== 5) {
+            showValidationModal("round2LimitAlert");
+            return;
+          }
+
+          showConfirmationModal(selectedCardinalPicks, selectedPapalNameIds);
+
+          confirmSubmitButton.onclick = null;
+          confirmSubmitButton.onclick = async function () {
+            hideConfirmationModal();
+            const t = translations[currentLang];
+
+            // Google Form endpoint URL (replace with your actual URL)
+            const googleFormEndpoint =
+              "https://docs.google.com/forms/d/e/1FAIpQLSe6Vcxwo_Br9xhnZMTBpdlY6bhFZeDd8p43_Cu1rRyUHqFMkg/formResponse";
+
+            // Prepare data for submission to Google Form
+            const formData = new URLSearchParams();
+
+            // Add Player Name (replace with your Google Form field ID)
+            formData.append("entry.1785387111", playerName);
+
+            // Add Cardinal Picks (replace with your Google Form field IDs for each pick)
+            selectedCardinalPicks.forEach((pick, index) => {
+              const cardinal = cardinals.find((c) => c.id === pick.id);
+              const cardinalNameInCurrentLang = cardinal
+                ? cardinal.name[currentLang] || cardinal.name["en"]
+                : pick.name;
+              const fieldId = [
+                "entry.860598294", // ID for 1st pick
+                "entry.1730489960", // ID for 2nd pick
+                "entry.1148322132", // ID for 3rd pick
+              ][index];
+
+              if (fieldId) {
+                formData.append(fieldId, cardinalNameInCurrentLang);
+              } else {
+                console.error(
+                  `Missing Google Form field ID for cardinal pick rank ${
+                    index + 1
+                  }`
+                );
+              }
+            });
+
+            // Add Papal Name Picks (replace with your Google Form field IDs for each name)
+            selectedPapalNameIds.forEach((id, index) => {
+              const nameData = papalNames.find((name) => name.id === id);
+              const nameInCurrentLang = nameData
+                ? nameData.name[currentLang] || nameData.name["en"]
+                : id;
+              const fieldId = [
+                "entry.422513893", // ID for name 1
+                "entry.655507965", // ID for name 2
+                "entry.1292500793", // ID for name 3
+                "entry.520868817", // ID for name 4
+                "entry.854556271", // ID for name 5
+              ][index];
+
+              if (fieldId) {
+                formData.append(fieldId, nameInCurrentLang);
+              } else {
+                console.error(
+                  `Missing Google Form field ID for papal name pick ${
+                    index + 1
+                  }`
+                );
+              }
+            });
+
+            console.log("Data to send to Google Form:", formData.toString());
+
+            // Send data to Google Form using fetch API
+            try {
+              const response = await fetch(googleFormEndpoint, {
+                method: "POST",
+                mode: "no-cors", // Required for cross-origin requests to Google Forms
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: formData.toString(),
+              });
+
+              console.log("Attempted submission to Google Form.");
+              showValidationModal("submissionSuccessAlert");
+            } catch (error) {
+              console.error("Error sending submission to Google Form:", error);
+              showValidationModal(`Error sending submission: ${error.message}`);
+            }
+          };
+
+          // Attach event listener for the cancel button in the confirmation modal
+          cancelSubmitButton.onclick = null;
+          cancelSubmitButton.onclick = function () {
+            hideConfirmationModal();
+          };
+        });
+
+        // Attach event listener for the reset button
+        if (resetButton) {
+          resetButton.addEventListener("click", function () {
+            showValidationModal("resetModalMessage", true);
+
+            validationModalOkButton.removeEventListener(
+              "click",
+              handleResetConfirmation
+            );
+            validationModalOkButton.addEventListener(
+              "click",
+              handleResetConfirmation,
+              { once: true }
+            );
+          });
+        }
+
+        // Function to handle the actual reset logic after confirmation
+        function handleResetConfirmation() {
+          selectedCardinalPicks = [];
+          updateCardinalVisuals();
+
+          selectedPapalNameIds = [];
+          document
+            .querySelectorAll('.papal-name-item input[type="checkbox"]')
+            .forEach((cb) => {
+              cb.checked = false;
+              cb.closest(".papal-name-item").classList.remove("selected");
+            });
+
+          playerNameInput.value = "";
+
+          submissionOutputDiv.classList.add("hidden");
+          outputContentPre.textContent = "";
+
+          hideValidationModal();
+        }
+
+        // Attach default click listener to the validation modal's OK button
+        if (validationModalOkButton) {
+          validationModalOkButton.addEventListener(
+            "click",
+            hideValidationModal
+          );
+        }
       });
     </script>
   </body>
