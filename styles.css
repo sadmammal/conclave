@@ -857,26 +857,6 @@ body.dark-mode .yourNameLabel {
   color: #e0e0e0;
 }
 
-/* Style for the select element */
-select#playerName {
-  background-color: #ffffff;
-  color: #2d3748;
-  border-color: #cbd5e0;
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease;
-}
-
-body.dark-mode select#playerName {
-  background-color: #0f1a2a;
-  color: #e0e0e0;
-  border-color: #e0e0e0;
-}
-
-body.dark-mode select#playerName option {
-  background-color: #0f1a2a; /* Dark mode background for options */
-  color: #e0e0e0; /* Dark mode text color for options */
-}
-
 /* Responsive adjustments for different screen sizes */
 @media (max-width: 767px) {
   body {
@@ -972,17 +952,6 @@ body.dark-mode select#playerName option {
     top: 10px;
     right: 100px;
   }
-  .your-name-labels {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(100px, 1fr)
-    ); /* Adjust for smaller screens */
-    gap: 10px;
-  }
-  .your-name-label img {
-    width: 60px; /* Adjust image size for smaller screens */
-    height: 60px; /* Adjust image size for smaller screens */
-  }
 }
 
 @media (min-width: 768px) {
@@ -1009,11 +978,5 @@ body.dark-mode select#playerName option {
   }
   .papal-name-list {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
-  .your-name-labels {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(120px, 1fr)
-    ); /* Adjust as needed */
   }
 }
